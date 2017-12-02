@@ -3,7 +3,7 @@ package code;
 import java.awt.image.BufferedImage;
 
 public enum Material {
-	NONE(-1, false),
+	NONE(-1, true),
 	PAVEMENT_CORNER_SOUTH_EAST(0, false),
 	PAVEMENT_SOUTH(1, false),
 	PAVEMENT_CORNER_SOUTH_WEST(2, false),

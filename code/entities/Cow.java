@@ -3,7 +3,6 @@ package code.entities;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.util.List;
 
 import code.views.Game;
 
@@ -11,11 +10,8 @@ public class Cow extends Actor {
 	private static final int WIDTH = 32;
 	private static final int HEIGHT = 32;
 
-	private Game game;
-
 	public Cow(int x, int y, Game game) {
-		super(x, y);
-		this.game = game;
+		super(x, y, game);
 	}
 
 	@Override
@@ -95,69 +91,5 @@ public class Cow extends Actor {
 				}
 			}
 		}
-	}
-
-	/**
-	 * Returns true if the cow was able to move left.
-	 */
-	private boolean moveLeft() {
-		x--;
-		//check hitboxes
-		List<Actor> actors = game.getActors();
-		for(Actor actor : actors) {
-			if(actor != this && actor instanceof Cow && actor.getHitbox().intersects(getHitbox())) {
-				x++;
-				return false;
-			}
-		}
-		return true;
-	}
-
-	/**
-	 * Returns true if the cow was able to move right.
-	 */
-	private boolean moveRight() {
-		x++;
-		//check hitboxes
-		List<Actor> actors = game.getActors();
-		for(Actor actor : actors) {
-			if(actor != this && actor instanceof Cow && actor.getHitbox().intersects(getHitbox())) {
-				x--;
-				return false;
-			}
-		}
-		return true;
-	}
-
-	/**
-	 * Returns true if the cow was able to move up.
-	 */
-	private boolean moveUp() {
-		y--;
-		//check hitboxes
-		List<Actor> actors = game.getActors();
-		for(Actor actor : actors) {
-			if(actor != this && actor instanceof Cow && actor.getHitbox().intersects(getHitbox())) {
-				y++;
-				return false;
-			}
-		}
-		return true;
-	}
-
-	/**
-	 * Returns true if the cow was able to move down.
-	 */
-	private boolean moveDown() {
-		y++;
-		//check hitboxes
-		List<Actor> actors = game.getActors();
-		for(Actor actor : actors) {
-			if(actor != this && actor instanceof Cow && actor.getHitbox().intersects(getHitbox())) {
-				y--;
-				return false;
-			}
-		}
-		return true;
 	}
 }

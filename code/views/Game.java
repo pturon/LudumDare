@@ -21,7 +21,7 @@ public class Game extends View {
 	private static final Color DEBUGGING_RED = new Color(255, 0, 0, 128);
 
 	public Game() {
-		milkman = new Milkman(64, 64);
+		milkman = new Milkman(64, 64, this);
 		synchronized(actors) {
 			actors.add(milkman);
 			for(int i = 0; i < 5; i++) {
@@ -88,6 +88,10 @@ public class Game extends View {
 
 	public Milkman getMilkman() {
 		return milkman;
+	}
+
+	public boolean isPixelSolid(int pixelX, int pixelY) {
+		return tilemap.getMaterial(pixelX / 32, pixelY / 32).isSolid();
 	}
 
 	@Override

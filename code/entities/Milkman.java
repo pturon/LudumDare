@@ -3,6 +3,7 @@ package code.entities;
 import java.awt.image.BufferedImage;
 
 import code.Textures;
+import code.views.Game;
 
 public class Milkman extends Actor {
 	private static final int WIDTH = 32;
@@ -26,8 +27,8 @@ public class Milkman extends Actor {
 	private int frame = 0;
 	private int bottles = 0;
 
-	public Milkman(int x, int y) {
-		super(x, y);
+	public Milkman(int x, int y, Game game) {
+		super(x, y, game);
 	}
 
 	@Override
@@ -73,30 +74,30 @@ public class Milkman extends Actor {
 		if(dominantDirection == HORIZONTAL) {
 			if(isLeftPressed && !isRightPressed) {
 				direction = LEFT;
-				x--;
+				moveLeft();
 			} else if(!isLeftPressed && isRightPressed) {
 				direction = RIGHT;
-				x++;
+				moveRight();
 			} else if(isUpPressed && !isDownPressed) {
 				direction = UP;
-				y--;
+				moveUp();
 			} else if(!isUpPressed && isDownPressed) {
 				direction = DOWN;
-				y++;
+				moveDown();
 			}
 		} else {
 			if(isUpPressed && !isDownPressed) {
 				direction = UP;
-				y--;
+				moveUp();
 			} else if(!isUpPressed && isDownPressed) {
 				direction = DOWN;
-				y++;
+				moveDown();
 			} else if(isLeftPressed && !isRightPressed) {
 				direction = LEFT;
-				x--;
+				moveLeft();
 			} else if(!isLeftPressed && isRightPressed) {
 				direction = RIGHT;
-				x++;
+				moveRight();
 			}
 		}
 

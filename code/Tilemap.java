@@ -43,7 +43,7 @@ public class Tilemap {
 
 	public Material getMaterial(int x, int y) {
 		if(x < 0 || y < 0 || x >= materials.length || y >= materials[x].length) {
-			return null;
+			return Material.NONE;
 		}
 		return materials[x][y];
 	}
