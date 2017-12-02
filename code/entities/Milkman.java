@@ -5,6 +5,9 @@ import java.awt.image.BufferedImage;
 import code.Textures;
 
 public class Milkman extends Actor {
+	private static final int WIDTH = 32;
+	private static final int HEIGHT = 32;
+
 	private boolean isLeftPressed = false;
 	private boolean isRightPressed = false;
 	private boolean isUpPressed = false;
@@ -20,16 +23,26 @@ public class Milkman extends Actor {
 
 	private int direction = RIGHT;
 	private boolean dominantDirection = HORIZONTAL;
-	private int stepCounter = 0;
 	private int frame = 0;
+	private int bottles = 0;
 
 	public Milkman(int x, int y) {
-		this.x = x;
-		this.y = y;
+		super(x, y);
 	}
 
+	@Override
 	public BufferedImage getImage() {
-		return Textures.Sprites.Milkman.getWalkCycle(direction, frame);
+		return Textures.Sprites.Milkman.getWalkCycle(direction, frame, bottles);
+	}
+
+	@Override
+	public int getWidth() {
+		return WIDTH;
+	}
+
+	@Override
+	public int getHeight() {
+		return HEIGHT;
 	}
 
 	public void setLeftPressed(boolean isPressed) {
@@ -52,7 +65,9 @@ public class Milkman extends Actor {
 		dominantDirection = VERTICAL;
 	}
 
+	@Override
 	public void step() {
+		super.step();
 		boolean isMoving = (isLeftPressed != isRightPressed) || (isUpPressed != isDownPressed);
 
 		if(dominantDirection == HORIZONTAL) {
@@ -90,6 +105,5 @@ public class Milkman extends Actor {
 		} else if(stepCounter % 10 == 0) {
 			frame = (frame + 1) % 4;
 		}
-		stepCounter++;
 	}
 }
