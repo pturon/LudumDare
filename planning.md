@@ -10,6 +10,8 @@
 * Evt. Verschiedene Kühe
   * Jetpack Kühe 
 * Herumfahren in der Stadt mit Hindernissen, Häusern und Kühen 
+* Volle Milchflaschen machen den Spieler langsamer 
+* Leere Milchflachen lassen mehr Kühe erscheinen
 
 Grund für den Hass der Kühe gegen den Milchann: 
 
