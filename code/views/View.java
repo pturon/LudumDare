@@ -9,7 +9,7 @@ public abstract class View {
 	public static final int WIDTH = MainFrame.WIDTH;
 	public static final int HEIGHT = MainFrame.HEIGHT;
 
-	public abstract BufferedImage getImage();
+	public abstract BufferedImage getImage(boolean debugging);
 	public abstract void onKeyPressed(KeyEvent keyEvent);
 	public abstract void onKeyReleased(KeyEvent keyEvent);
 	public abstract void step();
