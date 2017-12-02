@@ -15,7 +15,11 @@ public class Milkman extends Actor {
 	public static final int RIGHT = 2;
 	public static final int LEFT = 3;
 
+	public static final boolean HORIZONTAL = true;
+	public static final boolean VERTICAL = !HORIZONTAL;
+
 	private int direction = RIGHT;
+	private boolean dominantDirection = HORIZONTAL;
 	private int stepCounter = 0;
 	private int frame = 0;
 
@@ -30,37 +34,60 @@ public class Milkman extends Actor {
 
 	public void setLeftPressed(boolean isPressed) {
 		isLeftPressed = isPressed;
+		dominantDirection = HORIZONTAL;
 	}
 
 	public void setRightPressed(boolean isPressed) {
 		isRightPressed = isPressed;
+		dominantDirection = HORIZONTAL;
 	}
 
 	public void setUpPressed(boolean isPressed) {
 		isUpPressed = isPressed;
+		dominantDirection = VERTICAL;
 	}
 
 	public void setDownPressed(boolean isPressed) {
 		isDownPressed = isPressed;
+		dominantDirection = VERTICAL;
 	}
 
 	public void step() {
-		if(isLeftPressed && !isRightPressed) {
-			direction = LEFT;
-			x--;
-		} else if(!isLeftPressed && isRightPressed) {
-			direction = RIGHT;
-			x++;
-		}
-		if(isUpPressed && !isDownPressed) {
-			direction = UP;
-			y--;
-		} else if(!isUpPressed && isDownPressed) {
-			direction = DOWN;
-			y++;
+		boolean isMoving = (isLeftPressed != isRightPressed) || (isUpPressed != isDownPressed);
+
+		if(dominantDirection == HORIZONTAL) {
+			if(isLeftPressed && !isRightPressed) {
+				direction = LEFT;
+				x--;
+			} else if(!isLeftPressed && isRightPressed) {
+				direction = RIGHT;
+				x++;
+			} else if(isUpPressed && !isDownPressed) {
+				direction = UP;
+				y--;
+			} else if(!isUpPressed && isDownPressed) {
+				direction = DOWN;
+				y++;
+			}
+		} else {
+			if(isUpPressed && !isDownPressed) {
+				direction = UP;
+				y--;
+			} else if(!isUpPressed && isDownPressed) {
+				direction = DOWN;
+				y++;
+			} else if(isLeftPressed && !isRightPressed) {
+				direction = LEFT;
+				x--;
+			} else if(!isLeftPressed && isRightPressed) {
+				direction = RIGHT;
+				x++;
+			}
 		}
 
-		if((isLeftPressed || isRightPressed || isUpPressed || isDownPressed) && stepCounter % 10 == 0) {
+		if(!isMoving) {
+			frame = 1;
+		} else if(stepCounter % 10 == 0) {
 			frame = (frame + 1) % 4;
 		}
 		stepCounter++;
