@@ -29,14 +29,17 @@ public class Milkman extends Actor {
 		super(x, y);
 	}
 
+	@Override
 	public BufferedImage getImage() {
 		return Textures.Sprites.Milkman.getWalkCycle(direction, frame);
 	}
 
+	@Override
 	public int getWidth() {
 		return WIDTH;
 	}
 
+	@Override
 	public int getHeight() {
 		return HEIGHT;
 	}
@@ -61,6 +64,7 @@ public class Milkman extends Actor {
 		dominantDirection = VERTICAL;
 	}
 
+	@Override
 	public void step() {
 		super.step();
 		boolean isMoving = (isLeftPressed != isRightPressed) || (isUpPressed != isDownPressed);

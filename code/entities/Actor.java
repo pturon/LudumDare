@@ -1,5 +1,6 @@
 package code.entities;
 
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 public abstract class Actor {
@@ -10,6 +11,10 @@ public abstract class Actor {
 	protected Actor(int x, int y) {
 		this.x = x;
 		this.y = y;
+	}
+
+	public Rectangle getHitbox() {
+		return new Rectangle(x - getWidth() / 2, y - getHeight() / 2, getWidth(), getHeight());
 	}
 
 	public abstract BufferedImage getImage();

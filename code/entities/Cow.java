@@ -3,16 +3,19 @@ package code.entities;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.util.List;
+
+import code.views.Game;
 
 public class Cow extends Actor {
 	private static final int WIDTH = 32;
 	private static final int HEIGHT = 32;
 
-	private Milkman milkman;
+	private Game game;
 
-	public Cow(int x, int y, Milkman milkman) {
+	public Cow(int x, int y, Game game) {
 		super(x, y);
-		this.milkman = milkman;
+		this.game = game;
 	}
 
 	@Override
@@ -24,10 +27,12 @@ public class Cow extends Actor {
 		return image;
 	}
 
+	@Override
 	public int getWidth() {
 		return WIDTH;
 	}
 
+	@Override
 	public int getHeight() {
 		return HEIGHT;
 	}
@@ -39,25 +44,112 @@ public class Cow extends Actor {
 			return;
 		}
 
-		int targetX = milkman.getX();
-		int targetY = milkman.getY();
+		int targetX = game.getMilkman().getX();
+		int targetY = game.getMilkman().getY();
 
 		int distanceX = targetX - x;
 		int distanceY = targetY - y;
 
 		if(Math.abs(distanceX) < Math.abs(distanceY)) {
 			if(targetY < y) {
-				y--;
+				if(!moveUp()) {
+					if(targetX < x) {
+						moveLeft();
+					} else {
+						moveRight();
+					}
+				}
 			} else {
-				y++;
+				if(!moveDown()) {
+					if(targetX < x) {
+						moveLeft();
+					} else {
+						moveRight();
+					}
+				}
 			}
-			
 		} else {
 			if(targetX < x) {
-				x--;
+				if(!moveLeft()) {
+					if(targetY < y) {
+						moveUp();
+					} else {
+						moveDown();
+					}
+				}
 			} else {
-				x++;
+				if(!moveRight()) {
+					if(targetY < y) {
+						moveUp();
+					} else {
+						moveDown();
+					}
+				}
 			}
 		}
+	}
+
+	/**
+	 * Returns true if the cow was able to move left.
+	 */
+	private boolean moveLeft() {
+		x--;
+		//check hitboxes
+		List<Actor> actors = game.getActors();
+		for(Actor actor : actors) {
+			if(actor != this && actor instanceof Cow && actor.getHitbox().intersects(getHitbox())) {
+				x++;
+				return false;
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * Returns true if the cow was able to move right.
+	 */
+	private boolean moveRight() {
+		x++;
+		//check hitboxes
+		List<Actor> actors = game.getActors();
+		for(Actor actor : actors) {
+			if(actor != this && actor instanceof Cow && actor.getHitbox().intersects(getHitbox())) {
+				x--;
+				return false;
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * Returns true if the cow was able to move up.
+	 */
+	private boolean moveUp() {
+		y--;
+		//check hitboxes
+		List<Actor> actors = game.getActors();
+		for(Actor actor : actors) {
+			if(actor != this && actor instanceof Cow && actor.getHitbox().intersects(getHitbox())) {
+				y++;
+				return false;
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * Returns true if the cow was able to move down.
+	 */
+	private boolean moveDown() {
+		y++;
+		//check hitboxes
+		List<Actor> actors = game.getActors();
+		for(Actor actor : actors) {
+			if(actor != this && actor instanceof Cow && actor.getHitbox().intersects(getHitbox())) {
+				y--;
+				return false;
+			}
+		}
+		return true;
 	}
 }
