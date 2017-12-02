@@ -17,6 +17,9 @@ public class Game extends View {
 	private List<Actor> actors = new ArrayList<>();
 	private Tilemap tilemap = new Tilemap();
 
+	private static final Color DEBUGGING_GREEN = new Color(0, 255, 0, 128);
+	private static final Color DEBUGGING_RED = new Color(255, 0, 0, 128);
+
 	public Game() {
 		milkman = new Milkman(400, 300);
 		synchronized(actors) {
@@ -32,7 +35,7 @@ public class Game extends View {
 		BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D graphics = image.createGraphics();
 		
-		graphics.setColor(new Color(64, 128, 64));
+		graphics.setColor(Color.MAGENTA);
 		graphics.fillRect(0, 0, WIDTH, HEIGHT);
 
 		int mapOffsetX = milkman.getX() - (WIDTH / 2);
@@ -51,6 +54,14 @@ public class Game extends View {
 		for(int y = 0; y < tilemap.getHeight(); y++) {
 			for(int x = 0; x < tilemap.getWidth(); x++) {
 				graphics.drawImage(tilemap.getMaterial(x, y).getImage(), 32 * x - mapOffsetX, 32 * y - mapOffsetY, null);
+				if(debugging) {
+					if(tilemap.getMaterial(x, y).isSolid()) {
+						graphics.setColor(DEBUGGING_RED);
+					} else {
+						graphics.setColor(DEBUGGING_GREEN);
+					}
+					graphics.fillRect(32 * x - mapOffsetX, 32 * y - mapOffsetY, 32, 32);
+				}
 			}
 		}
 
