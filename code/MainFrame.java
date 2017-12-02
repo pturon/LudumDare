@@ -21,6 +21,8 @@ public class MainFrame extends Frame {
 	private JPanel panel;
 	private transient View currentView = new Game();
 
+	private boolean debugging = false;
+
 	public static void main(String[] args) {
 		MainFrame mainFrame = new MainFrame();
 		GraphicsThread graphicsThread = mainFrame.new GraphicsThread();
@@ -46,7 +48,7 @@ public class MainFrame extends Frame {
   		panel = new JPanel() {
   			@Override
 			public void paint(Graphics g) {
-				if(currentView != null)g.drawImage(currentView.getImage(), 0, 0, null);
+				if(currentView != null)g.drawImage(currentView.getImage(debugging), 0, 0, null);
 			}
 		};
 		add(panel);
@@ -59,7 +61,12 @@ public class MainFrame extends Frame {
 
 			@Override
 			public void keyPressed(KeyEvent keyEvent) {
-				if(currentView != null)currentView.onKeyPressed(keyEvent);
+				if(currentView != null) {
+					currentView.onKeyPressed(keyEvent);
+				}
+				if(keyEvent.getKeyCode() == KeyEvent.VK_F3) {
+					debugging = !debugging;
+				}
 			}
 
 			@Override

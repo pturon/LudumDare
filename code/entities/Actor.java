@@ -5,6 +5,12 @@ import java.awt.image.BufferedImage;
 public abstract class Actor {
 	protected int x;
 	protected int y;
+	protected long stepCounter = 0;
+
+	protected Actor(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
 
 	public abstract BufferedImage getImage();
 
@@ -24,5 +30,11 @@ public abstract class Actor {
 		this.y = y;
 	}
 
-	public abstract void step();
+	public abstract int getWidth();
+
+	public abstract int getHeight();
+
+	public void step() {
+		stepCounter++;
+	}
 }
