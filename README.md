@@ -2,7 +2,7 @@
 
 ### Repository for Ludum Dare 40 
 
-More information coming soon 
+The more you have, the worse it is
 
 Authors: 
 
