@@ -35,29 +35,40 @@ public class Game extends View {
 		graphics.setColor(new Color(64, 128, 64));
 		graphics.fillRect(0, 0, WIDTH, HEIGHT);
 
+		int mapOffsetX = milkman.getX() - (WIDTH / 2);
+		if(mapOffsetX < 0) {
+			mapOffsetX = 0;
+		} else if(mapOffsetX > tilemap.getWidth() * 32 - WIDTH) {
+			mapOffsetX = tilemap.getWidth() * 32 - WIDTH;
+		}
+		int mapOffsetY = milkman.getY() - (HEIGHT / 2);
+		if(mapOffsetY < 0) {
+			mapOffsetY = 0;
+		} else if(mapOffsetY > tilemap.getHeight() * 32 - HEIGHT) {
+			mapOffsetY = tilemap.getHeight() * 32 - HEIGHT;
+		}
+
 		for(int y = 0; y < tilemap.getHeight(); y++) {
 			for(int x = 0; x < tilemap.getWidth(); x++) {
-				graphics.drawImage(tilemap.getMaterial(x, y).getImage(), 32 * x, 32 * y, null);
+				graphics.drawImage(tilemap.getMaterial(x, y).getImage(), 32 * x - mapOffsetX, 32 * y - mapOffsetY, null);
 			}
 		}
 
 		synchronized(actors) {
 			for(Actor actor : actors) {
-				drawActor(graphics, actor, debugging);
+				int x = actor.getX() - actor.getWidth() / 2 - mapOffsetX;
+				int y = actor.getY() - actor.getHeight() / 2 - mapOffsetY;
+				graphics.drawImage(actor.getImage(), x, y, null);
+				if(debugging) {
+					graphics.setColor(Color.RED);
+					graphics.drawRect(actor.getHitbox().x - mapOffsetX, actor.getHitbox().y - mapOffsetY, actor.getHitbox().width, actor.getHitbox().height);
+					graphics.drawLine(actor.getX() - 5 - mapOffsetX, actor.getY() - mapOffsetY, actor.getX() + 5 - mapOffsetX, actor.getY() - mapOffsetY);
+					graphics.drawLine(actor.getX() - mapOffsetX, actor.getY() - 5 - mapOffsetY, actor.getX() - mapOffsetX, actor.getY() + 5 - mapOffsetY);
+				}
 			}
 		}
 
 		return image;
-	}
-
-	private void drawActor(Graphics2D graphics, Actor actor, boolean debugging) {
-		graphics.drawImage(actor.getImage(), actor.getX() - actor.getWidth() / 2, actor.getY() - actor.getHeight() / 2, null);
-		if(debugging) {
-			graphics.setColor(Color.RED);
-			graphics.draw(actor.getHitbox());
-			graphics.drawLine(actor.getX() - 5, actor.getY(), actor.getX() + 5, actor.getY());
-			graphics.drawLine(actor.getX(), actor.getY() - 5, actor.getX(), actor.getY() + 5);
-		}
 	}
 
 	public List<Actor> getActors() {
