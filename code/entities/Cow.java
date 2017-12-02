@@ -51,39 +51,47 @@ public class Cow extends Actor {
 		int distanceY = targetY - y;
 
 		if(Math.abs(distanceX) < Math.abs(distanceY)) {
-			if(targetY < y) {
-				if(!moveUp()) {
-					if(targetX < x) {
-						moveLeft();
-					} else {
-						moveRight();
-					}
-				}
-			} else {
-				if(!moveDown()) {
-					if(targetX < x) {
-						moveLeft();
-					} else {
-						moveRight();
-					}
+			moveVertically(targetX, targetY);
+		} else {
+			moveHorizontally(targetX, targetY);
+		}
+	}
+
+	private void moveHorizontally(int targetX, int targetY) {
+		if(targetX < x) {
+			if(!moveLeft()) {
+				if(targetY < y) {
+					moveUp();
+				} else {
+					moveDown();
 				}
 			}
 		} else {
-			if(targetX < x) {
-				if(!moveLeft()) {
-					if(targetY < y) {
-						moveUp();
-					} else {
-						moveDown();
-					}
+			if(!moveRight()) {
+				if(targetY < y) {
+					moveUp();
+				} else {
+					moveDown();
 				}
-			} else {
-				if(!moveRight()) {
-					if(targetY < y) {
-						moveUp();
-					} else {
-						moveDown();
-					}
+			}
+		}
+	}
+
+	private void moveVertically(int targetX, int targetY) {
+		if(targetY < y) {
+			if(!moveUp()) {
+				if(targetX < x) {
+					moveLeft();
+				} else {
+					moveRight();
+				}
+			}
+		} else {
+			if(!moveDown()) {
+				if(targetX < x) {
+					moveLeft();
+				} else {
+					moveRight();
 				}
 			}
 		}
