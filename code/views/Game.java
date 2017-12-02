@@ -8,18 +8,17 @@ import java.awt.image.BufferedImage;
 import code.entities.Milkman;
 
 public class Game extends View {
-	private Milkman milkman = new Milkman(0, 0);
+	private Milkman milkman = new Milkman(400, 300);
 
 	@Override
 	public BufferedImage getImage() {
 		BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D graphics = image.createGraphics();
 		
-		graphics.setColor(new Color(0, 64, 0));
+		graphics.setColor(new Color(64, 128, 64));
 		graphics.fillRect(0, 0, WIDTH, HEIGHT);
 
-		graphics.setColor(new Color(64, 128, 255));
-		graphics.fillRect(milkman.getX(), milkman.getY(), 32, 32);
+		graphics.drawImage(milkman.getImage(), milkman.getX(), milkman.getY(), null);
 
 		return image;
 	}

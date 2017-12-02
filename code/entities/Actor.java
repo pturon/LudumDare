@@ -1,8 +1,12 @@
 package code.entities;
 
+import java.awt.image.BufferedImage;
+
 public abstract class Actor {
 	protected int x;
 	protected int y;
+
+	public abstract BufferedImage getImage();
 
 	public int getX() {
 		return x;
