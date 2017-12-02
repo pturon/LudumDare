@@ -21,7 +21,7 @@ public class Game extends View {
 	private static final Color DEBUGGING_RED = new Color(255, 0, 0, 128);
 
 	public Game() {
-		milkman = new Milkman(400, 300);
+		milkman = new Milkman(64, 64);
 		synchronized(actors) {
 			actors.add(milkman);
 			for(int i = 0; i < 5; i++) {

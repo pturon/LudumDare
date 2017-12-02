@@ -22,18 +22,18 @@ public enum Material {
 	ASPHALT(19, false),
 	YELLOW_FLOWER(20, false),
 	MAGENTA_FLOWER(21, false),
-	RED_GUTTER_WEST(32, true),
-	RED_ROOF_WEST(33, true),
-	RED_RIDGE_WEST(34, true),
-	RED_RIDGE_EAST(35, true),
-	RED_ROOF_EAST(36, true),
-	RED_GUTTER_EAST(37, true),
-	BLUE_GUTTER_WEST(56, true),
-	BLUE_ROOF_WEST(57, true),
-	BLUE_RIDGE_WEST(58, true),
-	BLUE_RIDGE_EAST(59, true),
-	BLUE_ROOF_EAST(60, true),
-	BLUE_GUTTER_EAST(61, true),
+	ROOF_RED_VERTICAL_WEST_GUTTER(32, true),
+	ROOF_RED_VERTICAL_WEST(33, true),
+	ROOF_RED_VERTICAL_WEST_RIDGE(34, true),
+	ROOF_RED_VERTICAL_EAST_RIDGE(35, true),
+	ROOF_RED_VERTICAL_EAST(36, true),
+	ROOF_RED_VERTICAL_EAST_GUTTER(37, true),
+	ROOF_BLUE_VERTICAL_WEST_GUTTER(56, true),
+	ROOF_BLUE_VERTICAL_WEST(57, true),
+	ROOF_BLUE_VERTICAL_WEST_RIDGE(58, true),
+	ROOF_BLUE_VERTICAL_EAST_RIDGE(59, true),
+	ROOF_BLUE_VERTICAL_EAST(60, true),
+	ROOF_BLUE_VERTICAL_EAST_GUTTER(61, true),
 	FENCE_NORTH_WEST(72, true),
 	FENCE_NORTH(73, true),
 	FENCE_NORTH_EAST(74, true),
@@ -67,18 +67,6 @@ public enum Material {
 		switch(this) {
 		case ASPHALT:
 			return Textures.Terrain.getAsphalt();
-		case BLUE_GUTTER_EAST:
-			return Textures.Terrain.getBlueGutterEast();
-		case BLUE_GUTTER_WEST:
-			return Textures.Terrain.getBlueGutterWest();
-		case BLUE_RIDGE_EAST:
-			return Textures.Terrain.getBlueRidgeEast();
-		case BLUE_RIDGE_WEST:
-			return Textures.Terrain.getBlueRidgeWest();
-		case BLUE_ROOF_EAST:
-			return Textures.Terrain.getBlueRoofEast();
-		case BLUE_ROOF_WEST:
-			return Textures.Terrain.getBlueRoofWest();
 		case FENCE_EAST:
 			return Textures.Terrain.getFenceEast();
 		case FENCE_NORTH:
@@ -129,18 +117,30 @@ public enum Material {
 			return Textures.Terrain.getPavementWest();
 		case PURPLE_FLOWER:
 			return Textures.Terrain.getPurpleFlower();
-		case RED_GUTTER_EAST:
-			return Textures.Terrain.getRedGutterEast();
-		case RED_GUTTER_WEST:
-			return Textures.Terrain.getRedGutterWest();
-		case RED_RIDGE_EAST:
-			return Textures.Terrain.getRedRidgeEast();
-		case RED_RIDGE_WEST:
-			return Textures.Terrain.getRedRidgeWest();
-		case RED_ROOF_EAST:
-			return Textures.Terrain.getRedRoofEast();
-		case RED_ROOF_WEST:
-			return Textures.Terrain.getRedRoofWest();
+		case ROOF_BLUE_VERTICAL_EAST:
+			return Textures.Terrain.getRoofBlueVerticalEast();
+		case ROOF_BLUE_VERTICAL_EAST_GUTTER:
+			return Textures.Terrain.getRoofBlueVerticalEastGutter();
+		case ROOF_BLUE_VERTICAL_EAST_RIDGE:
+			return Textures.Terrain.getRoofBlueVerticalEastRidge();
+		case ROOF_BLUE_VERTICAL_WEST:
+			return Textures.Terrain.getRoofBlueVerticalWest();
+		case ROOF_BLUE_VERTICAL_WEST_GUTTER:
+			return Textures.Terrain.getRoofBlueVerticalWestGutter();
+		case ROOF_BLUE_VERTICAL_WEST_RIDGE:
+			return Textures.Terrain.getRoofBlueVerticalWestRidge();
+		case ROOF_RED_VERTICAL_EAST:
+			return Textures.Terrain.getRoofRedVerticalEast();
+		case ROOF_RED_VERTICAL_EAST_GUTTER:
+			return Textures.Terrain.getRoofRedVerticalEastGutter();
+		case ROOF_RED_VERTICAL_EAST_RIDGE:
+			return Textures.Terrain.getRoofRedVerticalEastRidge();
+		case ROOF_RED_VERTICAL_WEST:
+			return Textures.Terrain.getRoofRedVerticalWest();
+		case ROOF_RED_VERTICAL_WEST_GUTTER:
+			return Textures.Terrain.getRoofRedVerticalWestGutter();
+		case ROOF_RED_VERTICAL_WEST_RIDGE:
+			return Textures.Terrain.getRoofRedVerticalWestRidge();
 		case TILES:
 			return Textures.Terrain.getTiles();
 		case WATER:

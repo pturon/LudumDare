@@ -23,12 +23,6 @@ public class Textures {
 		}
 
 		private static BufferedImage asphalt;
-		private static BufferedImage blueGutterEast;
-		private static BufferedImage blueGutterWest;
-		private static BufferedImage blueRidgeEast;
-		private static BufferedImage blueRidgeWest;
-		private static BufferedImage blueRoofEast;
-		private static BufferedImage blueRoofWest;
 		private static BufferedImage fenceEast;
 		private static BufferedImage fenceNorth;
 		private static BufferedImage fenceNorthEast;
@@ -54,12 +48,18 @@ public class Textures {
 		private static BufferedImage pavementSouthWest;
 		private static BufferedImage pavementWest;
 		private static BufferedImage purpleFlower;
-		private static BufferedImage redGutterEast;
-		private static BufferedImage redGutterWest;
-		private static BufferedImage redRidgeEast;
-		private static BufferedImage redRidgeWest;
-		private static BufferedImage redRoofEast;
-		private static BufferedImage redRoofWest;
+		private static BufferedImage roofBlueVerticalEastGutter;
+		private static BufferedImage roofBlueVerticalWestGutter;
+		private static BufferedImage roofBlueVerticalEastRidge;
+		private static BufferedImage roofBlueVerticalWestRidge;
+		private static BufferedImage roofBlueVerticalEast;
+		private static BufferedImage roofBlueVerticalWest;
+		private static BufferedImage roofRedVerticalEastGutter;
+		private static BufferedImage roofRedVerticalWestGutter;
+		private static BufferedImage roofRedVerticalEastRidge;
+		private static BufferedImage roofRedVerticalWestRidge;
+		private static BufferedImage roofRedVerticalEast;
+		private static BufferedImage roofRedVerticalWest;
 		private static BufferedImage tiles;
 		private static BufferedImage water;
 		private static BufferedImage yellowFlower;
@@ -68,12 +68,12 @@ public class Textures {
 			BufferedImage tileset = getTexture("img/overworld/overworld_tileset.png");
 
 			asphalt = getTile(tileset, 3, 2);
-			blueGutterEast = getTile(tileset, 5, 7);
-			blueGutterWest = getTile(tileset, 0, 7);
-			blueRidgeEast = getTile(tileset, 3, 7);
-			blueRidgeWest = getTile(tileset, 2, 7);
-			blueRoofEast = getTile(tileset, 4, 7);
-			blueRoofWest = getTile(tileset, 1, 7);
+			roofBlueVerticalEastGutter = getTile(tileset, 5, 7);
+			roofBlueVerticalWestGutter = getTile(tileset, 0, 7);
+			roofBlueVerticalEastRidge = getTile(tileset, 3, 7);
+			roofBlueVerticalWestRidge = getTile(tileset, 2, 7);
+			roofBlueVerticalEast = getTile(tileset, 4, 7);
+			roofBlueVerticalWest = getTile(tileset, 1, 7);
 			fenceEast = getTile(tileset, 2, 10);
 			fenceNorth = getTile(tileset, 1, 9);
 			fenceNorthEast = getTile(tileset, 2, 9);
@@ -99,12 +99,12 @@ public class Textures {
 			pavementSouthWest = getTile(tileset, 3, 1);
 			pavementWest = getTile(tileset, 2, 1);
 			purpleFlower = getTile(tileset, 5, 1);
-			redGutterEast = getTile(tileset, 5, 4);
-			redGutterWest = getTile(tileset, 0, 4);
-			redRidgeEast = getTile(tileset, 3, 4);
-			redRidgeWest = getTile(tileset, 2, 4);
-			redRoofEast = getTile(tileset, 4, 4);
-			redRoofWest = getTile(tileset, 1, 4);
+			roofRedVerticalEastGutter = getTile(tileset, 5, 4);
+			roofRedVerticalWestGutter = getTile(tileset, 0, 4);
+			roofRedVerticalEastRidge = getTile(tileset, 3, 4);
+			roofRedVerticalWestRidge = getTile(tileset, 2, 4);
+			roofRedVerticalEast = getTile(tileset, 4, 4);
+			roofRedVerticalWest = getTile(tileset, 1, 4);
 			tiles = getTile(tileset, 6, 11);
 			yellowFlower = getTile(tileset, 4, 2);
 			water = getTile(tileset, 5, 11);
@@ -118,28 +118,52 @@ public class Textures {
 			return asphalt;
 		}
 
-		public static BufferedImage getBlueGutterEast() {
-			return blueGutterEast;
+		public static BufferedImage getRoofBlueVerticalEast() {
+			return roofBlueVerticalEast;
 		}
 
-		public static BufferedImage getBlueGutterWest() {
-			return blueGutterWest;
+		public static BufferedImage getRoofBlueVerticalEastGutter() {
+			return roofBlueVerticalEastGutter;
 		}
 
-		public static BufferedImage getBlueRidgeEast() {
-			return blueRidgeEast;
+		public static BufferedImage getRoofBlueVerticalEastRidge() {
+			return roofBlueVerticalEastRidge;
 		}
 
-		public static BufferedImage getBlueRidgeWest() {
-			return blueRidgeWest;
+		public static BufferedImage getRoofBlueVerticalWest() {
+			return roofBlueVerticalWest;
 		}
 
-		public static BufferedImage getBlueRoofEast() {
-			return blueRoofEast;
+		public static BufferedImage getRoofBlueVerticalWestGutter() {
+			return roofBlueVerticalWestGutter;
 		}
 
-		public static BufferedImage getBlueRoofWest() {
-			return blueRoofWest;
+		public static BufferedImage getRoofBlueVerticalWestRidge() {
+			return roofBlueVerticalWestRidge;
+		}
+
+		public static BufferedImage getRoofRedVerticalEast() {
+			return roofRedVerticalEast;
+		}
+
+		public static BufferedImage getRoofRedVerticalEastGutter() {
+			return roofRedVerticalEastGutter;
+		}
+
+		public static BufferedImage getRoofRedVerticalEastRidge() {
+			return roofRedVerticalEastRidge;
+		}
+
+		public static BufferedImage getRoofRedVerticalWest() {
+			return roofRedVerticalWest;
+		}
+
+		public static BufferedImage getRoofRedVerticalWestGutter() {
+			return roofRedVerticalWestGutter;
+		}
+
+		public static BufferedImage getRoofRedVerticalWestRidge() {
+			return roofRedVerticalWestRidge;
 		}
 
 		public static BufferedImage getFenceEast() {
@@ -240,30 +264,6 @@ public class Textures {
 
 		public static BufferedImage getPurpleFlower() {
 			return purpleFlower;
-		}
-
-		public static BufferedImage getRedGutterEast() {
-			return redGutterEast;
-		}
-
-		public static BufferedImage getRedGutterWest() {
-			return redGutterWest;
-		}
-
-		public static BufferedImage getRedRidgeEast() {
-			return redRidgeEast;
-		}
-
-		public static BufferedImage getRedRidgeWest() {
-			return redRidgeWest;
-		}
-
-		public static BufferedImage getRedRoofEast() {
-			return redRoofEast;
-		}
-
-		public static BufferedImage getRedRoofWest() {
-			return redRoofWest;
 		}
 
 		public static BufferedImage getTiles() {
