@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
+import code.Tilemap;
 import code.entities.Actor;
 import code.entities.Cow;
 import code.entities.Milkman;
@@ -14,6 +15,7 @@ import code.entities.Milkman;
 public class Game extends View {
 	private Milkman milkman;
 	private List<Actor> actors = new ArrayList<>();
+	private Tilemap tilemap = new Tilemap();
 
 	public Game() {
 		milkman = new Milkman(400, 300);
@@ -32,6 +34,12 @@ public class Game extends View {
 		
 		graphics.setColor(new Color(64, 128, 64));
 		graphics.fillRect(0, 0, WIDTH, HEIGHT);
+
+		for(int y = 0; y < tilemap.getHeight(); y++) {
+			for(int x = 0; x < tilemap.getWidth(); x++) {
+				graphics.drawImage(tilemap.getMaterial(x, y).getImage(), 32 * x, 32 * y, null);
+			}
+		}
 
 		synchronized(actors) {
 			for(Actor actor : actors) {

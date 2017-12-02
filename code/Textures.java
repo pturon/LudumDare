@@ -17,6 +17,82 @@ public class Textures {
 		}
 	}
 
+	public static class Terrain {
+		private Terrain() {
+			//no instance allowed
+		}
+
+		private static BufferedImage asphalt;
+		private static BufferedImage flowers;
+		private static BufferedImage grass;
+		private static BufferedImage pavementCornerSouthEast;
+		private static BufferedImage pavementCornerSouthWest;
+		private static BufferedImage pavementEast;
+		private static BufferedImage pavementNorth;
+		private static BufferedImage pavementNorthWest;
+		private static BufferedImage pavementSouth;
+		private static BufferedImage pavementWest;
+
+		static {
+			BufferedImage tileset = getTexture("img/overworld/overworld_tileset.png");
+
+			asphalt = getTile(tileset, 3, 2);
+			flowers = getTile(tileset, 4, 2);
+			grass = getTile(tileset, 1, 1);
+			pavementCornerSouthEast = getTile(tileset, 0, 0);
+			pavementCornerSouthWest = getTile(tileset, 2, 0);
+			pavementEast = getTile(tileset, 0, 1);
+			pavementNorth = getTile(tileset, 1, 2);
+			pavementNorthWest = getTile(tileset, 3, 0);
+			pavementSouth = getTile(tileset, 1, 0);
+			pavementWest = getTile(tileset, 2, 1);
+		}
+
+		private static BufferedImage getTile(BufferedImage tileset, int x, int y) {
+			return tileset.getSubimage(32 * x, 32 * y, 32, 32);
+		}
+
+		public static BufferedImage getAsphalt() {
+			return asphalt;
+		}
+
+		public static BufferedImage getFlowers() {
+			return flowers;
+		}
+
+		public static BufferedImage getGrass() {
+			return grass;
+		}
+
+		public static BufferedImage getPavementCornerSouthEast() {
+			return pavementCornerSouthEast;
+		}
+
+		public static BufferedImage getPavementCornerSouthWest() {
+			return pavementCornerSouthWest;
+		}
+
+		public static BufferedImage getPavementEast() {
+			return pavementEast;
+		}
+
+		public static BufferedImage getPavementNorth() {
+			return pavementNorth;
+		}
+
+		public static BufferedImage getPavementNorthWest() {
+			return pavementNorthWest;
+		}
+
+		public static BufferedImage getPavementSouth() {
+			return pavementSouth;
+		}
+
+		public static BufferedImage getPavementWest() {
+			return pavementWest;
+		}
+	}
+
 	public static class Sprites {
 		private Sprites() {
 			//no instance allowed
