@@ -24,6 +24,7 @@ public class Milkman extends Actor {
 	private int direction = RIGHT;
 	private boolean dominantDirection = HORIZONTAL;
 	private int frame = 0;
+	private int bottles = 0;
 
 	public Milkman(int x, int y) {
 		super(x, y);
@@ -31,7 +32,7 @@ public class Milkman extends Actor {
 
 	@Override
 	public BufferedImage getImage() {
-		return Textures.Sprites.Milkman.getWalkCycle(direction, frame);
+		return Textures.Sprites.Milkman.getWalkCycle(direction, frame, bottles);
 	}
 
 	@Override

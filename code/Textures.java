@@ -23,7 +23,7 @@ public class Textures {
 		}
 
 		public static class Milkman {
-			private static BufferedImage[][] walking = new BufferedImage[4][4];
+			private static BufferedImage[][][] walking = new BufferedImage[4][4][9];
 
 			private Milkman() {
 				//no instance allowed
@@ -33,13 +33,20 @@ public class Textures {
 				BufferedImage milkmanSpritesheet = getTexture("img/milkman/milkman_spritesheet.png");
 				for(int direction = 0; direction < 4; direction++) {
 					for(int frame = 0; frame < 4; frame++) {
-						walking[direction][frame] = milkmanSpritesheet.getSubimage(frame * 32, direction * 32, 32, 32);
+						for(int bottles = 0; bottles < 6; bottles++) {
+							walking[direction][frame][bottles] = milkmanSpritesheet.getSubimage(bottles * 128 + frame * 32, direction * 32, 32, 32);
+						}
+						walking[direction][frame][8] = walking[direction][frame][5];
+						walking[direction][frame][7] = walking[direction][frame][5];
+						walking[direction][frame][6] = walking[direction][frame][4];
+						walking[direction][frame][5] = walking[direction][frame][4];
+						walking[direction][frame][4] = walking[direction][frame][3];
 					}
 				}
 			}
 
-			public static BufferedImage getWalkCycle(int direction, int frame) {
-				return walking[direction % 4][frame % 4];
+			public static BufferedImage getWalkCycle(int direction, int frame, int bottles) {
+				return walking[direction % 4][frame % 4][bottles % 9];
 			}
 		}
 	}
