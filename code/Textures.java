@@ -132,6 +132,10 @@ public class Textures {
 		private static BufferedImage water;
 		private static BufferedImage yellowFlower;
 
+		private static BufferedImage factoryOverview;
+		private static BufferedImage explosion_0;
+		private static 
+
 		static {
 			BufferedImage tileset = getTexture("img/overworld/overworld_tileset.png");
 
