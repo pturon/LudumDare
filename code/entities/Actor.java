@@ -68,6 +68,13 @@ public abstract class Actor {
 			return false;
 		}
 
+		//funnel
+		if(game.isPixelSolid(x - (getWidth() / 2), y - (getHeight()) / 2)) {
+			y++;
+		} else if(game.isPixelSolid(x - (getWidth() / 2), y + (getHeight() / 2) - 1)) {
+			y--;
+		}
+
 		return true;
 	}
 
@@ -89,6 +96,13 @@ public abstract class Actor {
 		if(game.isPixelSolid(x + (getWidth() / 2), y)) {
 			x--;
 			return false;
+		}
+
+		//funnel
+		if(game.isPixelSolid(x + (getWidth() / 2) - 1, y - (getHeight()) / 2)) {
+			y++;
+		} else if(game.isPixelSolid(x + (getWidth() / 2) - 1, y + (getHeight() / 2) - 1)) {
+			y--;
 		}
 
 		return true;
@@ -114,6 +128,13 @@ public abstract class Actor {
 			return false;
 		}
 
+		//funnel
+		if(game.isPixelSolid(x - (getWidth() / 2), y - (getHeight()) / 2)) {
+			x++;
+		} else if(game.isPixelSolid(x + (getWidth() / 2) - 1, y - (getHeight()) / 2)) {
+			x--;
+		}
+
 		return true;
 	}
 
@@ -135,6 +156,13 @@ public abstract class Actor {
 		if(game.isPixelSolid(x, y + (getHeight() / 2))) {
 			y--;
 			return false;
+		}
+
+		//funnel
+		if(game.isPixelSolid(x - (getWidth() / 2), y + (getHeight()) / 2)) {
+			x++;
+		} else if(game.isPixelSolid(x + (getWidth() / 2) - 1, y + (getHeight() / 2) - 1)) {
+			x--;
 		}
 
 		return true;
