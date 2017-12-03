@@ -2,6 +2,7 @@ package code.entities;
 
 import java.awt.image.BufferedImage;
 
+import code.Clock;
 import code.Textures;
 import code.views.Game;
 
@@ -10,8 +11,10 @@ public class Cow extends Actor {
 	public static final int DOWN = 1;
 	public static final int RIGHT = 2;
 	public static final int LEFT = 3;
-
 	private int direction = UP;
+
+	private static final int MAX_TURNS_PER_SECOND = 2;
+	private int turningCooldown = 0;
 
 	public Cow(int x, int y, Game game) {
 		super(x, y, game);
@@ -43,6 +46,8 @@ public class Cow extends Actor {
 	@Override
 	public void step() {
 		super.step();
+
+		//only move every other step
 		if(stepCounter % 2 != 0) {
 			return;
 		}
@@ -50,8 +55,19 @@ public class Cow extends Actor {
 		int targetX = game.getMilkman().getX();
 		int targetY = game.getMilkman().getY();
 
+		if(turningCooldown <= 0) {
+			turn(targetX, targetY);
+		} else {
+			turningCooldown --;
+		}
+
+		move(targetX, targetY);
+	}
+
+	private void turn(int targetX, int targetY) {
 		int distanceX = targetX - x;
 		int distanceY = targetY - y;
+		int previousDirection = direction;
 
 		if(Math.abs(distanceX) > Math.abs(distanceY)) {
 			if(targetX < x) {
@@ -67,6 +83,12 @@ public class Cow extends Actor {
 			}
 		}
 
+		if(direction != previousDirection) {
+			turningCooldown = (int)((1.0 / MAX_TURNS_PER_SECOND) * Clock.getStepsPerSecond());
+		}
+	}
+
+	private void move(int targetX, int targetY) {
 		switch(direction) {
 		case UP:
 			if(!moveUp()) {
