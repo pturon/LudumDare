@@ -46,6 +46,10 @@ public class Clock {
 		thread.start();
 	}
 
+	public static int getStepsPerSecond() {
+		return STEPS_PER_SECOND;
+	}
+
 	/**
 	 * Sets the view whose step()-method is called.
 	 * @param view The view whose step()-method is called.

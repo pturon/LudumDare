@@ -9,6 +9,16 @@ public class Textures {
 		//no instance allowed
 	}
 
+	private static BufferedImage bottle;
+
+	static {
+		bottle = getTexture("img/overworld/milkbottle.png");
+	}
+
+	public static BufferedImage getBottle() {
+		return bottle;
+	}
+
 	private static BufferedImage getTexture(String path) {
 		try {
 			return ImageIO.read(ClassLoader.getSystemClassLoader().getResource(path));
@@ -632,7 +642,28 @@ public class Textures {
 			//no instance allowed
 		}
 
+		public static class Cow {
+			private static BufferedImage[] walking = new BufferedImage[4];
+
+			private Cow() {
+				//no instance allowed
+			}
+
+			static {
+				BufferedImage cowSpritesheet = getTexture("img/cows/standard_spritesheet.png");
+				walking[0] = cowSpritesheet.getSubimage(16, 0, 32, 64);//UP
+				walking[1] = cowSpritesheet.getSubimage(16, 64, 32, 64);//DOWN
+				walking[2] = cowSpritesheet.getSubimage(0, 2 * 64 + 16, 64, 32);//RIGHT
+				walking[3] = cowSpritesheet.getSubimage(0, 3 * 64 + 16, 64, 32);//LEFT
+			}
+
+			public static BufferedImage getWalking(int direction) {
+				return walking[direction % 4];
+			}
+		}
+
 		public static class Milkman {
+			private static BufferedImage[][][] pickupAnimation = new BufferedImage[4][4][8];
 			private static BufferedImage[][][] walking = new BufferedImage[4][4][9];
 
 			private Milkman() {
@@ -653,6 +684,18 @@ public class Textures {
 						walking[direction][frame][4] = walking[direction][frame][3];
 					}
 				}
+
+				for(int direction = 0; direction < 4; direction++) {
+					for(int frame = 0; frame < 4; frame++) {
+						for(int bottles = 0; bottles < 8; bottles++) {
+							pickupAnimation[direction][frame][bottles] = milkmanSpritesheet.getSubimage(bottles * 128 + frame * 32, 128 + direction * 32, 32, 32);
+						}
+					}
+				}
+			}
+
+			public static BufferedImage getPickupAnimation(int direction, int frame, int bottles) {
+				return pickupAnimation[direction % 4][frame % 4][bottles % 8];
 			}
 
 			public static BufferedImage getWalkCycle(int direction, int frame, int bottles) {
@@ -660,4 +703,60 @@ public class Textures {
 			}
 		}
 	}
+	
+	public static class Menu {
+		private static BufferedImage background = getTexture("img/menu/background.png");
+		private static BufferedImage title = getTexture("img/menu/title.png");
+		private static BufferedImage button = getTexture("img/menu/button.png");
+		private static BufferedImage frame = getTexture("img/menu/frame.png");
+		private static BufferedImage milkman = getTexture("img/menu/milkman.png");
+		private static BufferedImage play = getTexture("img/menu/play.png");
+		private static BufferedImage difficultyEasy = getTexture("img/menu/difficulty_0.png");
+		private static BufferedImage difficultyNormal = getTexture("img/menu/difficulty_1.png");
+		private static BufferedImage difficultyHard = getTexture("img/menu/difficulty_2.png");
+		private static BufferedImage exit = getTexture("img/menu/exit.png");
+		
+		public static BufferedImage getBackground(){
+			return background;
+		}
+		
+		public static BufferedImage getTitle(){
+			return title;
+		}
+		
+		public static BufferedImage getButton(){
+			return button;
+		}
+		
+		public static BufferedImage getFrame(){
+			return frame;
+		}
+		
+		public static BufferedImage getPlayFont(){
+			return play;
+		}
+		
+		public static BufferedImage getDifficultyFont(int difficulty){
+			switch (difficulty){
+			case 0:
+				return difficultyEasy;
+			case 1:
+				return difficultyNormal;
+			case 2:
+				return difficultyHard;
+			default:
+				return difficultyNormal;
+			}
+		}
+		
+		public static BufferedImage getExitFont(){
+			return exit;
+		}
+		
+		public static BufferedImage getMilkman(){
+			return milkman;
+		}
+		
+	}
+	
 }

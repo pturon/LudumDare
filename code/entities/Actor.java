@@ -4,18 +4,18 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.List;
 
-import code.views.Game;
+import code.views.Overworld;
 
 public abstract class Actor {
 	protected int x;
 	protected int y;
-	protected Game game;
+	protected Overworld overworld;
 	protected long stepCounter = 0;
 
-	protected Actor(int x, int y, Game game) {
+	protected Actor(int x, int y, Overworld overworld) {
 		this.x = x;
 		this.y = y;
-		this.game = game;
+		this.overworld = overworld;
 	}
 
 	public Rectangle getHitbox() {
@@ -28,16 +28,8 @@ public abstract class Actor {
 		return x;
 	}
 
-	public void setX(int x) {
-		this.x = x;
-	}
-
 	public int getY() {
 		return y;
-	}
-
-	public void setY(int y) {
-		this.y = y;
 	}
 
 	public abstract int getWidth();
@@ -54,18 +46,25 @@ public abstract class Actor {
 	protected boolean moveLeft() {
 		x--;
 		//check hitboxes
-		List<Actor> actors = game.getActors();
+		List<Actor> actors = overworld.getActors();
 		for(Actor actor : actors) {
-			if(actor != this && actor.getHitbox().intersects(getHitbox())) {
+			if(actor != this && actor.getHitbox().intersects(getHitbox()) && actor.x < x) {
 				x++;
 				return false;
 			}
 		}
 
 		//check terrain
-		if(game.isPixelSolid(x - (getWidth() / 2), y)) {
+		if(overworld.isPixelSolid(x - (getWidth() / 2), y)) {
 			x++;
 			return false;
+		}
+
+		//funnel
+		if(overworld.isPixelSolid(x - (getWidth() / 2), y - (getHeight()) / 2)) {
+			y++;
+		} else if(overworld.isPixelSolid(x - (getWidth() / 2), y + (getHeight() / 2) - 1)) {
+			y--;
 		}
 
 		return true;
@@ -77,18 +76,25 @@ public abstract class Actor {
 	protected boolean moveRight() {
 		x++;
 		//check hitboxes
-		List<Actor> actors = game.getActors();
+		List<Actor> actors = overworld.getActors();
 		for(Actor actor : actors) {
-			if(actor != this && actor.getHitbox().intersects(getHitbox())) {
+			if(actor != this && actor.getHitbox().intersects(getHitbox()) && actor.x > x) {
 				x--;
 				return false;
 			}
 		}
 
 		//check terrain
-		if(game.isPixelSolid(x + (getWidth() / 2), y)) {
+		if(overworld.isPixelSolid(x + (getWidth() / 2), y)) {
 			x--;
 			return false;
+		}
+
+		//funnel
+		if(overworld.isPixelSolid(x + (getWidth() / 2) - 1, y - (getHeight()) / 2)) {
+			y++;
+		} else if(overworld.isPixelSolid(x + (getWidth() / 2) - 1, y + (getHeight() / 2) - 1)) {
+			y--;
 		}
 
 		return true;
@@ -100,18 +106,25 @@ public abstract class Actor {
 	protected boolean moveUp() {
 		y--;
 		//check hitboxes
-		List<Actor> actors = game.getActors();
+		List<Actor> actors = overworld.getActors();
 		for(Actor actor : actors) {
-			if(actor != this && actor.getHitbox().intersects(getHitbox())) {
+			if(actor != this && actor.getHitbox().intersects(getHitbox()) && actor.y < y) {
 				y++;
 				return false;
 			}
 		}
 
 		//check terrain
-		if(game.isPixelSolid(x, y - (getHeight() / 2))) {
+		if(overworld.isPixelSolid(x, y - (getHeight() / 2))) {
 			y++;
 			return false;
+		}
+
+		//funnel
+		if(overworld.isPixelSolid(x - (getWidth() / 2), y - (getHeight()) / 2)) {
+			x++;
+		} else if(overworld.isPixelSolid(x + (getWidth() / 2) - 1, y - (getHeight()) / 2)) {
+			x--;
 		}
 
 		return true;
@@ -123,18 +136,25 @@ public abstract class Actor {
 	protected boolean moveDown() {
 		y++;
 		//check hitboxes
-		List<Actor> actors = game.getActors();
+		List<Actor> actors = overworld.getActors();
 		for(Actor actor : actors) {
-			if(actor != this && actor.getHitbox().intersects(getHitbox())) {
+			if(actor != this && actor.getHitbox().intersects(getHitbox()) && actor.y > y) {
 				y--;
 				return false;
 			}
 		}
 
 		//check terrain
-		if(game.isPixelSolid(x, y + (getHeight() / 2))) {
+		if(overworld.isPixelSolid(x, y + (getHeight() / 2))) {
 			y--;
 			return false;
+		}
+
+		//funnel
+		if(overworld.isPixelSolid(x - (getWidth() / 2), y + (getHeight()) / 2)) {
+			x++;
+		} else if(overworld.isPixelSolid(x + (getWidth() / 2) - 1, y + (getHeight() / 2) - 1)) {
+			x--;
 		}
 
 		return true;
