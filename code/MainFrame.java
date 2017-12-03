@@ -6,6 +6,9 @@ import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -76,6 +79,57 @@ public class MainFrame extends Frame {
 			}
 		});
 
+		panel.addMouseMotionListener(new MouseMotionListener(){
+
+			@Override
+			public void mouseDragged(MouseEvent mouseEvent) {
+				if(currentView != null) {
+					currentView.onMouseMoved(mouseEvent);
+				}	
+			}
+
+			@Override
+			public void mouseMoved(MouseEvent mouseEvent) {
+				if(currentView != null) {
+					currentView.onMouseMoved(mouseEvent);
+				}				
+			}
+			
+		});
+		
+		panel.addMouseListener(new MouseListener(){
+
+			@Override
+			public void mouseClicked(MouseEvent mouseEvent) {
+				//not used at the moment
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent mouseEvent) {
+				//not used at the moment
+			}
+
+			@Override
+			public void mouseExited(MouseEvent mouseEvent) {
+				//not used at the moment
+			}
+
+			@Override
+			public void mousePressed(MouseEvent mouseEvent) {
+				if(currentView != null) {
+					currentView.onMousePressed(mouseEvent);
+				}	
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent mouseEvent) {
+				if(currentView != null) {
+					currentView.onMouseReleased(mouseEvent);
+				}	
+			}
+			
+		});
+		
 		Clock.setCurrentView(currentView);
 
 		setVisible(true);

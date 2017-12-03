@@ -3,6 +3,7 @@ package code.views;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
@@ -169,5 +170,20 @@ public class Game extends View {
 		if(bottles.getMaterial(tileX, tileY) == Material.BOTTLE && milkman.canPickupBottles()) {
 			milkman.pickupBottle();
 		}
+	}
+
+	@Override
+	public void onMouseMoved(MouseEvent mouseEvent) {
+		//not used at the moment
+	}
+
+	@Override
+	public void onMousePressed(MouseEvent mouseEvent) {
+		//not used at the moment
+	}
+
+	@Override
+	public void onMouseReleased(MouseEvent mouseEvent) {
+		//not used at the moment
 	}
 }

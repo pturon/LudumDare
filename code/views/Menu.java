@@ -1,9 +1,23 @@
 package code.views;
 
+import java.applet.Applet;
+import java.applet.AudioClip;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 import code.MainFrame;
 import code.Textures;
@@ -14,6 +28,7 @@ public class Menu extends View {
 	private String[] buttons = {"play", "difficulty", "exit"};
 	private int selection = 0;
 	private int difficulty = 1;
+	private int mousePressedOn = 0;
 
 	public Menu(int difficulty, MainFrame mainFrame) {
 		this.difficulty = difficulty;
@@ -96,6 +111,72 @@ public class Menu extends View {
 
 	@Override
 	public void step() {
+		
+	}
+
+	@Override
+	public void onMouseMoved(MouseEvent mouseEvent) {
+		if(mouseEvent.getX() > 32 && mouseEvent.getX() < 444){
+			if(mouseEvent.getY() > 288 && mouseEvent.getY() < 352){
+				selection = 0;
+			} else if(mouseEvent.getY() > 384 && mouseEvent.getY() < 448){
+				selection = 1;
+			} else if(mouseEvent.getY() > 480 && mouseEvent.getY() < 544){
+				selection = 2;
+			}
+		}		
+	}
+
+	@Override
+	public void onMousePressed(MouseEvent mouseEvent) {
+		if(mouseEvent.getX() > 32 && mouseEvent.getX() < 444){
+			if(mouseEvent.getY() > 288 && mouseEvent.getY() < 352){
+				mousePressedOn = 1;
+			} else if(mouseEvent.getY() > 384 && mouseEvent.getY() < 448){
+				mousePressedOn = 2;
+			} else if(mouseEvent.getY() > 480 && mouseEvent.getY() < 544){
+				mousePressedOn = 3;
+			}
+		}
+		if(mouseEvent.getX() >= 306 && mouseEvent.getX() <= 342 && mouseEvent.getY() >= 30 && mouseEvent.getY() <= 132){
+			mousePressedOn = 4;
+		}else if(mouseEvent.getX() >= 480 && mouseEvent.getX() <= 558 && mouseEvent.getY() >= 142 && mouseEvent.getY() <= 256){
+			mousePressedOn = 5;
+		}
+	}
+
+	@Override
+	public void onMouseReleased(MouseEvent mouseEvent) {
+		if(mouseEvent.getX() > 32 && mouseEvent.getX() < 444){
+			if(mouseEvent.getY() > 288 && mouseEvent.getY() < 352 && mousePressedOn == 1){
+				mousePressedOn = 0;
+				mainFrame.setCurrentView(new Game(difficulty));
+			} else if(mouseEvent.getY() > 384 && mouseEvent.getY() < 448 && mousePressedOn == 2){
+				mousePressedOn = 0;
+				difficulty = (difficulty + 1) % 3;
+			} else if(mouseEvent.getY() > 480 && mouseEvent.getY() < 544 && mousePressedOn == 3){
+				mousePressedOn = 0;
+				System.exit(0);
+			}
+		}
+		if(mouseEvent.getX() >= 306 && mouseEvent.getX() <= 342 && mouseEvent.getY() >= 30 && mouseEvent.getY() <= 132 && mousePressedOn == 4){
+			System.out.println("smoke");
+		}else if(mouseEvent.getX() >= 480 && mouseEvent.getX() <= 558 && mouseEvent.getY() >= 142 && mouseEvent.getY() <= 256 && mousePressedOn == 5){
+			//Only sound in the game, could also be excluded
+			File file = new File("src/sound/cow.wav");
+			try {
+				AudioInputStream audioIn = AudioSystem.getAudioInputStream(file);
+				Clip clip = AudioSystem.getClip();
+				clip.open(audioIn);
+				clip.start();
+			} catch (UnsupportedAudioFileException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (LineUnavailableException e) {
+				e.printStackTrace();
+			}
+		}
 		
 	}
 
