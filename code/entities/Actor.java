@@ -48,7 +48,7 @@ public abstract class Actor {
 		//check hitboxes
 		List<Actor> actors = game.getActors();
 		for(Actor actor : actors) {
-			if(actor != this && actor.getHitbox().intersects(getHitbox())) {
+			if(actor != this && actor.getHitbox().intersects(getHitbox()) && actor.x < x) {
 				x++;
 				return false;
 			}
@@ -78,7 +78,7 @@ public abstract class Actor {
 		//check hitboxes
 		List<Actor> actors = game.getActors();
 		for(Actor actor : actors) {
-			if(actor != this && actor.getHitbox().intersects(getHitbox())) {
+			if(actor != this && actor.getHitbox().intersects(getHitbox()) && actor.x > x) {
 				x--;
 				return false;
 			}
@@ -108,7 +108,7 @@ public abstract class Actor {
 		//check hitboxes
 		List<Actor> actors = game.getActors();
 		for(Actor actor : actors) {
-			if(actor != this && actor.getHitbox().intersects(getHitbox())) {
+			if(actor != this && actor.getHitbox().intersects(getHitbox()) && actor.y < y) {
 				y++;
 				return false;
 			}
@@ -138,7 +138,7 @@ public abstract class Actor {
 		//check hitboxes
 		List<Actor> actors = game.getActors();
 		for(Actor actor : actors) {
-			if(actor != this && actor.getHitbox().intersects(getHitbox())) {
+			if(actor != this && actor.getHitbox().intersects(getHitbox()) && actor.y > y) {
 				y--;
 				return false;
 			}
