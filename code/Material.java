@@ -102,7 +102,8 @@ public enum Material {
 	ROOF_RED_HORIZONTAL_SOUTH_EAST_GUTTER(138, true),
 	ROOF_BLUE_HORIZONTAL_SOUTH_WEST_GUTTER(139, true),
 	ROOF_BLUE_HORIZONTAL_SOUTH_GUTTER(140, true),
-	ROOF_BLUE_HORIZONTAL_SOUTH_EAST_GUTTER(141, true);
+	ROOF_BLUE_HORIZONTAL_SOUTH_EAST_GUTTER(141, true),
+	BOTTLE(144, true);
 
 	private int id;
 	private boolean solid;
@@ -125,6 +126,8 @@ public enum Material {
 		switch(this) {
 		case ASPHALT:
 			return Textures.Terrain.getAsphalt();
+		case BOTTLE:
+			return Textures.getBottle();
 		case BRIDGE_HORIZONTAL_NORTH:
 			return Textures.Terrain.getBridgeHorizontalNorth();
 		case BRIDGE_HORIZONTAL_NORTH_EAST:

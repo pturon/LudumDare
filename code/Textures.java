@@ -9,6 +9,16 @@ public class Textures {
 		//no instance allowed
 	}
 
+	private static BufferedImage bottle;
+
+	static {
+		bottle = getTexture("img/overworld/milkbottle.png");
+	}
+
+	public static BufferedImage getBottle() {
+		return bottle;
+	}
+
 	private static BufferedImage getTexture(String path) {
 		try {
 			return ImageIO.read(ClassLoader.getSystemClassLoader().getResource(path));
