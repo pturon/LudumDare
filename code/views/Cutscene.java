@@ -33,10 +33,13 @@ public class Cutscene extends View {
             case 0:
                 break;
             case 1:
+                graphics.drawImage(Textures.CutSceneTextures.getExplosion_0(), 0, 0, null);
                 break;
             case 2:
+                graphics.drawImage(Textures.CutSceneTextures.getExpolsion_1(), 0, 0, null);
                 break;
             case 3:
+                graphics.drawImage(Textures.CutSceneTextures.getExplosion_2(), 0, 0, null);
                 break;
             case 4:
                 mainFrame.setCurrentView(new Overworld(difficulty));
@@ -62,7 +65,7 @@ public class Cutscene extends View {
             currentFrame++;
             steps = 0;
         }
-        if (steps == 100 && currentFrame > 0) {
+        if (steps == 75 && currentFrame > 0) {
             steps = 0;
             currentFrame++;
         }

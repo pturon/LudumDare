@@ -1,6 +1,7 @@
 package code;
 
 import java.awt.image.BufferedImage;
+import java.nio.Buffer;
 
 import javax.imageio.ImageIO;
 
@@ -763,9 +764,10 @@ public class Textures {
 	public static class CutSceneTextures{
 
 		private static BufferedImage factoryOverview = getTexture("img/cutscenes/factory_overview.png");
-		private static BufferedImage explosion_0;
-		private static BufferedImage expolsion_1;
-		private static BufferedImage explosion_2;
+		private static BufferedImage explosion_sheet = getTexture("img/cutscenes/explosion.png");
+		private static BufferedImage explosion_0 = explosion_sheet.getSubimage(800,0,800,600);
+		private static BufferedImage expolsion_1 = explosion_sheet.getSubimage(1600,0,800,600);
+		private static BufferedImage explosion_2 = explosion_sheet.getSubimage(2400,0,800,600);
 
 		public static BufferedImage getFactoryOverview() {
 			return factoryOverview;
