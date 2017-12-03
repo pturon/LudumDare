@@ -43,8 +43,6 @@ public class MainFrame extends Frame {
 			}
 		});
 
-		setSize(WIDTH, HEIGHT);
-
 	    //set position to the center of the screen
 	    Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
 	    setLocation((d.width - WIDTH) / 2, (d.height - HEIGHT) / 2);
@@ -55,6 +53,7 @@ public class MainFrame extends Frame {
 				if(currentView != null)g.drawImage(currentView.getImage(debugging), 0, 0, null);
 			}
 		};
+		panel.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		add(panel);
 
 		addKeyListener(new KeyListener() {
@@ -132,6 +131,7 @@ public class MainFrame extends Frame {
 		
 		Clock.setCurrentView(currentView);
 
+		pack();
 		setVisible(true);
 	}
 

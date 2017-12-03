@@ -2,10 +2,12 @@ package code.views;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
 import code.Material;
+import code.Textures;
 import code.Tilemap;
 import code.entities.Actor;
 import code.entities.Cow;
@@ -15,6 +17,8 @@ public class Overworld extends Scene {
 	private int difficulty;
 
 	protected Tilemap items;
+
+	private boolean showInstructions = true;
 
 	private static final Color DEBUGGING_GREEN = new Color(0, 255, 0, 128);
 	private static final Color DEBUGGING_RED = new Color(255, 0, 0, 128);
@@ -26,7 +30,7 @@ public class Overworld extends Scene {
 		milkman = new Milkman(64, 64, this);
 		synchronized(actors) {
 			actors.add(milkman);
-			for(int i = 0; i < 5; i++) {
+			for(int i = 0; i < 8; i++) {
 				actors.add(new Cow((int)(Math.random() * 800), (int)(Math.random() * 600), this));
 			}
 		}
@@ -83,6 +87,10 @@ public class Overworld extends Scene {
 			}
 		}
 
+		if(showInstructions) {
+			graphics.drawImage(Textures.HUD.getInstructions(), 0, 0, null);
+		}
+
 		graphics.setColor(Color.WHITE);
 		graphics.drawString("Bottles: " + milkman.getBottles(), 10, 20);
 
@@ -103,6 +111,12 @@ public class Overworld extends Scene {
 		if(items.getMaterial(tileX, tileY) == Material.EMPTY_BOTTLE && milkman.canPickupBottles()) {
 			milkman.pickupBottle();
 		}
+	}
+
+	@Override
+	public void onKeyPressed(KeyEvent keyEvent) {
+		super.onKeyPressed(keyEvent);
+		showInstructions = false;
 	}
 
 	@Override
