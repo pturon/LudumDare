@@ -1,2 +1,8 @@
 
 *.pyxel
+
+\.idea/
+
+LudumDare\.iml
+
+*.class
