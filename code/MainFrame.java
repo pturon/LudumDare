@@ -12,6 +12,7 @@ import java.awt.event.WindowEvent;
 import javax.swing.JPanel;
 
 import code.views.Game;
+import code.views.Menu;
 import code.views.View;
 
 public class MainFrame extends Frame {
@@ -19,7 +20,7 @@ public class MainFrame extends Frame {
 	public static final int HEIGHT = 600;
 
 	private JPanel panel;
-	private transient View currentView = new Game();
+	private transient View currentView = new Menu(1, this);
 
 	private boolean debugging = false;
 
@@ -92,5 +93,10 @@ public class MainFrame extends Frame {
 				panel.repaint();
 			}
 		}
+	}
+	
+	public void setCurrentView(View view){
+		this.currentView = view;
+		Clock.setCurrentView(currentView);
 	}
 }

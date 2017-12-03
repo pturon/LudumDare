@@ -660,4 +660,60 @@ public class Textures {
 			}
 		}
 	}
+	
+	public static class Menu {
+		private static BufferedImage background = getTexture("img/menu/background.png");
+		private static BufferedImage title = getTexture("img/menu/title.png");
+		private static BufferedImage button = getTexture("img/menu/button.png");
+		private static BufferedImage frame = getTexture("img/menu/frame.png");
+		private static BufferedImage milkman = getTexture("img/menu/milkman.png");
+		private static BufferedImage play = getTexture("img/menu/play.png");
+		private static BufferedImage difficultyEasy = getTexture("img/menu/difficulty_0.png");
+		private static BufferedImage difficultyNormal = getTexture("img/menu/difficulty_1.png");
+		private static BufferedImage difficultyHard = getTexture("img/menu/difficulty_2.png");
+		private static BufferedImage exit = getTexture("img/menu/exit.png");
+		
+		public static BufferedImage getBackground(){
+			return background;
+		}
+		
+		public static BufferedImage getTitle(){
+			return title;
+		}
+		
+		public static BufferedImage getButton(){
+			return button;
+		}
+		
+		public static BufferedImage getFrame(){
+			return frame;
+		}
+		
+		public static BufferedImage getPlayFont(){
+			return play;
+		}
+		
+		public static BufferedImage getDifficultyFont(int difficulty){
+			switch (difficulty){
+			case 0:
+				return difficultyEasy;
+			case 1:
+				return difficultyNormal;
+			case 2:
+				return difficultyHard;
+			default:
+				return difficultyNormal;
+			}
+		}
+		
+		public static BufferedImage getExitFont(){
+			return exit;
+		}
+		
+		public static BufferedImage getMilkman(){
+			return milkman;
+		}
+		
+	}
+	
 }

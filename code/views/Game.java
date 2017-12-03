@@ -16,11 +16,12 @@ public class Game extends View {
 	private Milkman milkman;
 	private List<Actor> actors = new ArrayList<>();
 	private Tilemap tilemap = new Tilemap();
+	private int difficulty;
 
 	private static final Color DEBUGGING_GREEN = new Color(0, 255, 0, 128);
 	private static final Color DEBUGGING_RED = new Color(255, 0, 0, 128);
 
-	public Game() {
+	public Game(int difficulty) {
 		milkman = new Milkman(64, 64, this);
 		synchronized(actors) {
 			actors.add(milkman);
@@ -28,6 +29,7 @@ public class Game extends View {
 				actors.add(new Cow((int)(Math.random() * 800), (int)(Math.random() * 600), this));
 			}
 		}
+		this.difficulty = difficulty;
 	}
 
 	@Override
