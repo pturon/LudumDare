@@ -39,14 +39,20 @@ public class Textures {
 		private static BufferedImage bridgeHorizontalSouth;
 		private static BufferedImage bridgeHorizontalSouthEast;
 		private static BufferedImage bridgeHorizontalSouthWest;
+		private static BufferedImage conveyorBelt;
 		private static BufferedImage fenceEast;
+		private static BufferedImage fenceEastMF;
 		private static BufferedImage fenceNorth;
 		private static BufferedImage fenceNorthEast;
 		private static BufferedImage fenceNorthWest;
 		private static BufferedImage fenceSouth;
 		private static BufferedImage fenceSouthEast;
+		private static BufferedImage fenceSouthEastMF;
+		private static BufferedImage fenceSouthMF;
 		private static BufferedImage fenceSouthWest;
+		private static BufferedImage fenceSouthWestMF;
 		private static BufferedImage fenceWest;
+		private static BufferedImage fenceWestMF;
 		private static BufferedImage grass;
 		private static BufferedImage lamp;
 		private static BufferedImage magentaFlower;
@@ -128,116 +134,178 @@ public class Textures {
 		private static BufferedImage roofRedVerticalWestGutter;
 		private static BufferedImage roofRedVerticalWestRidge;
 		private static BufferedImage roofRedVerticalWestWindow;
+		private static BufferedImage pipe1;
+		private static BufferedImage pipe2;
+		private static BufferedImage pipe3;
+		private static BufferedImage pipeCorner;
+		private static BufferedImage ramp1;
+		private static BufferedImage ramp2;
+		private static BufferedImage ramp3;
+		private static BufferedImage ramp4;
+		private static BufferedImage ramp5;
+		private static BufferedImage ramp6;
+		private static BufferedImage sign1;
+		private static BufferedImage sign2;
+		private static BufferedImage sign3;
+		private static BufferedImage sign4;
+		private static BufferedImage sign5;
+		private static BufferedImage sign6;
+		private static BufferedImage tank1;
+		private static BufferedImage tank2;
+		private static BufferedImage tank3;
+		private static BufferedImage tank4;
+		private static BufferedImage tank5;
+		private static BufferedImage tank6;
+		private static BufferedImage tank7;
+		private static BufferedImage tank8;
+		private static BufferedImage tank9;
 		private static BufferedImage tiles;
+		private static BufferedImage trackMarkH;
+		private static BufferedImage trackMarkV;
 		private static BufferedImage water;
 		private static BufferedImage yellowFlower;
 
 		private static BufferedImage factoryOverview;
 		private static BufferedImage explosion_0;
-		private static 
 
 		static {
-			BufferedImage tileset = getTexture("img/overworld/overworld_tileset.png");
+			BufferedImage overworldTileset = getTexture("img/overworld/overworld_tileset.png");
 
-			asphalt = getTile(tileset, 3, 2);
-			bridgeHorizontalNorth = getTile(tileset, 6, 9);
-			bridgeHorizontalNorthEast = getTile(tileset, 7, 9);
-			bridgeHorizontalNorthWest = getTile(tileset, 5, 9);
-			bridgeHorizontalSouth = getTile(tileset, 6, 10);
-			bridgeHorizontalSouthEast = getTile(tileset, 7, 10);
-			bridgeHorizontalSouthWest = getTile(tileset, 5, 10);
-			fenceEast = getTile(tileset, 2, 10);
-			fenceNorth = getTile(tileset, 1, 9);
-			fenceNorthEast = getTile(tileset, 2, 9);
-			fenceNorthWest = getTile(tileset, 0, 9);
-			fenceSouth = getTile(tileset, 1,11);
-			fenceSouthEast = getTile(tileset, 2, 11);
-			fenceSouthWest = getTile(tileset, 0, 11);
-			fenceWest = getTile(tileset, 0, 10);
-			grass = getTile(tileset, 1, 1);
-			lamp = getTile(tileset, 1, 10);
-			magentaFlower = getTile(tileset, 5, 2);
-			pavement = getTile(tileset, 5, 0);
-			pavementCornerNorthEast = getTile(tileset, 0, 2);
-			pavementCornerNorthWest = getTile(tileset, 2, 2);
-			pavementCornerSouthEast = getTile(tileset, 0, 0);
-			pavementCornerSouthWest = getTile(tileset, 2, 0);
-			pavementEast = getTile(tileset, 0, 1);
-			pavementNorth = getTile(tileset, 1, 2);
-			pavementNorthEast = getTile(tileset, 4, 0);
-			pavementNorthWest = getTile(tileset, 3, 0);
-			pavementSouth = getTile(tileset, 1, 0);
-			pavementSouthEast = getTile(tileset, 4, 1);
-			pavementSouthWest = getTile(tileset, 3, 1);
-			pavementWest = getTile(tileset, 2, 1);
-			purpleFlower = getTile(tileset, 5, 1);
-			roofBlueHorizontalNorth = getTile(tileset, 4, 13);
-			roofBlueHorizontalNorthChimney = getTile(tileset, 3, 13);
-			roofBlueHorizontalNorthEastGutter = getTile(tileset, 5, 12);
-			roofBlueHorizontalNorthEastRidge = getTile(tileset, 5, 14);
-			roofBlueHorizontalNorthGutter = getTile(tileset, 4, 12);
-			roofBlueHorizontalNorthRidge = getTile(tileset, 4, 14);
-			roofBlueHorizontalNorthWestGutter = getTile(tileset, 3, 12);
-			roofBlueHorizontalNorthWestRidge = getTile(tileset, 3, 14);
-			roofBlueHorizontalNorthWindow = getTile(tileset, 5, 13);
-			roofBlueHorizontalSouth = getTile(tileset, 4, 16);
-			roofBlueHorizontalSouthChimney = getTile(tileset, 3, 16);
-			roofBlueHorizontalSouthEastGutter = getTile(tileset, 5, 17);
-			roofBlueHorizontalSouthEastRidge = getTile(tileset, 5, 15);
-			roofBlueHorizontalSouthGutter = getTile(tileset, 4, 17);
-			roofBlueHorizontalSouthRidge = getTile(tileset, 4, 15);
-			roofBlueHorizontalSouthWestGutter = getTile(tileset, 3, 17);
-			roofBlueHorizontalSouthWestRidge = getTile(tileset, 4, 15);
-			roofBlueHorizontalSouthWindow = getTile(tileset, 5, 16);
-			roofBlueVerticalEast = getTile(tileset, 4, 7);
-			roofBlueVerticalEastChimney = getTile(tileset, 4, 8);
-			roofBlueVerticalEastGutter = getTile(tileset, 5, 7);
-			roofBlueVerticalEastRidge = getTile(tileset, 3, 7);
-			roofBlueVerticalEastWindow = getTile(tileset, 4, 6);
-			roofBlueVerticalNorthEastGutter = getTile(tileset, 5, 6);
-			roofBlueVerticalNorthWestGutter = getTile(tileset, 0, 6);
-			roofBlueVerticalSouthEastGutter = getTile(tileset, 5, 8);
-			roofBlueVerticalSouthWestGutter = getTile(tileset, 0, 8);
-			roofBlueVerticalWest = getTile(tileset, 1, 7);
-			roofBlueVerticalWestChimney = getTile(tileset, 1, 8);
-			roofBlueVerticalWestGutter = getTile(tileset, 0, 7);
-			roofBlueVerticalWestRidge = getTile(tileset, 2, 7);
-			roofBlueVerticalWestWindow = getTile(tileset, 1, 6);
-			roofRedHorizontalNorth = getTile(tileset, 1, 13);
-			roofRedHorizontalNorthChimney = getTile(tileset, 0, 13);
-			roofRedHorizontalNorthEastGutter = getTile(tileset, 2, 12);
-			roofRedHorizontalNorthEastRidge = getTile(tileset, 2, 14);
-			roofRedHorizontalNorthGutter = getTile(tileset, 1, 12);
-			roofRedHorizontalNorthRidge = getTile(tileset, 1, 14);
-			roofRedHorizontalNorthWestGutter = getTile(tileset, 0, 12);
-			roofRedHorizontalNorthWestRidge = getTile(tileset, 0, 14);
-			roofRedHorizontalNorthWindow = getTile(tileset, 2, 13);
-			roofRedHorizontalSouth = getTile(tileset, 1, 16);
-			roofRedHorizontalSouthChimney = getTile(tileset, 0, 16);
-			roofRedHorizontalSouthEastGutter = getTile(tileset, 2, 17);
-			roofRedHorizontalSouthEastRidge = getTile(tileset, 2, 15);
-			roofRedHorizontalSouthGutter = getTile(tileset, 1, 17);
-			roofRedHorizontalSouthRidge = getTile(tileset, 1, 15);
-			roofRedHorizontalSouthWestGutter = getTile(tileset, 0, 17);
-			roofRedHorizontalSouthWestRidge = getTile(tileset, 0, 15);
-			roofRedHorizontalSouthWindow = getTile(tileset, 2, 16);
-			roofRedVerticalEast = getTile(tileset, 4, 4);
-			roofRedVerticalEastChimney = getTile(tileset, 4, 5);
-			roofRedVerticalEastGutter = getTile(tileset, 5, 4);
-			roofRedVerticalEastRidge = getTile(tileset, 3, 4);
-			roofRedVerticalEastWindow = getTile(tileset, 4, 3);
-			roofRedVerticalNorthEastGutter = getTile(tileset, 5, 3);
-			roofRedVerticalNorthWestGutter = getTile(tileset, 0, 3);
-			roofRedVerticalSouthEastGutter = getTile(tileset, 5, 5);
-			roofRedVerticalSouthWestGutter = getTile(tileset, 0, 5);
-			roofRedVerticalWest = getTile(tileset, 1, 4);
-			roofRedVerticalWestChimney = getTile(tileset, 1, 5);
-			roofRedVerticalWestGutter = getTile(tileset, 0, 4);
-			roofRedVerticalWestRidge = getTile(tileset, 2, 4);
-			roofRedVerticalWestWindow = getTile(tileset, 1, 3);
-			tiles = getTile(tileset, 6, 11);
-			yellowFlower = getTile(tileset, 4, 2);
-			water = getTile(tileset, 5, 11);
+			asphalt = getTile(overworldTileset, 3, 2);
+			bridgeHorizontalNorth = getTile(overworldTileset, 6, 9);
+			bridgeHorizontalNorthEast = getTile(overworldTileset, 7, 9);
+			bridgeHorizontalNorthWest = getTile(overworldTileset, 5, 9);
+			bridgeHorizontalSouth = getTile(overworldTileset, 6, 10);
+			bridgeHorizontalSouthEast = getTile(overworldTileset, 7, 10);
+			bridgeHorizontalSouthWest = getTile(overworldTileset, 5, 10);
+			fenceEast = getTile(overworldTileset, 2, 10);
+			fenceNorth = getTile(overworldTileset, 1, 9);
+			fenceNorthEast = getTile(overworldTileset, 2, 9);
+			fenceNorthWest = getTile(overworldTileset, 0, 9);
+			fenceSouth = getTile(overworldTileset, 1,11);
+			fenceSouthEast = getTile(overworldTileset, 2, 11);
+			fenceSouthWest = getTile(overworldTileset, 0, 11);
+			fenceWest = getTile(overworldTileset, 0, 10);
+			grass = getTile(overworldTileset, 1, 1);
+			lamp = getTile(overworldTileset, 1, 10);
+			magentaFlower = getTile(overworldTileset, 5, 2);
+			pavement = getTile(overworldTileset, 5, 0);
+			pavementCornerNorthEast = getTile(overworldTileset, 0, 2);
+			pavementCornerNorthWest = getTile(overworldTileset, 2, 2);
+			pavementCornerSouthEast = getTile(overworldTileset, 0, 0);
+			pavementCornerSouthWest = getTile(overworldTileset, 2, 0);
+			pavementEast = getTile(overworldTileset, 0, 1);
+			pavementNorth = getTile(overworldTileset, 1, 2);
+			pavementNorthEast = getTile(overworldTileset, 4, 0);
+			pavementNorthWest = getTile(overworldTileset, 3, 0);
+			pavementSouth = getTile(overworldTileset, 1, 0);
+			pavementSouthEast = getTile(overworldTileset, 4, 1);
+			pavementSouthWest = getTile(overworldTileset, 3, 1);
+			pavementWest = getTile(overworldTileset, 2, 1);
+			purpleFlower = getTile(overworldTileset, 5, 1);
+			roofBlueHorizontalNorth = getTile(overworldTileset, 4, 13);
+			roofBlueHorizontalNorthChimney = getTile(overworldTileset, 3, 13);
+			roofBlueHorizontalNorthEastGutter = getTile(overworldTileset, 5, 12);
+			roofBlueHorizontalNorthEastRidge = getTile(overworldTileset, 5, 14);
+			roofBlueHorizontalNorthGutter = getTile(overworldTileset, 4, 12);
+			roofBlueHorizontalNorthRidge = getTile(overworldTileset, 4, 14);
+			roofBlueHorizontalNorthWestGutter = getTile(overworldTileset, 3, 12);
+			roofBlueHorizontalNorthWestRidge = getTile(overworldTileset, 3, 14);
+			roofBlueHorizontalNorthWindow = getTile(overworldTileset, 5, 13);
+			roofBlueHorizontalSouth = getTile(overworldTileset, 4, 16);
+			roofBlueHorizontalSouthChimney = getTile(overworldTileset, 3, 16);
+			roofBlueHorizontalSouthEastGutter = getTile(overworldTileset, 5, 17);
+			roofBlueHorizontalSouthEastRidge = getTile(overworldTileset, 5, 15);
+			roofBlueHorizontalSouthGutter = getTile(overworldTileset, 4, 17);
+			roofBlueHorizontalSouthRidge = getTile(overworldTileset, 4, 15);
+			roofBlueHorizontalSouthWestGutter = getTile(overworldTileset, 3, 17);
+			roofBlueHorizontalSouthWestRidge = getTile(overworldTileset, 4, 15);
+			roofBlueHorizontalSouthWindow = getTile(overworldTileset, 5, 16);
+			roofBlueVerticalEast = getTile(overworldTileset, 4, 7);
+			roofBlueVerticalEastChimney = getTile(overworldTileset, 4, 8);
+			roofBlueVerticalEastGutter = getTile(overworldTileset, 5, 7);
+			roofBlueVerticalEastRidge = getTile(overworldTileset, 3, 7);
+			roofBlueVerticalEastWindow = getTile(overworldTileset, 4, 6);
+			roofBlueVerticalNorthEastGutter = getTile(overworldTileset, 5, 6);
+			roofBlueVerticalNorthWestGutter = getTile(overworldTileset, 0, 6);
+			roofBlueVerticalSouthEastGutter = getTile(overworldTileset, 5, 8);
+			roofBlueVerticalSouthWestGutter = getTile(overworldTileset, 0, 8);
+			roofBlueVerticalWest = getTile(overworldTileset, 1, 7);
+			roofBlueVerticalWestChimney = getTile(overworldTileset, 1, 8);
+			roofBlueVerticalWestGutter = getTile(overworldTileset, 0, 7);
+			roofBlueVerticalWestRidge = getTile(overworldTileset, 2, 7);
+			roofBlueVerticalWestWindow = getTile(overworldTileset, 1, 6);
+			roofRedHorizontalNorth = getTile(overworldTileset, 1, 13);
+			roofRedHorizontalNorthChimney = getTile(overworldTileset, 0, 13);
+			roofRedHorizontalNorthEastGutter = getTile(overworldTileset, 2, 12);
+			roofRedHorizontalNorthEastRidge = getTile(overworldTileset, 2, 14);
+			roofRedHorizontalNorthGutter = getTile(overworldTileset, 1, 12);
+			roofRedHorizontalNorthRidge = getTile(overworldTileset, 1, 14);
+			roofRedHorizontalNorthWestGutter = getTile(overworldTileset, 0, 12);
+			roofRedHorizontalNorthWestRidge = getTile(overworldTileset, 0, 14);
+			roofRedHorizontalNorthWindow = getTile(overworldTileset, 2, 13);
+			roofRedHorizontalSouth = getTile(overworldTileset, 1, 16);
+			roofRedHorizontalSouthChimney = getTile(overworldTileset, 0, 16);
+			roofRedHorizontalSouthEastGutter = getTile(overworldTileset, 2, 17);
+			roofRedHorizontalSouthEastRidge = getTile(overworldTileset, 2, 15);
+			roofRedHorizontalSouthGutter = getTile(overworldTileset, 1, 17);
+			roofRedHorizontalSouthRidge = getTile(overworldTileset, 1, 15);
+			roofRedHorizontalSouthWestGutter = getTile(overworldTileset, 0, 17);
+			roofRedHorizontalSouthWestRidge = getTile(overworldTileset, 0, 15);
+			roofRedHorizontalSouthWindow = getTile(overworldTileset, 2, 16);
+			roofRedVerticalEast = getTile(overworldTileset, 4, 4);
+			roofRedVerticalEastChimney = getTile(overworldTileset, 4, 5);
+			roofRedVerticalEastGutter = getTile(overworldTileset, 5, 4);
+			roofRedVerticalEastRidge = getTile(overworldTileset, 3, 4);
+			roofRedVerticalEastWindow = getTile(overworldTileset, 4, 3);
+			roofRedVerticalNorthEastGutter = getTile(overworldTileset, 5, 3);
+			roofRedVerticalNorthWestGutter = getTile(overworldTileset, 0, 3);
+			roofRedVerticalSouthEastGutter = getTile(overworldTileset, 5, 5);
+			roofRedVerticalSouthWestGutter = getTile(overworldTileset, 0, 5);
+			roofRedVerticalWest = getTile(overworldTileset, 1, 4);
+			roofRedVerticalWestChimney = getTile(overworldTileset, 1, 5);
+			roofRedVerticalWestGutter = getTile(overworldTileset, 0, 4);
+			roofRedVerticalWestRidge = getTile(overworldTileset, 2, 4);
+			roofRedVerticalWestWindow = getTile(overworldTileset, 1, 3);
+			tiles = getTile(overworldTileset, 6, 11);
+			yellowFlower = getTile(overworldTileset, 4, 2);
+			water = getTile(overworldTileset, 5, 11);
+
+			BufferedImage milkFactoryTileset = getTexture("img/milkfactory/milk_factory_tileset.png");
+
+			conveyorBelt = getTile(milkFactoryTileset, 3, 3);
+			fenceEastMF = getTile(milkFactoryTileset, 5, 3);
+			fenceSouthMF = getTile(milkFactoryTileset, 4, 4);
+			fenceSouthEastMF = getTile(milkFactoryTileset, 5, 4);
+			fenceSouthWestMF = getTile(milkFactoryTileset, 3, 4);
+			fenceWestMF = getTile(milkFactoryTileset, 4, 3);
+			pipe1 = getTile(milkFactoryTileset, 2, 7);
+			pipe2 = getTile(milkFactoryTileset, 1, 8);
+			pipe3 = getTile(milkFactoryTileset, 2, 8);
+			pipeCorner = getTile(milkFactoryTileset, 1, 7);
+			ramp1 = getTile(milkFactoryTileset, 3, 5);
+			ramp2 = getTile(milkFactoryTileset, 4, 5);
+			ramp3 = getTile(milkFactoryTileset, 5, 5);
+			ramp4 = getTile(milkFactoryTileset, 3, 6);
+			ramp5 = getTile(milkFactoryTileset, 4, 6);
+			ramp6 = getTile(milkFactoryTileset, 5, 6);
+			sign1 = getTile(milkFactoryTileset, 3, 7);
+			sign2 = getTile(milkFactoryTileset, 4, 7);
+			sign3 = getTile(milkFactoryTileset, 5, 7);
+			sign4 = getTile(milkFactoryTileset, 3, 8);
+			sign5 = getTile(milkFactoryTileset, 4, 8);
+			sign6 = getTile(milkFactoryTileset, 5, 8);
+			tank1 = getTile(milkFactoryTileset, 0, 4);
+			tank2 = getTile(milkFactoryTileset, 1, 4);
+			tank3 = getTile(milkFactoryTileset, 2, 4);
+			tank4 = getTile(milkFactoryTileset, 0, 5);
+			tank5 = getTile(milkFactoryTileset, 1, 5);
+			tank6 = getTile(milkFactoryTileset, 2, 5);
+			tank7 = getTile(milkFactoryTileset, 0, 6);
+			tank8 = getTile(milkFactoryTileset, 1, 6);
+			tank9 = getTile(milkFactoryTileset, 2, 6);
+			trackMarkV = getTile(milkFactoryTileset, 1, 3);
+			trackMarkH = getTile(milkFactoryTileset, 2, 3);
 		}
 
 		private static BufferedImage getTile(BufferedImage tileset, int x, int y) {
@@ -272,8 +340,16 @@ public class Textures {
 			return bridgeHorizontalSouthWest;
 		}
 
+		public static BufferedImage getConveyorBelt() {
+			return conveyorBelt;
+		}
+
 		public static BufferedImage getFenceEast() {
 			return fenceEast;
+		}
+
+		public static BufferedImage getFenceEastMF() {
+			return fenceEastMF;
 		}
 
 		public static BufferedImage getFenceNorth() {
@@ -292,16 +368,32 @@ public class Textures {
 			return fenceSouth;
 		}
 
+		public static BufferedImage getFenceSouthMF() {
+			return fenceSouthMF;
+		}
+
 		public static BufferedImage getFenceSouthEast() {
 			return fenceSouthEast;
+		}
+
+		public static BufferedImage getFenceSouthEastMF() {
+			return fenceSouthEastMF;
 		}
 
 		public static BufferedImage getFenceSouthWest() {
 			return fenceSouthWest;
 		}
 
+		public static BufferedImage getFenceSouthWestMF() {
+			return fenceSouthWestMF;
+		}
+
 		public static BufferedImage getFenceWest() {
 			return fenceWest;
+		}
+
+		public static BufferedImage getFenceWestMF() {
+			return fenceWestMF;
 		}
 
 		public static BufferedImage getGrass() {
@@ -366,6 +458,22 @@ public class Textures {
 
 		public static BufferedImage getPavementWest() {
 			return pavementWest;
+		}
+
+		public static BufferedImage getPipe1() {
+			return pipe1;
+		}
+
+		public static BufferedImage getPipe2() {
+			return pipe2;
+		}
+
+		public static BufferedImage getPipe3() {
+			return pipe3;
+		}
+
+		public static BufferedImage getPipeCorner() {
+			return pipeCorner;
 		}
 
 		public static BufferedImage getPurpleFlower() {
@@ -628,8 +736,100 @@ public class Textures {
 			return roofRedVerticalWestWindow;
 		}
 
+		public static BufferedImage getRamp1() {
+			return ramp1;
+		}
+
+		public static BufferedImage getRamp2() {
+			return ramp2;
+		}
+
+		public static BufferedImage getRamp3() {
+			return ramp3;
+		}
+
+		public static BufferedImage getRamp4() {
+			return ramp4;
+		}
+
+		public static BufferedImage getRamp5() {
+			return ramp5;
+		}
+
+		public static BufferedImage getRamp6() {
+			return ramp6;
+		}
+
+		public static BufferedImage getSign1() {
+			return sign1;
+		}
+
+		public static BufferedImage getSign2() {
+			return sign2;
+		}
+
+		public static BufferedImage getSign3() {
+			return sign3;
+		}
+
+		public static BufferedImage getSign4() {
+			return sign4;
+		}
+
+		public static BufferedImage getSign5() {
+			return sign5;
+		}
+
+		public static BufferedImage getSign6() {
+			return sign6;
+		}
+
+		public static BufferedImage getTank1() {
+			return tank1;
+		}
+
+		public static BufferedImage getTank2() {
+			return tank2;
+		}
+
+		public static BufferedImage getTank3() {
+			return tank3;
+		}
+
+		public static BufferedImage getTank4() {
+			return tank4;
+		}
+
+		public static BufferedImage getTank5() {
+			return tank5;
+		}
+
+		public static BufferedImage getTank6() {
+			return tank6;
+		}
+
+		public static BufferedImage getTank7() {
+			return tank7;
+		}
+
+		public static BufferedImage getTank8() {
+			return tank8;
+		}
+
+		public static BufferedImage getTank9() {
+			return tank9;
+		}
+
 		public static BufferedImage getTiles() {
 			return tiles;
+		}
+
+		public static BufferedImage getTrackMarkH() {
+			return trackMarkH;
+		}
+
+		public static BufferedImage getTrackMarkV() {
+			return trackMarkV;
 		}
 
 		public static BufferedImage getWater() {
