@@ -14,7 +14,6 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.JPanel;
 
-import code.views.Game;
 import code.views.Menu;
 import code.views.View;
 
