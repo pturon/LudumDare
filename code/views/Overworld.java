@@ -5,26 +5,21 @@ import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 import java.util.List;
 
 import code.Material;
-import code.Tilemap;
 import code.entities.Actor;
 import code.entities.Cow;
 import code.entities.Milkman;
 
-public class Game extends View {
-	private Milkman milkman;
-	private List<Actor> actors = new ArrayList<>();
-	private Tilemap terrain = new Tilemap("img/overworld/overworld_tilemap.txt");
-	private Tilemap bottles = new Tilemap("img/overworld/overworld_tilemap_milkbottles.txt");
+public class Overworld extends Scene {
 	private int difficulty;
 
 	private static final Color DEBUGGING_GREEN = new Color(0, 255, 0, 128);
 	private static final Color DEBUGGING_RED = new Color(255, 0, 0, 128);
 
-	public Game(int difficulty) {
+	public Overworld(int difficulty) {
+		super("img/overworld/overworld_tilemap.txt", "img/overworld/overworld_tilemap_milkbottles.txt");
 		milkman = new Milkman(64, 64, this);
 		synchronized(actors) {
 			actors.add(milkman);
@@ -59,7 +54,7 @@ public class Game extends View {
 		for(int y = 0; y < terrain.getHeight(); y++) {
 			for(int x = 0; x < terrain.getWidth(); x++) {
 				graphics.drawImage(terrain.getMaterial(x, y).getImage(), 32 * x - mapOffsetX, 32 * y - mapOffsetY, null);
-				if(bottles.getMaterial(x, y) == Material.BOTTLE) {
+				if(items.getMaterial(x, y) == Material.BOTTLE) {
 					graphics.drawImage(Material.BOTTLE.getImage(), 32 * x - mapOffsetX, 32 * y - mapOffsetY, null);
 				}
 				if(debugging) {
@@ -91,18 +86,6 @@ public class Game extends View {
 		graphics.drawString("Bottles: " + milkman.getBottles(), 10, 20);
 
 		return image;
-	}
-
-	public List<Actor> getActors() {
-		return actors;
-	}
-
-	public Milkman getMilkman() {
-		return milkman;
-	}
-
-	public boolean isPixelSolid(int pixelX, int pixelY) {
-		return terrain.getMaterial(pixelX / 32, pixelY / 32).isSolid();
 	}
 
 	@Override
@@ -154,7 +137,7 @@ public class Game extends View {
 	}
 
 	public void removeBottleAt(int x, int y) {
-		bottles.setMaterial(x / 32, y / 32, Material.NONE);
+		items.setMaterial(x / 32, y / 32, Material.NONE);
 	}
 
 	public void step() {
@@ -167,7 +150,7 @@ public class Game extends View {
 		//pick up bottle
 		int tileX = milkman.getX() / 32;
 		int tileY = milkman.getY() / 32;
-		if(bottles.getMaterial(tileX, tileY) == Material.BOTTLE && milkman.canPickupBottles()) {
+		if(items.getMaterial(tileX, tileY) == Material.BOTTLE && milkman.canPickupBottles()) {
 			milkman.pickupBottle();
 		}
 	}

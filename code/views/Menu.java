@@ -87,7 +87,7 @@ public class Menu extends View {
 		case KeyEvent.VK_SPACE:
 			switch(buttons[selection]){
 			case "play":
-				mainFrame.setCurrentView(new Game(difficulty));
+				mainFrame.setCurrentView(new Overworld(difficulty));
 				break;
 			case "difficulty":
 				difficulty = (difficulty + 1) % 3;
@@ -150,7 +150,7 @@ public class Menu extends View {
 		if(mouseEvent.getX() > 32 && mouseEvent.getX() < 444){
 			if(mouseEvent.getY() > 288 && mouseEvent.getY() < 352 && mousePressedOn == 1){
 				mousePressedOn = 0;
-				mainFrame.setCurrentView(new Game(difficulty));
+				mainFrame.setCurrentView(new Overworld(difficulty));
 			} else if(mouseEvent.getY() > 384 && mouseEvent.getY() < 448 && mousePressedOn == 2){
 				mousePressedOn = 0;
 				difficulty = (difficulty + 1) % 3;

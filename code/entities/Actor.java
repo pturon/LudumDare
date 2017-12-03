@@ -4,18 +4,18 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.List;
 
-import code.views.Game;
+import code.views.Overworld;
 
 public abstract class Actor {
 	protected int x;
 	protected int y;
-	protected Game game;
+	protected Overworld overworld;
 	protected long stepCounter = 0;
 
-	protected Actor(int x, int y, Game game) {
+	protected Actor(int x, int y, Overworld overworld) {
 		this.x = x;
 		this.y = y;
-		this.game = game;
+		this.overworld = overworld;
 	}
 
 	public Rectangle getHitbox() {
@@ -46,7 +46,7 @@ public abstract class Actor {
 	protected boolean moveLeft() {
 		x--;
 		//check hitboxes
-		List<Actor> actors = game.getActors();
+		List<Actor> actors = overworld.getActors();
 		for(Actor actor : actors) {
 			if(actor != this && actor.getHitbox().intersects(getHitbox()) && actor.x < x) {
 				x++;
@@ -55,15 +55,15 @@ public abstract class Actor {
 		}
 
 		//check terrain
-		if(game.isPixelSolid(x - (getWidth() / 2), y)) {
+		if(overworld.isPixelSolid(x - (getWidth() / 2), y)) {
 			x++;
 			return false;
 		}
 
 		//funnel
-		if(game.isPixelSolid(x - (getWidth() / 2), y - (getHeight()) / 2)) {
+		if(overworld.isPixelSolid(x - (getWidth() / 2), y - (getHeight()) / 2)) {
 			y++;
-		} else if(game.isPixelSolid(x - (getWidth() / 2), y + (getHeight() / 2) - 1)) {
+		} else if(overworld.isPixelSolid(x - (getWidth() / 2), y + (getHeight() / 2) - 1)) {
 			y--;
 		}
 
@@ -76,7 +76,7 @@ public abstract class Actor {
 	protected boolean moveRight() {
 		x++;
 		//check hitboxes
-		List<Actor> actors = game.getActors();
+		List<Actor> actors = overworld.getActors();
 		for(Actor actor : actors) {
 			if(actor != this && actor.getHitbox().intersects(getHitbox()) && actor.x > x) {
 				x--;
@@ -85,15 +85,15 @@ public abstract class Actor {
 		}
 
 		//check terrain
-		if(game.isPixelSolid(x + (getWidth() / 2), y)) {
+		if(overworld.isPixelSolid(x + (getWidth() / 2), y)) {
 			x--;
 			return false;
 		}
 
 		//funnel
-		if(game.isPixelSolid(x + (getWidth() / 2) - 1, y - (getHeight()) / 2)) {
+		if(overworld.isPixelSolid(x + (getWidth() / 2) - 1, y - (getHeight()) / 2)) {
 			y++;
-		} else if(game.isPixelSolid(x + (getWidth() / 2) - 1, y + (getHeight() / 2) - 1)) {
+		} else if(overworld.isPixelSolid(x + (getWidth() / 2) - 1, y + (getHeight() / 2) - 1)) {
 			y--;
 		}
 
@@ -106,7 +106,7 @@ public abstract class Actor {
 	protected boolean moveUp() {
 		y--;
 		//check hitboxes
-		List<Actor> actors = game.getActors();
+		List<Actor> actors = overworld.getActors();
 		for(Actor actor : actors) {
 			if(actor != this && actor.getHitbox().intersects(getHitbox()) && actor.y < y) {
 				y++;
@@ -115,15 +115,15 @@ public abstract class Actor {
 		}
 
 		//check terrain
-		if(game.isPixelSolid(x, y - (getHeight() / 2))) {
+		if(overworld.isPixelSolid(x, y - (getHeight() / 2))) {
 			y++;
 			return false;
 		}
 
 		//funnel
-		if(game.isPixelSolid(x - (getWidth() / 2), y - (getHeight()) / 2)) {
+		if(overworld.isPixelSolid(x - (getWidth() / 2), y - (getHeight()) / 2)) {
 			x++;
-		} else if(game.isPixelSolid(x + (getWidth() / 2) - 1, y - (getHeight()) / 2)) {
+		} else if(overworld.isPixelSolid(x + (getWidth() / 2) - 1, y - (getHeight()) / 2)) {
 			x--;
 		}
 
@@ -136,7 +136,7 @@ public abstract class Actor {
 	protected boolean moveDown() {
 		y++;
 		//check hitboxes
-		List<Actor> actors = game.getActors();
+		List<Actor> actors = overworld.getActors();
 		for(Actor actor : actors) {
 			if(actor != this && actor.getHitbox().intersects(getHitbox()) && actor.y > y) {
 				y--;
@@ -145,15 +145,15 @@ public abstract class Actor {
 		}
 
 		//check terrain
-		if(game.isPixelSolid(x, y + (getHeight() / 2))) {
+		if(overworld.isPixelSolid(x, y + (getHeight() / 2))) {
 			y--;
 			return false;
 		}
 
 		//funnel
-		if(game.isPixelSolid(x - (getWidth() / 2), y + (getHeight()) / 2)) {
+		if(overworld.isPixelSolid(x - (getWidth() / 2), y + (getHeight()) / 2)) {
 			x++;
-		} else if(game.isPixelSolid(x + (getWidth() / 2) - 1, y + (getHeight() / 2) - 1)) {
+		} else if(overworld.isPixelSolid(x + (getWidth() / 2) - 1, y + (getHeight() / 2) - 1)) {
 			x--;
 		}
 
