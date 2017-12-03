@@ -632,6 +632,26 @@ public class Textures {
 			//no instance allowed
 		}
 
+		public static class Cow {
+			private static BufferedImage[] walking = new BufferedImage[4];
+
+			private Cow() {
+				//no instance allowed
+			}
+
+			static {
+				BufferedImage cowSpritesheet = getTexture("img/cows/standard_spritesheet.png");
+				walking[0] = cowSpritesheet.getSubimage(16, 0, 32, 64);//UP
+				walking[1] = cowSpritesheet.getSubimage(16, 64, 32, 64);//DOWN
+				walking[2] = cowSpritesheet.getSubimage(0, 2 * 64 + 16, 64, 32);//RIGHT
+				walking[3] = cowSpritesheet.getSubimage(0, 3 * 64 + 16, 64, 32);//LEFT
+			}
+
+			public static BufferedImage getWalking(int direction) {
+				return walking[direction % 4];
+			}
+		}
+
 		public static class Milkman {
 			private static BufferedImage[][][] walking = new BufferedImage[4][4][9];
 
