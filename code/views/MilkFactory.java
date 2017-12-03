@@ -5,30 +5,20 @@ import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
-import code.Material;
-import code.Tilemap;
 import code.entities.Actor;
-import code.entities.Cow;
 import code.entities.Milkman;
 
-public class Overworld extends Scene {
+public class MilkFactory extends Scene {
 	private int difficulty;
-
-	protected Tilemap items;
 
 	private static final Color DEBUGGING_GREEN = new Color(0, 255, 0, 128);
 	private static final Color DEBUGGING_RED = new Color(255, 0, 0, 128);
 
-	public Overworld(int difficulty) {
-		super("img/overworld/overworld_tilemap.txt", Overworld.class);
-
-		items = new Tilemap("img/overworld/overworld_tilemap_milkbottles.txt", Overworld.class);
-		milkman = new Milkman(64, 64, this);
+	public MilkFactory(int difficulty) {
+		super("img/milkfactory/milk_factory_tilemap.txt", MilkFactory.class);
+		milkman = new Milkman(256, 128, this);
 		synchronized(actors) {
 			actors.add(milkman);
-			for(int i = 0; i < 5; i++) {
-				actors.add(new Cow((int)(Math.random() * 800), (int)(Math.random() * 600), this));
-			}
 		}
 		this.difficulty = difficulty;
 	}
@@ -57,9 +47,6 @@ public class Overworld extends Scene {
 		for(int y = 0; y < terrain.getHeight(); y++) {
 			for(int x = 0; x < terrain.getWidth(); x++) {
 				graphics.drawImage(terrain.getMaterial(x, y).getImage(), 32 * x - mapOffsetX, 32 * y - mapOffsetY, null);
-				if(items.getMaterial(x, y) == Material.BOTTLE) {
-					graphics.drawImage(Material.BOTTLE.getImage(), 32 * x - mapOffsetX, 32 * y - mapOffsetY, null);
-				}
 				if(debugging) {
 					if(terrain.getMaterial(x, y).isSolid()) {
 						graphics.setColor(DEBUGGING_RED);
@@ -85,26 +72,7 @@ public class Overworld extends Scene {
 			}
 		}
 
-		graphics.setColor(Color.WHITE);
-		graphics.drawString("Bottles: " + milkman.getBottles(), 10, 20);
-
 		return image;
-	}
-
-	public void removeBottleAt(int x, int y) {
-		items.setMaterial(x / 32, y / 32, Material.NONE);
-	}
-
-	@Override
-	public void step() {
-		super.step();
-
-		//pick up bottle
-		int tileX = milkman.getX() / 32;
-		int tileY = milkman.getY() / 32;
-		if(items.getMaterial(tileX, tileY) == Material.BOTTLE && milkman.canPickupBottles()) {
-			milkman.pickupBottle();
-		}
 	}
 
 	@Override

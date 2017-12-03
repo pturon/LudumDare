@@ -9,7 +9,7 @@ public class Tilemap {
 	private int height;
 	private Material[][] materials;
 
-	public Tilemap(String path) {
+	public Tilemap(String path, Class parentClass) {
 		try(InputStream stream = ClassLoader.getSystemClassLoader().getResourceAsStream(path);
 			BufferedReader reader = new BufferedReader(new InputStreamReader(stream))) {
 
@@ -25,7 +25,7 @@ public class Tilemap {
 			for(int y = 0; y < height; y++) {
 				String[] line = reader.readLine().split(",");
 				for(int x = 0; x < width; x++) {
-					materials[x][y] = Material.byId(Integer.parseInt(line[x]));
+					materials[x][y] = Material.byId(Integer.parseInt(line[x]), parentClass);
 				}
 			}
 		} catch(Exception exception) {

@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 
 import code.Clock;
 import code.Textures;
-import code.views.Overworld;
+import code.views.Scene;
 
 public class Cow extends Actor {
 	public static final int UP = 0;
@@ -16,8 +16,8 @@ public class Cow extends Actor {
 	private static final int MAX_TURNS_PER_SECOND = 2;
 	private int turningCooldown = 0;
 
-	public Cow(int x, int y, Overworld game) {
-		super(x, y, game);
+	public Cow(int x, int y, Scene scene) {
+		super(x, y, scene);
 	}
 
 	@Override
@@ -52,8 +52,8 @@ public class Cow extends Actor {
 			return;
 		}
 
-		int targetX = overworld.getMilkman().getX();
-		int targetY = overworld.getMilkman().getY();
+		int targetX = scene.getMilkman().getX();
+		int targetY = scene.getMilkman().getY();
 
 		if(turningCooldown <= 0) {
 			turn(targetX, targetY);
@@ -70,7 +70,7 @@ public class Cow extends Actor {
 		int previousDirection = direction;
 
 		if(Math.abs(distanceX) > Math.abs(distanceY)) {
-			if(!overworld.isPixelSolid(x - 32, y) && !overworld.isPixelSolid(x + 31, y)) {
+			if(!scene.isPixelSolid(x - 32, y) && !scene.isPixelSolid(x + 31, y)) {
 				if(targetX < x) {
 					direction = LEFT;
 				} else {
@@ -78,7 +78,7 @@ public class Cow extends Actor {
 				}
 			}
 		} else {
-			if(!overworld.isPixelSolid(x, y - 32) && !overworld.isPixelSolid(x, y + 31)) {
+			if(!scene.isPixelSolid(x, y - 32) && !scene.isPixelSolid(x, y + 31)) {
 				if(targetY < y) {
 					direction = UP;
 				} else {
