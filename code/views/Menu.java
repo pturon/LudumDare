@@ -29,6 +29,7 @@ public class Menu extends View {
 	private int selection = 0;
 	private int difficulty = 1;
 	private int mousePressedOn = 0;
+	private int cloudAnimation = 0;
 
 	public Menu(int difficulty, MainFrame mainFrame) {
 		this.difficulty = difficulty;
@@ -42,7 +43,7 @@ public class Menu extends View {
 		
 		graphics.drawImage(Textures.Menu.getBackground(), 0, 0, null);
 
-		graphics.drawImage(Textures.Menu.getTitle(), 176, 0, null);
+		graphics.drawImage(Textures.Menu.getTitle((cloudAnimation/20)%4), 176, 0, null);
 		graphics.drawImage(Textures.Menu.getMilkman(), 476, 256, null);		
 
 		graphics.drawImage(Textures.Menu.getButton(), 32, 288, null);
@@ -111,7 +112,12 @@ public class Menu extends View {
 
 	@Override
 	public void step() {
-		
+		if(cloudAnimation != 0){
+			cloudAnimation++;
+			if(cloudAnimation == 360){
+				cloudAnimation = 0;
+			}
+		}
 	}
 
 	@Override
@@ -160,7 +166,9 @@ public class Menu extends View {
 			}
 		}
 		if(mouseEvent.getX() >= 306 && mouseEvent.getX() <= 342 && mouseEvent.getY() >= 30 && mouseEvent.getY() <= 132 && mousePressedOn == 4){
-			System.out.println("smoke");
+			if(cloudAnimation == 0){
+				cloudAnimation++;
+			}
 		}else if(mouseEvent.getX() >= 480 && mouseEvent.getX() <= 558 && mouseEvent.getY() >= 142 && mouseEvent.getY() <= 256 && mousePressedOn == 5){
 			//Only sound in the game, could also be excluded
 			File file = new File("src/sound/cow.wav");

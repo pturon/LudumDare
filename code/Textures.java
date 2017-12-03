@@ -707,6 +707,9 @@ public class Textures {
 	public static class Menu {
 		private static BufferedImage background = getTexture("img/menu/background.png");
 		private static BufferedImage title = getTexture("img/menu/title.png");
+		private static BufferedImage title1 = getTexture("img/menu/title1.png");
+		private static BufferedImage title2 = getTexture("img/menu/title2.png");
+		private static BufferedImage title3 = getTexture("img/menu/title3.png");
 		private static BufferedImage button = getTexture("img/menu/button.png");
 		private static BufferedImage frame = getTexture("img/menu/frame.png");
 		private static BufferedImage milkman = getTexture("img/menu/milkman.png");
@@ -720,8 +723,19 @@ public class Textures {
 			return background;
 		}
 		
-		public static BufferedImage getTitle(){
-			return title;
+		public static BufferedImage getTitle(int cloudAnimation){
+			switch (cloudAnimation){
+			case 0:
+				return title;
+			case 1:
+				return title1;
+			case 2:
+				return title2;
+			case 3:
+				return title3;
+			default:
+				return title;
+			}
 		}
 		
 		public static BufferedImage getButton(){
@@ -740,7 +754,7 @@ public class Textures {
 			switch (difficulty){
 			case 0:
 				return difficultyEasy;
-			case 1:
+			case 10:
 				return difficultyNormal;
 			case 2:
 				return difficultyHard;
