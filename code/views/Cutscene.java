@@ -27,18 +27,20 @@ public class Cutscene extends View {
         BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_ARGB);
         Graphics2D graphics = image.createGraphics();
 
-        graphics.drawImage(Textures.CutSceneTextures.getFactoryOverview(), 0, 0, null);
-
         switch (currentFrame) {
             case 0:
+                graphics.drawImage(Textures.CutSceneTextures.getFactoryOverview(), 0, 0, null);
                 break;
             case 1:
+                graphics.drawImage(Textures.CutSceneTextures.getFactoryOverview(), 0, 0, null);
                 graphics.drawImage(Textures.CutSceneTextures.getExplosion_0(), 0, 0, null);
                 break;
             case 2:
+                graphics.drawImage(Textures.CutSceneTextures.getFactoryOverview(), 0, 0, null);
                 graphics.drawImage(Textures.CutSceneTextures.getExpolsion_1(), 0, 0, null);
                 break;
             case 3:
+                graphics.drawImage(Textures.CutSceneTextures.getFactoryOverview(), 0, 0, null);
                 graphics.drawImage(Textures.CutSceneTextures.getExplosion_2(), 0, 0, null);
                 break;
             case 4:
@@ -65,7 +67,11 @@ public class Cutscene extends View {
             currentFrame++;
             steps = 0;
         }
-        if (steps == 75 && currentFrame > 0) {
+        if (steps == 75 && currentFrame > 0 && currentFrame < 4) {
+            steps = 0;
+            currentFrame++;
+        }
+        if(steps == 256 && currentFrame == 4){
             steps = 0;
             currentFrame++;
         }
