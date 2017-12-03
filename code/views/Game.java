@@ -150,6 +150,10 @@ public class Game extends View {
 		}
 	}
 
+	public void removeBottleAt(int x, int y) {
+		bottles.setMaterial(x / 32, y / 32, Material.NONE);
+	}
+
 	public void step() {
 		synchronized(actors) {
 			for(Actor actor : actors) {
@@ -161,7 +165,6 @@ public class Game extends View {
 		int tileX = milkman.getX() / 32;
 		int tileY = milkman.getY() / 32;
 		if(bottles.getMaterial(tileX, tileY) == Material.BOTTLE && milkman.canPickupBottles()) {
-			bottles.setMaterial(tileX, tileY, Material.NONE);
 			milkman.pickupBottle();
 		}
 	}

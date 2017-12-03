@@ -2,6 +2,7 @@ package code.entities;
 
 import java.awt.image.BufferedImage;
 
+import code.Clock;
 import code.Textures;
 import code.views.Game;
 
@@ -25,6 +26,8 @@ public class Milkman extends Actor {
 	private int direction = RIGHT;
 	private boolean dominantDirection = HORIZONTAL;
 	private int frame = 0;
+
+	private int pickupFrame = -1;
 	private int bottles = 0;
 
 	public Milkman(int x, int y, Game game) {
@@ -32,7 +35,7 @@ public class Milkman extends Actor {
 	}
 
 	public boolean canPickupBottles() {
-		return bottles < 8;
+		return bottles < 8 && pickupFrame == -1;
 	}
 
 	public int getBottles() {
@@ -41,6 +44,9 @@ public class Milkman extends Actor {
 
 	@Override
 	public BufferedImage getImage() {
+		if(pickupFrame > -1) {
+			return Textures.Sprites.Milkman.getPickupAnimation(direction, pickupFrame, bottles);
+		}
 		return Textures.Sprites.Milkman.getWalkCycle(direction, frame, bottles);
 	}
 
@@ -55,7 +61,7 @@ public class Milkman extends Actor {
 	}
 
 	public void pickupBottle() {
-		bottles++;
+		pickupFrame++;
 	}
 
 	public void setLeftPressed(boolean isPressed) {
@@ -81,6 +87,21 @@ public class Milkman extends Actor {
 	@Override
 	public void step() {
 		super.step();
+
+		if(pickupFrame > 3) {
+			pickupFrame = -1;
+			bottles++;
+		}
+		if(pickupFrame > -1) {
+			if(stepCounter % (0.125 * Clock.getStepsPerSecond()) == 0) {
+				pickupFrame++;
+				if(pickupFrame == 2) {
+					game.removeBottleAt(x, y);
+				}
+			}
+			return;
+		}
+
 		boolean isMoving = (isLeftPressed != isRightPressed) || (isUpPressed != isDownPressed);
 
 		if(dominantDirection == HORIZONTAL) {

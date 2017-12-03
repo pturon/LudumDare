@@ -663,6 +663,7 @@ public class Textures {
 		}
 
 		public static class Milkman {
+			private static BufferedImage[][][] pickupAnimation = new BufferedImage[4][4][8];
 			private static BufferedImage[][][] walking = new BufferedImage[4][4][9];
 
 			private Milkman() {
@@ -683,6 +684,18 @@ public class Textures {
 						walking[direction][frame][4] = walking[direction][frame][3];
 					}
 				}
+
+				for(int direction = 0; direction < 4; direction++) {
+					for(int frame = 0; frame < 4; frame++) {
+						for(int bottles = 0; bottles < 8; bottles++) {
+							pickupAnimation[direction][frame][bottles] = milkmanSpritesheet.getSubimage(bottles * 128 + frame * 32, 128 + direction * 32, 32, 32);
+						}
+					}
+				}
+			}
+
+			public static BufferedImage getPickupAnimation(int direction, int frame, int bottles) {
+				return pickupAnimation[direction % 4][frame % 4][bottles % 8];
 			}
 
 			public static BufferedImage getWalkCycle(int direction, int frame, int bottles) {
