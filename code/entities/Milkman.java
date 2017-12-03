@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import code.Clock;
 import code.Textures;
 import code.views.Overworld;
+import code.views.Scene;
 
 public class Milkman extends Actor {
 	private static final int WIDTH = 32;
@@ -30,8 +31,8 @@ public class Milkman extends Actor {
 	private int pickupFrame = -1;
 	private int bottles = 0;
 
-	public Milkman(int x, int y, Overworld game) {
-		super(x, y, game);
+	public Milkman(int x, int y, Scene scene) {
+		super(x, y, scene);
 	}
 
 	public boolean canPickupBottles() {
@@ -95,8 +96,8 @@ public class Milkman extends Actor {
 		if(pickupFrame > -1) {
 			if(stepCounter % (0.125 * Clock.getStepsPerSecond()) == 0) {
 				pickupFrame++;
-				if(pickupFrame == 2) {
-					overworld.removeBottleAt(x, y);
+				if(pickupFrame == 2 && scene instanceof Overworld) {
+					((Overworld)scene).removeBottleAt(x, y);
 				}
 			}
 			return;

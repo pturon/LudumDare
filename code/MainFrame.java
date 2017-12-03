@@ -34,6 +34,7 @@ public class MainFrame extends Frame {
 
 	public MainFrame() {
 		setResizable(false);
+		setTitle("Milk Hunt");
 
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -41,8 +42,6 @@ public class MainFrame extends Frame {
 				System.exit(0);
 			}
 		});
-
-		setSize(WIDTH, HEIGHT);
 
 	    //set position to the center of the screen
 	    Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
@@ -54,6 +53,7 @@ public class MainFrame extends Frame {
 				if(currentView != null)g.drawImage(currentView.getImage(debugging), 0, 0, null);
 			}
 		};
+		panel.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		add(panel);
 
 		addKeyListener(new KeyListener() {
@@ -131,6 +131,7 @@ public class MainFrame extends Frame {
 		
 		Clock.setCurrentView(currentView);
 
+		pack();
 		setVisible(true);
 	}
 

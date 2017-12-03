@@ -1,5 +1,6 @@
 package code.views;
 
+import code.Clock;
 import code.MainFrame;
 import code.Textures;
 
@@ -75,7 +76,9 @@ public class Menu extends View {
             case KeyEvent.VK_SPACE:
                 switch (buttons[selection]) {
                     case "play":
-                        mainFrame.setCurrentView(new Overworld(difficulty));
+                        Cutscene cutscene = new Cutscene(mainFrame, difficulty);
+                        Clock.setCurrentView(cutscene);
+                        mainFrame.setCurrentView(cutscene);
                         break;
                     case "difficulty":
                         difficulty = (difficulty + 1) % 3;
@@ -138,7 +141,9 @@ public class Menu extends View {
         if (mouseEvent.getX() > 32 && mouseEvent.getX() < 444) {
             if (mouseEvent.getY() > 288 && mouseEvent.getY() < 352 && mousePressedOn == 1) {
                 mousePressedOn = 0;
-                mainFrame.setCurrentView(new Overworld(difficulty));
+                Cutscene cutscene = new Cutscene(mainFrame, difficulty);
+                Clock.setCurrentView(cutscene);
+                mainFrame.setCurrentView(cutscene);
             } else if (mouseEvent.getY() > 384 && mouseEvent.getY() < 448 && mousePressedOn == 2) {
                 mousePressedOn = 0;
                 difficulty = (difficulty + 1) % 3;
