@@ -70,16 +70,20 @@ public class Cow extends Actor {
 		int previousDirection = direction;
 
 		if(Math.abs(distanceX) > Math.abs(distanceY)) {
-			if(targetX < x) {
-				direction = LEFT;
-			} else {
-				direction = RIGHT;
+			if(!game.isPixelSolid(x - 32, y) && !game.isPixelSolid(x + 31, y)) {
+				if(targetX < x) {
+					direction = LEFT;
+				} else {
+					direction = RIGHT;
+				}
 			}
 		} else {
-			if(targetY < y) {
-				direction = UP;
-			} else {
-				direction = DOWN;
+			if(!game.isPixelSolid(x, y - 32) && !game.isPixelSolid(x, y + 31)) {
+				if(targetY < y) {
+					direction = UP;
+				} else {
+					direction = DOWN;
+				}
 			}
 		}
 
