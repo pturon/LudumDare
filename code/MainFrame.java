@@ -32,6 +32,7 @@ public class MainFrame extends Frame {
 
 	public MainFrame() {
 		setResizable(false);
+		setTitle("Milk Hunt");
 
 		addWindowListener(new WindowAdapter() {
 			@Override

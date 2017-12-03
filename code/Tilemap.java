@@ -47,4 +47,11 @@ public class Tilemap {
 		}
 		return materials[x][y];
 	}
+
+	public void setMaterial(int x, int y, Material material) {
+		if(x < 0 || y < 0 || x >= materials.length || y >= materials[x].length) {
+			return;
+		}
+		materials[x][y] = material;
+	}
 }

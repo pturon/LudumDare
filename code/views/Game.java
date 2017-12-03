@@ -84,6 +84,9 @@ public class Game extends View {
 			}
 		}
 
+		graphics.setColor(Color.WHITE);
+		graphics.drawString("Bottles: " + milkman.getBottles(), 10, 20);
+
 		return image;
 	}
 
@@ -152,6 +155,14 @@ public class Game extends View {
 			for(Actor actor : actors) {
 				actor.step();
 			}
+		}
+
+		//pick up bottle
+		int tileX = milkman.getX() / 32;
+		int tileY = milkman.getY() / 32;
+		if(bottles.getMaterial(tileX, tileY) == Material.BOTTLE && milkman.canPickupBottles()) {
+			bottles.setMaterial(tileX, tileY, Material.NONE);
+			milkman.pickupBottle();
 		}
 	}
 }

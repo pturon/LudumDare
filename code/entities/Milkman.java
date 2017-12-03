@@ -31,6 +31,14 @@ public class Milkman extends Actor {
 		super(x, y, game);
 	}
 
+	public boolean canPickupBottles() {
+		return bottles < 8;
+	}
+
+	public int getBottles() {
+		return bottles;
+	}
+
 	@Override
 	public BufferedImage getImage() {
 		return Textures.Sprites.Milkman.getWalkCycle(direction, frame, bottles);
@@ -44,6 +52,10 @@ public class Milkman extends Actor {
 	@Override
 	public int getHeight() {
 		return HEIGHT;
+	}
+
+	public void pickupBottle() {
+		bottles++;
 	}
 
 	public void setLeftPressed(boolean isPressed) {
