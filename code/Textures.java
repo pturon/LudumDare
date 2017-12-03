@@ -132,9 +132,6 @@ public class Textures {
 		private static BufferedImage water;
 		private static BufferedImage yellowFlower;
 
-		private static BufferedImage factoryOverview;
-		private static BufferedImage explosion_0;
-		private static 
 
 		static {
 			BufferedImage tileset = getTexture("img/overworld/overworld_tileset.png");
@@ -761,6 +758,31 @@ public class Textures {
 			return milkman;
 		}
 		
+	}
+
+	public static class CutSceneTextures{
+
+		private static BufferedImage factoryOverview = getTexture("img/cutscenes/factory_overview.png");
+		private static BufferedImage explosion_0;
+		private static BufferedImage expolsion_1;
+		private static BufferedImage explosion_2;
+
+		public static BufferedImage getFactoryOverview() {
+			return factoryOverview;
+		}
+
+		public static BufferedImage getExplosion_0() {
+			return explosion_0;
+		}
+
+		public static BufferedImage getExpolsion_1() {
+			return expolsion_1;
+		}
+
+		public static BufferedImage getExplosion_2() {
+			return explosion_2;
+		}
+
 	}
 	
 }
