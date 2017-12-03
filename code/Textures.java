@@ -40,6 +40,22 @@ public class Textures {
 		}
 	}
 
+	public static class HUD {
+		private HUD() {
+			//no instance allowed
+		}
+
+		private static BufferedImage instructions;
+
+		static {
+			instructions = getTexture("img/hud/instructions.png");
+		}
+
+		public static BufferedImage getInstructions() {
+			return instructions;
+		}
+	}
+
 	public static class Terrain {
 		private Terrain() {
 			//no instance allowed

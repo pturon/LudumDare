@@ -76,7 +76,9 @@ public class Menu extends View {
             case KeyEvent.VK_SPACE:
                 switch (buttons[selection]) {
                     case "play":
-                        mainFrame.setCurrentView(new Overworld(difficulty));
+                        Cutscene cutscene = new Cutscene(mainFrame, difficulty);
+                        Clock.setCurrentView(cutscene);
+                        mainFrame.setCurrentView(cutscene);
                         break;
                     case "difficulty":
                         difficulty = (difficulty + 1) % 3;
