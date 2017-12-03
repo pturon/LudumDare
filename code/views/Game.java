@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
+import code.Material;
 import code.Tilemap;
 import code.entities.Actor;
 import code.entities.Cow;
@@ -15,7 +16,8 @@ import code.entities.Milkman;
 public class Game extends View {
 	private Milkman milkman;
 	private List<Actor> actors = new ArrayList<>();
-	private Tilemap tilemap = new Tilemap();
+	private Tilemap terrain = new Tilemap("img/overworld/overworld_tilemap.txt");
+	private Tilemap bottles = new Tilemap("img/overworld/overworld_tilemap_milkbottles.txt");
 	private int difficulty;
 
 	private static final Color DEBUGGING_GREEN = new Color(0, 255, 0, 128);
@@ -43,21 +45,24 @@ public class Game extends View {
 		int mapOffsetX = milkman.getX() - (WIDTH / 2);
 		if(mapOffsetX < 0) {
 			mapOffsetX = 0;
-		} else if(mapOffsetX > tilemap.getWidth() * 32 - WIDTH) {
-			mapOffsetX = tilemap.getWidth() * 32 - WIDTH;
+		} else if(mapOffsetX > terrain.getWidth() * 32 - WIDTH) {
+			mapOffsetX = terrain.getWidth() * 32 - WIDTH;
 		}
 		int mapOffsetY = milkman.getY() - (HEIGHT / 2);
 		if(mapOffsetY < 0) {
 			mapOffsetY = 0;
-		} else if(mapOffsetY > tilemap.getHeight() * 32 - HEIGHT) {
-			mapOffsetY = tilemap.getHeight() * 32 - HEIGHT;
+		} else if(mapOffsetY > terrain.getHeight() * 32 - HEIGHT) {
+			mapOffsetY = terrain.getHeight() * 32 - HEIGHT;
 		}
 
-		for(int y = 0; y < tilemap.getHeight(); y++) {
-			for(int x = 0; x < tilemap.getWidth(); x++) {
-				graphics.drawImage(tilemap.getMaterial(x, y).getImage(), 32 * x - mapOffsetX, 32 * y - mapOffsetY, null);
+		for(int y = 0; y < terrain.getHeight(); y++) {
+			for(int x = 0; x < terrain.getWidth(); x++) {
+				graphics.drawImage(terrain.getMaterial(x, y).getImage(), 32 * x - mapOffsetX, 32 * y - mapOffsetY, null);
+				if(bottles.getMaterial(x, y) == Material.BOTTLE) {
+					graphics.drawImage(Material.BOTTLE.getImage(), 32 * x - mapOffsetX, 32 * y - mapOffsetY, null);
+				}
 				if(debugging) {
-					if(tilemap.getMaterial(x, y).isSolid()) {
+					if(terrain.getMaterial(x, y).isSolid()) {
 						graphics.setColor(DEBUGGING_RED);
 					} else {
 						graphics.setColor(DEBUGGING_GREEN);
@@ -81,6 +86,9 @@ public class Game extends View {
 			}
 		}
 
+		graphics.setColor(Color.WHITE);
+		graphics.drawString("Bottles: " + milkman.getBottles(), 10, 20);
+
 		return image;
 	}
 
@@ -93,7 +101,7 @@ public class Game extends View {
 	}
 
 	public boolean isPixelSolid(int pixelX, int pixelY) {
-		return tilemap.getMaterial(pixelX / 32, pixelY / 32).isSolid();
+		return terrain.getMaterial(pixelX / 32, pixelY / 32).isSolid();
 	}
 
 	@Override
@@ -144,11 +152,22 @@ public class Game extends View {
 		}
 	}
 
+	public void removeBottleAt(int x, int y) {
+		bottles.setMaterial(x / 32, y / 32, Material.NONE);
+	}
+
 	public void step() {
 		synchronized(actors) {
 			for(Actor actor : actors) {
 				actor.step();
 			}
+		}
+
+		//pick up bottle
+		int tileX = milkman.getX() / 32;
+		int tileY = milkman.getY() / 32;
+		if(bottles.getMaterial(tileX, tileY) == Material.BOTTLE && milkman.canPickupBottles()) {
+			milkman.pickupBottle();
 		}
 	}
 }

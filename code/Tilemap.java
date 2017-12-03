@@ -9,8 +9,8 @@ public class Tilemap {
 	private int height;
 	private Material[][] materials;
 
-	public Tilemap() {
-		try(InputStream stream = ClassLoader.getSystemClassLoader().getResourceAsStream("img/overworld/overworld_tilemap.txt");
+	public Tilemap(String path) {
+		try(InputStream stream = ClassLoader.getSystemClassLoader().getResourceAsStream(path);
 			BufferedReader reader = new BufferedReader(new InputStreamReader(stream))) {
 
 			width = Integer.parseInt(reader.readLine().substring(10));//tileswide xxx
@@ -46,5 +46,12 @@ public class Tilemap {
 			return Material.NONE;
 		}
 		return materials[x][y];
+	}
+
+	public void setMaterial(int x, int y, Material material) {
+		if(x < 0 || y < 0 || x >= materials.length || y >= materials[x].length) {
+			return;
+		}
+		materials[x][y] = material;
 	}
 }

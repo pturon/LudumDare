@@ -28,16 +28,8 @@ public abstract class Actor {
 		return x;
 	}
 
-	public void setX(int x) {
-		this.x = x;
-	}
-
 	public int getY() {
 		return y;
-	}
-
-	public void setY(int y) {
-		this.y = y;
 	}
 
 	public abstract int getWidth();
@@ -56,7 +48,7 @@ public abstract class Actor {
 		//check hitboxes
 		List<Actor> actors = game.getActors();
 		for(Actor actor : actors) {
-			if(actor != this && actor.getHitbox().intersects(getHitbox())) {
+			if(actor != this && actor.getHitbox().intersects(getHitbox()) && actor.x < x) {
 				x++;
 				return false;
 			}
@@ -66,6 +58,13 @@ public abstract class Actor {
 		if(game.isPixelSolid(x - (getWidth() / 2), y)) {
 			x++;
 			return false;
+		}
+
+		//funnel
+		if(game.isPixelSolid(x - (getWidth() / 2), y - (getHeight()) / 2)) {
+			y++;
+		} else if(game.isPixelSolid(x - (getWidth() / 2), y + (getHeight() / 2) - 1)) {
+			y--;
 		}
 
 		return true;
@@ -79,7 +78,7 @@ public abstract class Actor {
 		//check hitboxes
 		List<Actor> actors = game.getActors();
 		for(Actor actor : actors) {
-			if(actor != this && actor.getHitbox().intersects(getHitbox())) {
+			if(actor != this && actor.getHitbox().intersects(getHitbox()) && actor.x > x) {
 				x--;
 				return false;
 			}
@@ -89,6 +88,13 @@ public abstract class Actor {
 		if(game.isPixelSolid(x + (getWidth() / 2), y)) {
 			x--;
 			return false;
+		}
+
+		//funnel
+		if(game.isPixelSolid(x + (getWidth() / 2) - 1, y - (getHeight()) / 2)) {
+			y++;
+		} else if(game.isPixelSolid(x + (getWidth() / 2) - 1, y + (getHeight() / 2) - 1)) {
+			y--;
 		}
 
 		return true;
@@ -102,7 +108,7 @@ public abstract class Actor {
 		//check hitboxes
 		List<Actor> actors = game.getActors();
 		for(Actor actor : actors) {
-			if(actor != this && actor.getHitbox().intersects(getHitbox())) {
+			if(actor != this && actor.getHitbox().intersects(getHitbox()) && actor.y < y) {
 				y++;
 				return false;
 			}
@@ -112,6 +118,13 @@ public abstract class Actor {
 		if(game.isPixelSolid(x, y - (getHeight() / 2))) {
 			y++;
 			return false;
+		}
+
+		//funnel
+		if(game.isPixelSolid(x - (getWidth() / 2), y - (getHeight()) / 2)) {
+			x++;
+		} else if(game.isPixelSolid(x + (getWidth() / 2) - 1, y - (getHeight()) / 2)) {
+			x--;
 		}
 
 		return true;
@@ -125,7 +138,7 @@ public abstract class Actor {
 		//check hitboxes
 		List<Actor> actors = game.getActors();
 		for(Actor actor : actors) {
-			if(actor != this && actor.getHitbox().intersects(getHitbox())) {
+			if(actor != this && actor.getHitbox().intersects(getHitbox()) && actor.y > y) {
 				y--;
 				return false;
 			}
@@ -135,6 +148,13 @@ public abstract class Actor {
 		if(game.isPixelSolid(x, y + (getHeight() / 2))) {
 			y--;
 			return false;
+		}
+
+		//funnel
+		if(game.isPixelSolid(x - (getWidth() / 2), y + (getHeight()) / 2)) {
+			x++;
+		} else if(game.isPixelSolid(x + (getWidth() / 2) - 1, y + (getHeight() / 2) - 1)) {
+			x--;
 		}
 
 		return true;
