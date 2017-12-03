@@ -67,7 +67,7 @@ public class Cutscene extends View {
             currentFrame++;
             steps = 0;
         }
-        if (steps == 75 && currentFrame > 0 && currentFrame < 4) {
+        if (steps == 50 && currentFrame > 0 && currentFrame < 4) {
             steps = 0;
             currentFrame++;
         }
