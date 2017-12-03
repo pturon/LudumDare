@@ -1,2 +1,9 @@
 
 *.pyxel
+
+\.idea/misc\.xml
+
+\.idea/
+
+*.iml
+\out/
