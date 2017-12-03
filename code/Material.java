@@ -107,7 +107,10 @@ public enum Material {
 	ROOF_BLUE_HORIZONTAL_SOUTH_WEST_GUTTER(139, true, Overworld.class),
 	ROOF_BLUE_HORIZONTAL_SOUTH_GUTTER(140, true, Overworld.class),
 	ROOF_BLUE_HORIZONTAL_SOUTH_EAST_GUTTER(141, true, Overworld.class),
-	BOTTLE(144, true, Overworld.class),
+
+	EMPTY_BOTTLE(144, false, Overworld.class),
+	FILLED_BOTTLE(145, false, Overworld.class),
+	CARDBOARD_BOX(146, false, Overworld.class),
 
 	PAVEMENT_SOUTH_MF(1, false, MilkFactory.class),
 	PAVEMENT_NORTH_WEST_MF(3, false, MilkFactory.class),
@@ -178,8 +181,6 @@ public enum Material {
 		case ASPHALT:
 		case ASPHALT_MF:
 			return Textures.Terrain.getAsphalt();
-		case BOTTLE:
-			return Textures.getBottle();
 		case BRIDGE_HORIZONTAL_NORTH:
 			return Textures.Terrain.getBridgeHorizontalNorth();
 		case BRIDGE_HORIZONTAL_NORTH_EAST:
@@ -192,8 +193,12 @@ public enum Material {
 			return Textures.Terrain.getBridgeHorizontalSouthEast();
 		case BRIDGE_HORIZONTAL_SOUTH_WEST:
 			return Textures.Terrain.getBridgeHorizontalSouthWest();
+		case CARDBOARD_BOX:
+			return Textures.getCardboardBox();
 		case CONVEYOR_BELT:
 			return Textures.Terrain.getConveyorBelt();
+		case EMPTY_BOTTLE:
+			return Textures.getEmptyBottle();
 		case FENCE_EAST:
 			return Textures.Terrain.getFenceEast();
 		case FENCE_EAST_MF:
@@ -220,6 +225,8 @@ public enum Material {
 			return Textures.Terrain.getFenceWest();
 		case FENCE_WEST_MF:
 			return Textures.Terrain.getFenceWestMF();
+		case FILLED_BOTTLE:
+			return Textures.getFilledBottle();
 		case GRASS:
 		case GRASS_MF:
 			return Textures.Terrain.getGrass();

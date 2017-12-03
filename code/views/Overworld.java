@@ -57,9 +57,7 @@ public class Overworld extends Scene {
 		for(int y = 0; y < terrain.getHeight(); y++) {
 			for(int x = 0; x < terrain.getWidth(); x++) {
 				graphics.drawImage(terrain.getMaterial(x, y).getImage(), 32 * x - mapOffsetX, 32 * y - mapOffsetY, null);
-				if(items.getMaterial(x, y) == Material.BOTTLE) {
-					graphics.drawImage(Material.BOTTLE.getImage(), 32 * x - mapOffsetX, 32 * y - mapOffsetY, null);
-				}
+				graphics.drawImage(items.getMaterial(x, y).getImage(), 32 * x - mapOffsetX, 32 * y - mapOffsetY, null);
 				if(debugging) {
 					if(terrain.getMaterial(x, y).isSolid()) {
 						graphics.setColor(DEBUGGING_RED);
@@ -92,7 +90,7 @@ public class Overworld extends Scene {
 	}
 
 	public void removeBottleAt(int x, int y) {
-		items.setMaterial(x / 32, y / 32, Material.NONE);
+		items.setMaterial(x / 32, y / 32, Material.CARDBOARD_BOX);
 	}
 
 	@Override
@@ -102,7 +100,7 @@ public class Overworld extends Scene {
 		//pick up bottle
 		int tileX = milkman.getX() / 32;
 		int tileY = milkman.getY() / 32;
-		if(items.getMaterial(tileX, tileY) == Material.BOTTLE && milkman.canPickupBottles()) {
+		if(items.getMaterial(tileX, tileY) == Material.EMPTY_BOTTLE && milkman.canPickupBottles()) {
 			milkman.pickupBottle();
 		}
 	}

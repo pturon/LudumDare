@@ -9,14 +9,26 @@ public class Textures {
 		//no instance allowed
 	}
 
-	private static BufferedImage bottle;
+	private static BufferedImage cardboardBox;
+	private static BufferedImage emptyBottle;
+	private static BufferedImage filledBottle;
 
 	static {
-		bottle = getTexture("img/overworld/milkbottle.png");
+		cardboardBox = getTexture("img/overworld/box.png");
+		emptyBottle = getTexture("img/overworld/milkbottle.png");
+		filledBottle = getTexture("img/overworld/milkbottle_full.png");
 	}
 
-	public static BufferedImage getBottle() {
-		return bottle;
+	public static BufferedImage getCardboardBox() {
+		return cardboardBox;
+	}
+
+	public static BufferedImage getEmptyBottle() {
+		return emptyBottle;
+	}
+
+	public static BufferedImage getFilledBottle() {
+		return filledBottle;
 	}
 
 	private static BufferedImage getTexture(String path) {
