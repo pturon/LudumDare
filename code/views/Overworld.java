@@ -1,5 +1,6 @@
 package code.views;
 
+import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -109,8 +110,8 @@ public class Overworld extends Scene {
 			if(secondsSinceLastMove > 3) {
 				float opacity = (secondsSinceLastMove - 3);
 				if(opacity > 1)opacity = 1.0f;
-				graphics.setColor(new Color(1.0f, 1.0f, 1.0f, opacity));
-				graphics.drawString("Press R to restart", WIDTH / 2, HEIGHT - 128);
+				graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
+				graphics.drawImage(Textures.HUD.getRestart(), 0, 0, null);
 			}
 		}
 
