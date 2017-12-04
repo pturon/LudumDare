@@ -27,8 +27,6 @@ public class Overworld extends Scene {
 	private static final Color DEBUGGING_GREEN = new Color(0, 255, 0, 128);
 	private static final Color DEBUGGING_RED = new Color(255, 0, 0, 128);
 
-	private Pathfinding pathfinding;
-
 	public Overworld(int difficulty) {
 		super("img/overworld/overworld_tilemap.txt", Overworld.class, difficulty);
 		this.difficulty = difficulty;
@@ -227,7 +225,7 @@ public class Overworld extends Scene {
 		Point spawnpoint = getSpawnPoint();
 		if(spawnpoint != null) {
 			synchronized(actors) {
-				actors.add(new IntelligentCow(spawnpoint.x, spawnpoint.y, this, pathfinding));
+				actors.add(new IntelligentCow(spawnpoint.x, spawnpoint.y, this));
 			}
 		}
 	}

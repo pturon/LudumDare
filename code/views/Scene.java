@@ -1,16 +1,15 @@
 package code.views;
 
+import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.List;
+
 import code.MainFrame;
 import code.Textures;
 import code.Tilemap;
 import code.entities.Actor;
 import code.entities.Milkman;
-
-import javax.xml.soap.Text;
-import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.util.ArrayList;
-import java.util.List;
 
 public abstract class Scene extends View {
     protected Milkman milkman;

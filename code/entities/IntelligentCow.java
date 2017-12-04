@@ -8,14 +8,11 @@ import code.Textures;
 import code.views.Scene;
 
 public class IntelligentCow extends Cow {
-	private Pathfinding pahtfinding;
-
 	private int hitCooldown = 0;
 	private int frame = 0;
 
-	public IntelligentCow(int x, int y, Scene scene, Pathfinding pathfinding) {
+	public IntelligentCow(int x, int y, Scene scene) {
 		super(x, y, scene);
-		this.pahtfinding = pathfinding;
 	}
 
 	@Override

@@ -47,7 +47,7 @@ public class Pathfinding {
 
 	public static int getDirection(int tileX, int tileY) {
 		if(directions != null) {
-			return Math.abs(directions[tileX][tileY]);
+			return directions[tileX][tileY];
 		} else {
 			return Actor.NO_DIRECTION;
 		}
