@@ -101,7 +101,7 @@ public abstract class Scene extends View {
         int bottles = milkman.getBottles();
         boolean type = milkman.getBottleType();
         int hearts = milkman.getHearts();
-        char[] score = Integer.toString(milkman.getScore()).toCharArray();
+        char[] score = Integer.toString(milkman.getBottlesPlaced()).toCharArray();
 
         for (int i = 0; i < bottles; i++) {
             if (!type) {

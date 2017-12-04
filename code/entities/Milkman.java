@@ -38,8 +38,8 @@ public class Milkman extends Actor {
 	public static final boolean FILLED_BOTTLE = !EMPTY_BOTTLE;
 	private static boolean bottleType = EMPTY_BOTTLE;
 
-	private int hearts;
-	private int score = 0;
+	private static int hearts;
+	private static int score = 0;
 
 	public Milkman(int x, int y, Scene scene) {
 		super(x, y, scene);
