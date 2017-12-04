@@ -11,12 +11,13 @@ import java.util.Random;
 
 import code.MainFrame;
 import code.Material;
+import code.Pathfinding;
 import code.Textures;
 import code.Tilemap;
 import code.entities.Actor;
-import code.entities.StandardCow;
 import code.entities.IntelligentCow;
 import code.entities.Milkman;
+import code.entities.StandardCow;
 
 public class Overworld extends Scene {
 	protected Tilemap items;
@@ -26,27 +27,21 @@ public class Overworld extends Scene {
 	private static final Color DEBUGGING_GREEN = new Color(0, 255, 0, 128);
 	private static final Color DEBUGGING_RED = new Color(255, 0, 0, 128);
 
+	private Pathfinding pathfinding;
+
 	public Overworld(int difficulty) {
 		super("img/overworld/overworld_tilemap.txt", Overworld.class, difficulty);
-
 		this.difficulty = difficulty;
-
 		items = new Tilemap("img/overworld/overworld_tilemap_milkbottles.txt", Overworld.class);
+
 		milkman = new Milkman(64, 64, this);
-		switch (difficulty){
-			case 0:
-				milkman.setHearts(3);
-				break;
-			case 1:
-				milkman.setHearts(2);
-				break;
-			case 2:
-				milkman.setHearts(1);
-				break;
-		}
+		milkman.setHearts(3 - difficulty);
 		synchronized(actors) {
 			actors.add(milkman);
 		}
+
+		Pathfinding.setTargetActor(milkman);
+		Pathfinding.setTilemap(terrain);
 	}
 
 	@Override
@@ -72,15 +67,41 @@ public class Overworld extends Scene {
 
 		for(int y = 0; y < terrain.getHeight(); y++) {
 			for(int x = 0; x < terrain.getWidth(); x++) {
-				graphics.drawImage(terrain.getMaterial(x, y).getImage(), 32 * x - mapOffsetX, 32 * y - mapOffsetY, null);
-				graphics.drawImage(items.getMaterial(x, y).getImage(), 32 * x - mapOffsetX, 32 * y - mapOffsetY, null);
+				int tilePositionOnScreenX = 32 * x - mapOffsetX;
+				int tilePositionOnScreenY = 32 * y - mapOffsetY;
+
+				graphics.drawImage(terrain.getMaterial(x, y).getImage(), tilePositionOnScreenX, tilePositionOnScreenY, null);
+				graphics.drawImage(items.getMaterial(x, y).getImage(), tilePositionOnScreenX, tilePositionOnScreenY, null);
 				if(debugging) {
 					if(terrain.getMaterial(x, y).isSolid()) {
 						graphics.setColor(DEBUGGING_RED);
 					} else {
 						graphics.setColor(DEBUGGING_GREEN);
 					}
-					graphics.fillRect(32 * x - mapOffsetX, 32 * y - mapOffsetY, 32, 32);
+					graphics.fillRect(tilePositionOnScreenX, tilePositionOnScreenY, 32, 32);
+					graphics.setColor(Color.BLUE);
+					switch(Pathfinding.getDirection(x, y)) {
+					case Actor.LEFT:
+						graphics.drawLine(tilePositionOnScreenX + 8, tilePositionOnScreenY + 16, tilePositionOnScreenX + 16, tilePositionOnScreenY + 8);
+						graphics.drawLine(tilePositionOnScreenX + 8, tilePositionOnScreenY + 16, tilePositionOnScreenX + 24, tilePositionOnScreenY + 16);
+						graphics.drawLine(tilePositionOnScreenX + 8, tilePositionOnScreenY + 16, tilePositionOnScreenX + 16, tilePositionOnScreenY + 24);
+						break;
+					case Actor.RIGHT:
+						graphics.drawLine(tilePositionOnScreenX + 24, tilePositionOnScreenY + 16, tilePositionOnScreenX + 16, tilePositionOnScreenY + 8);
+						graphics.drawLine(tilePositionOnScreenX + 8, tilePositionOnScreenY + 16, tilePositionOnScreenX + 24, tilePositionOnScreenY + 16);
+						graphics.drawLine(tilePositionOnScreenX + 24, tilePositionOnScreenY + 16, tilePositionOnScreenX + 16, tilePositionOnScreenY + 24);
+						break;
+					case Actor.UP:
+						graphics.drawLine(tilePositionOnScreenX + 8, tilePositionOnScreenY + 16, tilePositionOnScreenX + 16, tilePositionOnScreenY + 8);
+						graphics.drawLine(tilePositionOnScreenX + 16, tilePositionOnScreenY + 24, tilePositionOnScreenX + 16, tilePositionOnScreenY + 8);
+						graphics.drawLine(tilePositionOnScreenX + 24, tilePositionOnScreenY + 16, tilePositionOnScreenX + 16, tilePositionOnScreenY + 8);
+						break;
+					case Actor.DOWN:
+						graphics.drawLine(tilePositionOnScreenX + 8, tilePositionOnScreenY + 16, tilePositionOnScreenX + 16, tilePositionOnScreenY + 24);
+						graphics.drawLine(tilePositionOnScreenX + 16, tilePositionOnScreenY + 8, tilePositionOnScreenX + 16, tilePositionOnScreenY + 24);
+						graphics.drawLine(tilePositionOnScreenX + 24, tilePositionOnScreenY + 16, tilePositionOnScreenX + 16, tilePositionOnScreenY + 24);
+						break;
+					}
 				}
 			}
 		}
@@ -206,7 +227,7 @@ public class Overworld extends Scene {
 		Point spawnpoint = getSpawnPoint();
 		if(spawnpoint != null) {
 			synchronized(actors) {
-				actors.add(new IntelligentCow(spawnpoint.x, spawnpoint.y, this));
+				actors.add(new IntelligentCow(spawnpoint.x, spawnpoint.y, this, pathfinding));
 			}
 		}
 	}

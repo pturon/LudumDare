@@ -3,15 +3,19 @@ package code.entities;
 import java.awt.image.BufferedImage;
 
 import code.Clock;
+import code.Pathfinding;
 import code.Textures;
 import code.views.Scene;
 
 public class IntelligentCow extends Cow {
+	private Pathfinding pahtfinding;
+
 	private int hitCooldown = 0;
 	private int frame = 0;
 
-	public IntelligentCow(int x, int y, Scene scene) {
+	public IntelligentCow(int x, int y, Scene scene, Pathfinding pathfinding) {
 		super(x, y, scene);
+		this.pahtfinding = pathfinding;
 	}
 
 	@Override
@@ -48,26 +52,6 @@ public class IntelligentCow extends Cow {
 	}
 
 	protected void turn(int targetX, int targetY) {
-		int distanceX = targetX - x;
-		int distanceY = targetY - y;
-		int previousDirection = direction;
-
-		if(Math.abs(distanceX) > Math.abs(distanceY)) {
-			if(targetX < x) {
-				direction = LEFT;
-			} else {
-				direction = RIGHT;
-			}
-		} else {
-			if(targetY < y) {
-				direction = UP;
-			} else {
-				direction = DOWN;
-			}
-		}
-
-		if(direction != previousDirection) {
-			turningCooldown = (int)((1.0 / MAX_TURNS_PER_SECOND) * Clock.getStepsPerSecond());
-		}
+		direction = Pathfinding.getDirection(x / 32, y / 32);
 	}
 }
