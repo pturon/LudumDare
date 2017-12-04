@@ -96,6 +96,9 @@ public class Cutscene extends View {
             case KeyEvent.VK_ENTER:
             	MainFrame.getInstance().setCurrentView(new Overworld(difficulty));
                 break;
+            case KeyEvent.VK_ESCAPE:
+            	MainFrame.getInstance().setCurrentView(new Overworld(difficulty));
+                break;
         }
     }
 
@@ -133,6 +136,7 @@ public class Cutscene extends View {
 
     @Override
     public void onMousePressed(MouseEvent mouseEvent) {
+    	MainFrame.getInstance().setCurrentView(new Overworld(difficulty));
     }
 
     @Override
