@@ -7,7 +7,11 @@ import code.views.Overworld;
 import code.views.Scene;
 
 public enum Material {
+	//technical tiles
 	NONE(-1, true, null),
+	SCENE_CONNECTOR(-42, false, null),//connects the overworld with the milk-factory
+
+	//overworld-tiles
 	PAVEMENT_CORNER_SOUTH_EAST(0, false, Overworld.class),
 	PAVEMENT_SOUTH(1, false, Overworld.class),
 	PAVEMENT_CORNER_SOUTH_WEST(2, false, Overworld.class),
@@ -107,11 +111,11 @@ public enum Material {
 	ROOF_BLUE_HORIZONTAL_SOUTH_WEST_GUTTER(139, true, Overworld.class),
 	ROOF_BLUE_HORIZONTAL_SOUTH_GUTTER(140, true, Overworld.class),
 	ROOF_BLUE_HORIZONTAL_SOUTH_EAST_GUTTER(141, true, Overworld.class),
-
 	EMPTY_BOTTLE(144, false, Overworld.class),
 	FILLED_BOTTLE(145, false, Overworld.class),
 	CARDBOARD_BOX(146, false, Overworld.class),
 
+	//milk-factory-tiles
 	PAVEMENT_SOUTH_MF(1, false, MilkFactory.class),
 	PAVEMENT_NORTH_WEST_MF(3, false, MilkFactory.class),
 	PAVEMENT_NORTH_EAST_MF(4, false, MilkFactory.class),

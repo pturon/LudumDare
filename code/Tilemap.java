@@ -44,13 +44,35 @@ public class Tilemap {
 	}
 
 	public Material getMaterialAt(int x, int y) {
-		if(x < 0 || y < 0) {
-			return Material.NONE;
+		if(x < 0) {
+			if(getMaterialAt(0, y) == Material.ASPHALT || getMaterialAt(0, y) == Material.ASPHALT_MF) {
+				return Material.SCENE_CONNECTOR;
+			} else {
+				return Material.NONE;
+			}
+		}
+		if(y < 0) {
+			if(getMaterialAt(x, 0) == Material.ASPHALT || getMaterialAt(x, 0) == Material.ASPHALT_MF) {
+				return Material.SCENE_CONNECTOR;
+			} else {
+				return Material.NONE;
+			}
 		}
 		int tileX = x / 32;
 		int tileY = y / 32;
-		if(tileX >= materials.length || tileY >= materials[tileX].length) {
-			return Material.NONE;
+		if(tileX >= width) {
+			if(getMaterial(width - 1, tileY) == Material.ASPHALT || getMaterial(width - 1, tileY) == Material.ASPHALT_MF) {
+				return Material.SCENE_CONNECTOR;
+			} else {
+				return Material.NONE;
+			}
+		}
+		if(tileY >= height) {
+			if(getMaterial(tileX, height - 1) == Material.ASPHALT || getMaterial(tileX, height - 1) == Material.ASPHALT_MF) {
+				return Material.SCENE_CONNECTOR;
+			} else {
+				return Material.NONE;
+			}
 		}
 		return getMaterial(tileX, tileY);
 	}

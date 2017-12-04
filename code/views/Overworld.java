@@ -46,14 +46,14 @@ public class Overworld extends Scene {
 		int mapOffsetX = milkman.getX() - (WIDTH / 2);
 		if(mapOffsetX < 0) {
 			mapOffsetX = 0;
-		} else if(mapOffsetX > terrain.getWidth() * 32 - (WIDTH / 2)) {
-			mapOffsetX = terrain.getWidth() * 32 - (WIDTH / 2);
+		} else if(mapOffsetX > terrain.getWidth() * 32 - WIDTH) {
+			mapOffsetX = terrain.getWidth() * 32 - WIDTH;
 		}
 		int mapOffsetY = milkman.getY() - (HEIGHT / 2);
 		if(mapOffsetY < 0) {
 			mapOffsetY = 0;
-		} else if(mapOffsetY > terrain.getHeight() * 32 - (HEIGHT / 2)) {
-			mapOffsetY = terrain.getHeight() * 32 - (HEIGHT / 2);
+		} else if(mapOffsetY > terrain.getHeight() * 32 - HEIGHT) {
+			mapOffsetY = terrain.getHeight() * 32 - HEIGHT;
 		}
 
 		for(int y = 0; y < terrain.getHeight(); y++) {
