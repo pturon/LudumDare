@@ -96,6 +96,7 @@ public class Milkman extends Actor {
 	public void placeBottle() {
 		placeFrame++;
 		bottlesPlaced++;
+		((Overworld)scene).checkVictory(bottlesPlaced);
 	}
 
 	public float getSecondsSinceLastMove() {

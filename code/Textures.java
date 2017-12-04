@@ -47,11 +47,13 @@ public class Textures {
 		private static BufferedImage instructions;
 		private static BufferedImage restart;
 		private static BufferedImage gameover;
+		private static BufferedImage victory;
 
 		static {
 			instructions = getTexture("img/hud/instructions.png");
 			restart = getTexture("img/hud/restart.png");
 			gameover = getTexture("img/hud/gameover.png");
+			victory = getTexture("img/hud/victory.png");
 		}
 
 		public static BufferedImage getInstructions() {
@@ -64,6 +66,10 @@ public class Textures {
 		
 		public static BufferedImage getGameover() {
 			return gameover;
+		}
+		
+		public static BufferedImage getVictory() {
+			return victory;
 		}
 	}
 

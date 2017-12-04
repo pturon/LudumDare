@@ -10,6 +10,7 @@ import java.awt.image.BufferedImage;
 import java.util.Random;
 
 import code.AudioManager;
+import code.Clock;
 import code.MainFrame;
 import code.Material;
 import code.Pathfinding;
@@ -23,6 +24,7 @@ import code.entities.StandardCow;
 public class Overworld extends Scene {
 	protected Tilemap items;
 
+	private boolean victory = false;
 	private boolean gameover = false;
 	private boolean showInstructions = true;
     private String[] buttons = {"again", "menu"};
@@ -152,7 +154,16 @@ public class Overworld extends Scene {
 		        graphics.drawImage(Textures.Menu.getAgainFont(), 194, 352, null);
 		        graphics.drawImage(Textures.Menu.getMenuFont(), 194, 448, null);
 				graphics.drawImage(Textures.Menu.getFrame(), 194, 352 + selection * 96, null);
-			}else if(secondsSinceLastMove > 3) {
+			} else if(victory){
+				float opacity = (secondsSinceLastMove);
+				if(opacity > 1)opacity = 1.0f;
+				graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
+
+				graphics.drawImage(Textures.HUD.getVictory(), 0, 0, null);
+				if(opacity >= 1){
+					Clock.pause();
+				}
+			} else if(secondsSinceLastMove > 3) {
 				float opacity = (secondsSinceLastMove - 3);
 				if(opacity > 1)opacity = 1.0f;
 				graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
@@ -374,6 +385,12 @@ public class Overworld extends Scene {
 	
 	public void triggerDeath(){
 		this.gameover = true;
+	}
+	
+	public void checkVictory(int bottlesPlaced){
+		if(bottlesPlaced >= items.getBottleCount()){
+			victory = true;
+		}
 	}
 
 }

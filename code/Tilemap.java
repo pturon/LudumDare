@@ -9,6 +9,7 @@ import code.views.Scene;
 public class Tilemap {
 	private int width;
 	private int height;
+	private int bottles = 0;
 	private Material[][] materials;
 
 	public Tilemap(String path, Class<? extends Scene> parentClass) {
@@ -28,6 +29,9 @@ public class Tilemap {
 				String[] line = reader.readLine().split(",");
 				for(int x = 0; x < width; x++) {
 					materials[x][y] = Material.byId(Integer.parseInt(line[x]), parentClass);
+					if(materials[x][y] == Material.EMPTY_BOTTLE){
+						bottles++;
+					}
 				}
 			}
 		} catch(Exception exception) {
@@ -117,5 +121,8 @@ public class Tilemap {
 			return;
 		}
 		materials[x][y] = material;
+	}
+	public int getBottleCount(){
+		return bottles;
 	}
 }
