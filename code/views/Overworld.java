@@ -51,12 +51,6 @@ public class Overworld extends Scene {
 			Pathfinding.setTargetActor(null);
 			Pathfinding.setTilemap(null);
 		}
-		spawnIntelligentCow();
-		spawnIntelligentCow();
-		spawnIntelligentCow();
-		spawnIntelligentCow();
-		spawnIntelligentCow();
-		spawnIntelligentCow();
 	}
 
 	@Override
