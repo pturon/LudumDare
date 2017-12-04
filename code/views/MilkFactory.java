@@ -128,7 +128,7 @@ public class MilkFactory extends Scene {
 		int tileY = milkman.getY() / 32;
 
 		//fill bottles
-		if(((tileX == 16 && tileY == 3) || (tileX == 17 && tileY == 4)) && milkman.getBottles() > 0) {
+		if(((tileX == 16 && tileY == 3) || (tileX == 17 && tileY == 4))) {
 			milkman.fillBottles();
 		}
 

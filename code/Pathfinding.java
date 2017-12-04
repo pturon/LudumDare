@@ -46,9 +46,10 @@ public class Pathfinding {
 	}
 
 	public static int getDirection(int tileX, int tileY) {
-		if(directions != null) {
+		try {
 			return directions[tileX][tileY];
-		} else {
+		} catch(Exception exception) {
+			//not enough motivation to handle ArrayIndexOutOfBoundsExceptions properly.
 			return Actor.NO_DIRECTION;
 		}
 	}

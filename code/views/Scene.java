@@ -97,13 +97,13 @@ public abstract class Scene extends View {
     public void drawHUD(Graphics2D graphics) {
         graphics.drawImage(Textures.ui.getUiBackground(), 0, 0, null);
 
-        int bottles = milkman.getBottles();
-        boolean type = milkman.getBottleType();
+        int emptyBottles = milkman.getEmptyBottles();
+        int filledBottles = milkman.getFilledBottles();
         int hearts = milkman.getHearts();
         char[] score = Integer.toString(milkman.getBottlesPlaced()).toCharArray();
 
-        for (int i = 0; i < bottles; i++) {
-            if (!type) {
+        for (int i = 0; i < (emptyBottles + filledBottles); i++) {
+            if (i < emptyBottles) {
                 graphics.drawImage(Textures.ui.getEmptyBottle(), 780 - (13 * i), 2, null);
             } else {
                 graphics.drawImage(Textures.ui.getFull_bottle(), 780 - (13 * i), 2, null);
