@@ -16,11 +16,6 @@ public class Milkman extends Actor {
 	private static boolean isUpPressed = false;
 	private static boolean isDownPressed = false;
 
-	public static final int UP = 0;
-	public static final int DOWN = 1;
-	public static final int RIGHT = 2;
-	public static final int LEFT = 3;
-
 	public static final boolean HORIZONTAL = true;
 	public static final boolean VERTICAL = !HORIZONTAL;
 

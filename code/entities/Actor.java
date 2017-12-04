@@ -4,7 +4,15 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.List;
 
-import code.views.Scene;public abstract class Actor {
+import code.views.Scene;
+
+public abstract class Actor {
+	public static final int NO_DIRECTION = -1;
+	public static final int UP = 0;
+	public static final int DOWN = 1;
+	public static final int RIGHT = 2;
+	public static final int LEFT = 3;
+
 	protected int x;
 	protected int y;
 	protected Scene scene;
