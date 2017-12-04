@@ -45,13 +45,19 @@ public class Textures {
 		}
 
 		private static BufferedImage instructions;
+		private static BufferedImage restart;
 
 		static {
 			instructions = getTexture("img/hud/instructions.png");
+			restart = getTexture("img/hud/restart.png");
 		}
 
 		public static BufferedImage getInstructions() {
 			return instructions;
+		}
+
+		public static BufferedImage getRestart() {
+			return restart;
 		}
 	}
 
