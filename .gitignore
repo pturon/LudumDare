@@ -1,9 +1,10 @@
 
 *.pyxel
 
-\.idea/misc\.xml
-
 \.idea/
 
-*.iml
+LudumDare\.iml
+
+*.class
+
 \out/
