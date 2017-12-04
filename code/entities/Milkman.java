@@ -32,6 +32,7 @@ public class Milkman extends Actor {
 
 	private int pickupFrame = -1;
 	private static int bottles = 0;
+	private static int bottlesPlaced = 0;
 
 	public static final boolean EMPTY_BOTTLE = false;
 	public static final boolean FILLED_BOTTLE = !EMPTY_BOTTLE;
@@ -55,6 +56,10 @@ public class Milkman extends Actor {
 
 	public int getBottles() {
 		return bottles;
+	}
+
+	public int getBottlesPlaced() {
+		return bottlesPlaced;
 	}
 
 	public boolean getBottleType() {
@@ -89,6 +94,7 @@ public class Milkman extends Actor {
 
 	public void placeBottle() {
 		pickupFrame++;
+		bottlesPlaced++;
 	}
 
 	public float getSecondsSinceLastMove() {
@@ -102,6 +108,7 @@ public class Milkman extends Actor {
 		isDownPressed = false;
 
 		bottles = 0;
+		bottlesPlaced = 0;
 		bottleType = EMPTY_BOTTLE;
 	}
 
