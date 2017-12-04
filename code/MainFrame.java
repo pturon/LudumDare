@@ -11,7 +11,10 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.net.URL;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 import code.views.Menu;
@@ -35,6 +38,10 @@ public class MainFrame extends Frame {
 	public MainFrame() {
 		setResizable(false);
 		setTitle("Milk Hunt");
+
+	    //Icon
+	    URL imgIcon = ClassLoader.getSystemClassLoader().getResource("Icon.png");
+	    setIconImage(new ImageIcon(imgIcon).getImage());
 
 		addWindowListener(new WindowAdapter() {
 			@Override
