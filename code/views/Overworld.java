@@ -37,6 +37,7 @@ public class Overworld extends Scene {
 		items = new Tilemap("img/overworld/overworld_tilemap_milkbottles.txt", Overworld.class);
 
 		milkman = new Milkman(64, 64, this);
+		Milkman.reset();
 		milkman.setHearts(3 - difficulty);
 		synchronized(actors) {
 			actors.add(milkman);
