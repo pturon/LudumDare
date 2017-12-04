@@ -26,7 +26,7 @@ public abstract class Scene extends View {
 	}
 
 	public boolean isPixelSolid(int pixelX, int pixelY) {
-		return terrain.getMaterial(pixelX / 32, pixelY / 32).isSolid();
+		return terrain.getMaterialAt(pixelX, pixelY).isSolid();
 	}
 
 	@Override
@@ -78,10 +78,10 @@ public abstract class Scene extends View {
 	}
 
 	public void step() {
-		synchronized(actors) {
-			for(Actor actor : actors) {
-				actor.step();
-			}
+		//copy list to avoid concurrent-modification-exception
+		Actor[] threadSafeActors = actors.toArray(new Actor[0]);
+		for(Actor actor : threadSafeActors) {
+			actor.step();
 		}
 	}
 }

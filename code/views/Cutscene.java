@@ -46,14 +46,21 @@ public class Cutscene extends View {
             case 4:
                 mainFrame.setCurrentView(new Overworld(difficulty));
                 break;
-        }
+        } 
 
         return image;
     }
 
     @Override
     public void onKeyPressed(KeyEvent keyEvent) {
-
+        switch (keyEvent.getKeyCode()){
+            case KeyEvent.VK_SPACE:
+                mainFrame.setCurrentView(new Overworld(difficulty));
+                break;
+            case KeyEvent.VK_ENTER:
+                mainFrame.setCurrentView(new Overworld(difficulty));
+                break;
+        }
     }
 
     @Override
@@ -86,7 +93,6 @@ public class Cutscene extends View {
 
     @Override
     public void onMousePressed(MouseEvent mouseEvent) {
-
     }
 
     @Override
