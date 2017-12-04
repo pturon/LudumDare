@@ -49,9 +49,35 @@ public class IntelligentCow extends Cow {
 	}
 
 	protected void turn(int targetX, int targetY) {
-		int nextDirection = Pathfinding.getDirection(x / 32, y / 32);
-		if(nextDirection != Actor.NO_DIRECTION) {
-			direction = nextDirection;
+		if(Pathfinding.isInitialized()) {
+			//use pathfinding in hard-mode
+			int nextDirection = Pathfinding.getDirection(x / 32, y / 32);
+			if(nextDirection != Actor.NO_DIRECTION) {
+				direction = nextDirection;
+			}
+		} else {
+			//try to go straight in easy- and normal-mode
+			int distanceX = targetX - x;
+			int distanceY = targetY - y;
+			int previousDirection = direction;
+
+			if(Math.abs(distanceX) > Math.abs(distanceY)) {
+				if(targetX < x) {
+					direction = LEFT;
+				} else {
+					direction = RIGHT;
+				}
+			} else {
+				if(targetY < y) {
+					direction = UP;
+				} else {
+					direction = DOWN;
+				}
+			}
+
+			if(direction != previousDirection) {
+				turningCooldown = (int)((1.0 / MAX_TURNS_PER_SECOND) * Clock.getStepsPerSecond());
+			}
 		}
 	}
 }

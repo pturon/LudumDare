@@ -31,11 +31,19 @@ public class Pathfinding {
 		}.start();
 	}
 
+	public static boolean isInitialized() {
+		return target != null && tilemap != null;
+	}
+
 	public static void setTargetActor(Actor target) {
 		Pathfinding.target = target;
 	}
 
 	public static void setTilemap(Tilemap tilemap) {
+		if(tilemap == null) {
+			directions = null;
+			return;
+		}
 		Pathfinding.tilemap = tilemap;
 		Pathfinding.directions = new int[tilemap.getWidth()][tilemap.getHeight()];
 		for(int y = 0; y < tilemap.getHeight(); y++) {
