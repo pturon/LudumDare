@@ -4,6 +4,7 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+import code.MainFrame;
 import code.Tilemap;
 import code.entities.Actor;
 import code.entities.Milkman;
@@ -12,9 +13,11 @@ public abstract class Scene extends View {
 	protected Milkman milkman;
 	protected List<Actor> actors = new ArrayList<>();
 	protected Tilemap terrain;
+	protected int difficulty;
 
-	public Scene(String pathToTerrainMap, Class<? extends Scene> parentClass) {
+	public Scene(String pathToTerrainMap, Class<? extends Scene> parentClass, int difficulty) {
 		terrain = new Tilemap(pathToTerrainMap, parentClass);
+		this.difficulty = difficulty;
 	}
 
 	public List<Actor> getActors() {
@@ -71,6 +74,10 @@ public abstract class Scene extends View {
 		case KeyEvent.VK_DOWN:
 		case KeyEvent.VK_S:
 			Milkman.setDownPressed(false);
+			break;
+		case KeyEvent.VK_R:
+			Milkman.reset();
+			MainFrame.getInstance().setCurrentView(new Overworld(difficulty));
 			break;
 		default:
 			break;

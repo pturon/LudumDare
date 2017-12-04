@@ -16,8 +16,6 @@ import code.entities.Cow;
 import code.entities.Milkman;
 
 public class Overworld extends Scene {
-	private int difficulty;
-
 	protected Tilemap items;
 
 	private boolean showInstructions = true;
@@ -26,7 +24,7 @@ public class Overworld extends Scene {
 	private static final Color DEBUGGING_RED = new Color(255, 0, 0, 128);
 
 	public Overworld(int difficulty) {
-		super("img/overworld/overworld_tilemap.txt", Overworld.class);
+		super("img/overworld/overworld_tilemap.txt", Overworld.class, difficulty);
 
 		this.difficulty = difficulty;
 

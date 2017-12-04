@@ -12,13 +12,12 @@ import code.entities.Milkman;
 
 public class MilkFactory extends Scene {
 	private Overworld overworld;
-	private int difficulty;
 
 	private static final Color DEBUGGING_GREEN = new Color(0, 255, 0, 128);
 	private static final Color DEBUGGING_RED = new Color(255, 0, 0, 128);
 
 	public MilkFactory(Overworld overworld, int difficulty) {
-		super("img/milkfactory/milk_factory_tilemap.txt", MilkFactory.class);
+		super("img/milkfactory/milk_factory_tilemap.txt", MilkFactory.class, difficulty);
 
 		this.overworld = overworld;
 		this.difficulty = difficulty;

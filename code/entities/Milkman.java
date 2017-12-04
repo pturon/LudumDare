@@ -89,6 +89,16 @@ public class Milkman extends Actor {
 		pickupFrame++;
 	}
 
+	public static void reset() {
+		isLeftPressed = false;
+		isRightPressed = false;
+		isUpPressed = false;
+		isDownPressed = false;
+
+		bottles = 0;
+		bottleType = EMPTY_BOTTLE;
+	}
+
 	public static void setLeftPressed(boolean isPressed) {
 		isLeftPressed = isPressed;
 		dominantDirection = HORIZONTAL;
