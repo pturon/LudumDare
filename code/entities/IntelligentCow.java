@@ -49,6 +49,9 @@ public class IntelligentCow extends Cow {
 	}
 
 	protected void turn(int targetX, int targetY) {
-		direction = Pathfinding.getDirection(x / 32, y / 32);
+		int nextDirection = Pathfinding.getDirection(x / 32, y / 32);
+		if(nextDirection != Actor.NO_DIRECTION) {
+			direction = nextDirection;
+		}
 	}
 }
