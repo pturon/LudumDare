@@ -46,7 +46,7 @@ public class Cutscene extends View {
             case 4:
                 mainFrame.setCurrentView(new Overworld(difficulty));
                 break;
-        }
+        } 
 
         return image;
     }
