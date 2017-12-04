@@ -1,7 +1,9 @@
 package code.views;
 
+import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -12,13 +14,11 @@ import code.Material;
 import code.Textures;
 import code.Tilemap;
 import code.entities.Actor;
-import code.entities.Cow;
+import code.entities.StandardCow;
+import code.entities.IntelligentCow;
 import code.entities.Milkman;
 
 public class Overworld extends Scene {
-	private MainFrame mainFrame;
-	private int difficulty;
-
 	protected Tilemap items;
 
 	private boolean showInstructions = true;
@@ -26,14 +26,24 @@ public class Overworld extends Scene {
 	private static final Color DEBUGGING_GREEN = new Color(0, 255, 0, 128);
 	private static final Color DEBUGGING_RED = new Color(255, 0, 0, 128);
 
-	public Overworld(MainFrame mainFrame, int difficulty) {
-		super("img/overworld/overworld_tilemap.txt", Overworld.class);
+	public Overworld(int difficulty) {
+		super("img/overworld/overworld_tilemap.txt", Overworld.class, difficulty);
 
-		this.mainFrame = mainFrame;
 		this.difficulty = difficulty;
 
 		items = new Tilemap("img/overworld/overworld_tilemap_milkbottles.txt", Overworld.class);
 		milkman = new Milkman(64, 64, this);
+		switch (difficulty){
+			case 0:
+				milkman.setHearts(3);
+				break;
+			case 1:
+				milkman.setHearts(2);
+				break;
+			case 2:
+				milkman.setHearts(1);
+				break;
+		}
 		synchronized(actors) {
 			actors.add(milkman);
 		}
@@ -93,23 +103,40 @@ public class Overworld extends Scene {
 			graphics.drawImage(Textures.HUD.getInstructions(), 0, 0, null);
 		}
 
-		graphics.setColor(Color.WHITE);
-		graphics.drawString("Bottles: " + milkman.getBottles(), 10, 20);
+		if(!showInstructions){
+			drawHUD(graphics);
+
+			float secondsSinceLastMove = milkman.getSecondsSinceLastMove();
+			if(secondsSinceLastMove > 3) {
+				float opacity = (secondsSinceLastMove - 3);
+				if(opacity > 1)opacity = 1.0f;
+				graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
+				graphics.drawImage(Textures.HUD.getRestart(), 0, 0, null);
+			}
+		}
 
 		return image;
 	}
 
 	public void removeBottleAt(int x, int y) {
 		items.setMaterial(x / 32, y / 32, Material.CARDBOARD_BOX);
-		spawnCow();
+		if(milkman.getBottles() + milkman.getBottlesPlaced() > 8) {
+			spawnIntelligentCow();
+		} else {
+			spawnStandardCow();
+		}
+	}
+
+	public void placeBottleAt(int x, int y) {
+		items.setMaterial(x / 32, y / 32, Material.FILLED_BOTTLE);
 	}
 
 	/**
-	 * Spawns a cow.
+	 * Calculates a spawnpoint.
 	 * First a position is randomly chosen outside of the viewport.
 	 * Then it is rotated around the viewport until a valid spawn-position is found.
 	 */
-	private void spawnCow() {
+	private Point getSpawnPoint() {
 		int perimeter = 2 * WIDTH + 2 * HEIGHT;
 		int offset = new Random().nextInt(perimeter);
 
@@ -152,10 +179,34 @@ public class Overworld extends Scene {
 			}
 
 			if(!terrain.getMaterialAt(x, y).isSolid()) {
-				synchronized(actors) {
-					actors.add(new Cow(x, y, this));
-				}
-				break;
+				return new Point(x, y);
+			}
+		}
+		//Return null if no valid spawn-point has been found.
+		//(Very unlikely. If this was possible, the player would not be able to leave the screen.)
+		return null;
+	}
+
+	/**
+	 * Spawns a standard cow.
+	 */
+	private void spawnStandardCow() {
+		Point spawnpoint = getSpawnPoint();
+		if(spawnpoint != null) {
+			synchronized(actors) {
+				actors.add(new StandardCow(spawnpoint.x, spawnpoint.y, this));
+			}
+		}
+	}
+
+	/**
+	 * Spawns an intelligent cow.
+	 */
+	private void spawnIntelligentCow() {
+		Point spawnpoint = getSpawnPoint();
+		if(spawnpoint != null) {
+			synchronized(actors) {
+				actors.add(new IntelligentCow(spawnpoint.x, spawnpoint.y, this));
 			}
 		}
 	}
@@ -164,27 +215,33 @@ public class Overworld extends Scene {
 	public void step() {
 		super.step();
 
-		//pick up bottle
 		int tileX = milkman.getX() / 32;
 		int tileY = milkman.getY() / 32;
+
+		//pick up bottle
 		if(items.getMaterial(tileX, tileY) == Material.EMPTY_BOTTLE && milkman.canPickupBottles()) {
 			milkman.pickupBottle();
 		}
 
+		//place bottle
+		if(items.getMaterial(tileX, tileY) == Material.CARDBOARD_BOX && milkman.canPlaceBottles()) {
+			milkman.placeBottle();
+		}
+
 		//change scene
 		if(terrain.getMaterial(tileX, tileY) == Material.SCENE_CONNECTOR) {
-			mainFrame.setCurrentView(new MilkFactory(mainFrame, this, difficulty));
+			MainFrame.getInstance().setCurrentView(new MilkFactory(this, difficulty));
 			if(milkman.getX() < 0) {
 				milkman.setX(16);
 			}
 			if(milkman.getY() < 0) {
 				milkman.setY(16);
 			}
-			if(milkman.getX() > 32 * terrain.getWidth() - 16) {
-				milkman.setX(32 * terrain.getWidth() - 16);
+			if(milkman.getX() > 32 * terrain.getWidth() - 32) {
+				milkman.setX(32 * terrain.getWidth() - 48);
 			}
-			if(milkman.getY() > 32 * terrain.getHeight() - 16) {
-				milkman.setY(32 * terrain.getHeight() - 16);
+			if(milkman.getY() > 32 * terrain.getHeight() - 32) {
+				milkman.setY(32 * terrain.getHeight() - 48);
 			}
 		}
 	}
@@ -209,4 +266,5 @@ public class Overworld extends Scene {
 	public void onMouseReleased(MouseEvent mouseEvent) {
 		//not used at the moment
 	}
+
 }

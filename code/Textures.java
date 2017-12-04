@@ -1,7 +1,6 @@
 package code;
 
 import java.awt.image.BufferedImage;
-import java.nio.Buffer;
 
 import javax.imageio.ImageIO;
 
@@ -46,13 +45,19 @@ public class Textures {
 		}
 
 		private static BufferedImage instructions;
+		private static BufferedImage restart;
 
 		static {
 			instructions = getTexture("img/hud/instructions.png");
+			restart = getTexture("img/hud/restart.png");
 		}
 
 		public static BufferedImage getInstructions() {
 			return instructions;
+		}
+
+		public static BufferedImage getRestart() {
+			return restart;
 		}
 	}
 
@@ -893,6 +898,27 @@ public class Textures {
 			}
 		}
 
+		public static class IntelligentCow {
+			private static BufferedImage[][] walking = new BufferedImage[4][4];
+
+			private IntelligentCow() {
+				//no instance allowed
+			}
+
+			static {
+				BufferedImage cowSpritesheet = getTexture("img/cows/clever_spritesheet.png");
+				for(int direction = 0; direction < 4; direction++) {
+					for(int frame = 0; frame < 4; frame++) {
+						walking[direction][frame] = cowSpritesheet.getSubimage(32 * frame, 32 * direction, 32, 32);
+					}
+				}
+			}
+
+			public static BufferedImage getWalking(int direction, int frame) {
+				return walking[direction % 4][frame % 4];
+			}
+		}
+
 		public static class Milkman {
 			private static BufferedImage[][][] pickupAnimation = new BufferedImage[4][4][8];
 			private static BufferedImage[][][] walking = new BufferedImage[4][4][9];
@@ -1087,6 +1113,83 @@ public class Textures {
 		public static BufferedImage getDestroyedLab() {
 			return destroyedLab;
 		}
+	}
+
+	public static class ui{
+		public static BufferedImage uiBackground = getTexture("img/hud/interface_background.png");
+		public static BufferedImage emptyBottle = getTexture("img/hud/empty_bottle.png");
+		public static BufferedImage full_bottle = getTexture("img/hud/full_bottle.png");
+		public static BufferedImage heart = getTexture("img/hud/heart.png");
+
+		public static BufferedImage numbers = getTexture("img/hud/numbers.png");
+
+		public static BufferedImage number_0 = numbers.getSubimage(0,0,10,15);
+		public static BufferedImage number_1 = numbers.getSubimage(10,0,10,15);
+		public static BufferedImage number_2 = numbers.getSubimage(20,0,10,15);
+		public static BufferedImage number_3 = numbers.getSubimage(30,0,10,15);
+		public static BufferedImage number_4 = numbers.getSubimage(40,0,10,15);
+		public static BufferedImage number_5 = numbers.getSubimage(50,0,10,15);
+		public static BufferedImage number_6 = numbers.getSubimage(60,0,10,15);
+		public static BufferedImage number_7 = numbers.getSubimage(70,0,10,15);
+		public static BufferedImage number_8 = numbers.getSubimage(80,0,10,15);
+
+		public static BufferedImage getUiBackground() {
+			return uiBackground;
+		}
+
+		public static BufferedImage getEmptyBottle() {
+			return emptyBottle;
+		}
+
+		public static BufferedImage getFull_bottle() {
+			return full_bottle;
+		}
+
+		public static BufferedImage getHeart() {
+			return heart;
+		}
+
+		public static BufferedImage getNumber_0() {
+			return number_0;
+		}
+
+		public static BufferedImage getNumber_1() {
+			return number_1;
+		}
+
+		public static BufferedImage getNumber_2() {
+			return number_2;
+		}
+
+		public static BufferedImage getNumber_3() {
+			return number_3;
+		}
+
+		public static BufferedImage getNumber_4() {
+			return number_4;
+		}
+
+		public static BufferedImage getNumber_5() {
+			return number_5;
+		}
+
+		public static BufferedImage getNumber_6() {
+			return number_6;
+		}
+
+		public static BufferedImage getNumber_7() {
+			return number_7;
+		}
+
+		public static BufferedImage getNumber_8() {
+			return number_8;
+		}
+
+		public static BufferedImage getNumber_9() {
+			return number_9;
+		}
+
+		public static BufferedImage number_9 = numbers.getSubimage(90,0,10,15);
 	}
 	
 }

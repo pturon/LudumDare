@@ -28,25 +28,60 @@ public class Milkman extends Actor {
 	private static boolean dominantDirection = HORIZONTAL;
 	private int frame = 0;
 
+	private long stepsSinceLastMove = 0;//needed for the "press R to restart"-hint
+
 	private int pickupFrame = -1;
 	private static int bottles = 0;
+	private static int bottlesPlaced = 0;
+
+	public static final boolean EMPTY_BOTTLE = false;
+	public static final boolean FILLED_BOTTLE = !EMPTY_BOTTLE;
+	private static boolean bottleType = EMPTY_BOTTLE;
+
+	private static int hearts;
 
 	public Milkman(int x, int y, Scene scene) {
 		super(x, y, scene);
 	}
 
 	public boolean canPickupBottles() {
-		return bottles < 8 && pickupFrame == -1;
+		return bottleType == EMPTY_BOTTLE && bottles < 8 && pickupFrame == -1;
+	}
+
+	public boolean canPlaceBottles() {
+		return bottleType == FILLED_BOTTLE && bottles > 0 && pickupFrame == -1;
+	}
+
+	public void damage() {
+		if(hearts > 0) {
+			hearts--;
+		}
+	}
+
+	public void fillBottles() {
+		bottleType = FILLED_BOTTLE;
 	}
 
 	public int getBottles() {
 		return bottles;
 	}
 
+	public int getBottlesPlaced() {
+		return bottlesPlaced;
+	}
+
+	public boolean getBottleType() {
+		return bottleType;
+	}
+
 	@Override
 	public BufferedImage getImage() {
 		if(pickupFrame > -1) {
-			return Textures.Sprites.Milkman.getPickupAnimation(direction, pickupFrame, bottles);
+			if(bottleType == EMPTY_BOTTLE) {
+				return Textures.Sprites.Milkman.getPickupAnimation(direction, pickupFrame, bottles);
+			} else {
+				return Textures.Sprites.Milkman.getPickupAnimation(direction, 4 - pickupFrame, bottles);
+			}
 		}
 		return Textures.Sprites.Milkman.getWalkCycle(direction, frame, bottles);
 	}
@@ -63,6 +98,26 @@ public class Milkman extends Actor {
 
 	public void pickupBottle() {
 		pickupFrame++;
+	}
+
+	public void placeBottle() {
+		pickupFrame++;
+		bottlesPlaced++;
+	}
+
+	public float getSecondsSinceLastMove() {
+		return (float)stepsSinceLastMove / Clock.getStepsPerSecond();
+	}
+
+	public static void reset() {
+		isLeftPressed = false;
+		isRightPressed = false;
+		isUpPressed = false;
+		isDownPressed = false;
+
+		bottles = 0;
+		bottlesPlaced = 0;
+		bottleType = EMPTY_BOTTLE;
 	}
 
 	public static void setLeftPressed(boolean isPressed) {
@@ -86,18 +141,35 @@ public class Milkman extends Actor {
 	}
 
 	@Override
-	public void step() {
+	public void step()  {
+		stepsSinceLastMove++;
+
+		if(hearts <= 0) {
+			return;
+		}
+
 		super.step();
 
 		if(pickupFrame > 3) {
 			pickupFrame = -1;
-			bottles++;
+			if(bottleType == EMPTY_BOTTLE) {
+				bottles++;
+			} else {
+				bottles--;
+				if(bottles == 0) {
+					bottleType = EMPTY_BOTTLE;
+				}
+			}
 		}
 		if(pickupFrame > -1) {
 			if(stepCounter % (0.125 * Clock.getStepsPerSecond()) == 0) {
 				pickupFrame++;
 				if(pickupFrame == 2 && scene instanceof Overworld) {
-					((Overworld)scene).removeBottleAt(x, y);
+					if(bottleType == EMPTY_BOTTLE) {
+						((Overworld)scene).removeBottleAt(x, y);
+					} else {
+						((Overworld)scene).placeBottleAt(x, y);
+					}
 				}
 			}
 			return;
@@ -108,30 +180,46 @@ public class Milkman extends Actor {
 		if(dominantDirection == HORIZONTAL) {
 			if(isLeftPressed && !isRightPressed) {
 				direction = LEFT;
-				moveLeft();
+				if(moveLeft()) {
+					stepsSinceLastMove = 0;
+				}
 			} else if(!isLeftPressed && isRightPressed) {
 				direction = RIGHT;
-				moveRight();
+				if(moveRight()) {
+					stepsSinceLastMove = 0;
+				}
 			} else if(isUpPressed && !isDownPressed) {
 				direction = UP;
-				moveUp();
+				if(moveUp()) {
+					stepsSinceLastMove = 0;
+				}
 			} else if(!isUpPressed && isDownPressed) {
 				direction = DOWN;
-				moveDown();
+				if(moveDown()) {
+					stepsSinceLastMove = 0;
+				}
 			}
 		} else {
 			if(isUpPressed && !isDownPressed) {
 				direction = UP;
-				moveUp();
+				if(moveUp()) {
+					stepsSinceLastMove = 0;
+				}
 			} else if(!isUpPressed && isDownPressed) {
 				direction = DOWN;
-				moveDown();
+				if(moveDown()) {
+					stepsSinceLastMove = 0;
+				}
 			} else if(isLeftPressed && !isRightPressed) {
 				direction = LEFT;
-				moveLeft();
+				if(moveLeft()) {
+					stepsSinceLastMove = 0;
+				}
 			} else if(!isLeftPressed && isRightPressed) {
 				direction = RIGHT;
-				moveRight();
+				if(moveRight()) {
+					stepsSinceLastMove = 0;
+				}
 			}
 		}
 
@@ -140,5 +228,13 @@ public class Milkman extends Actor {
 		} else if(stepCounter % 10 == 0) {
 			frame = (frame + 1) % 4;
 		}
+	}
+
+	public int getHearts() {
+		return hearts;
+	}
+
+	public void setHearts(int hearts) {
+		this.hearts = hearts;
 	}
 }

@@ -13,7 +13,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.net.URL;
 
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
@@ -21,21 +20,23 @@ import code.views.Menu;
 import code.views.View;
 
 public class MainFrame extends Frame {
+	private static MainFrame instance = null;
+
 	public static final int WIDTH = 800;
 	public static final int HEIGHT = 600;
 
 	private JPanel panel;
-	private transient View currentView = new Menu(1, this);
+	private transient View currentView = new Menu(1);
 
 	private boolean debugging = false;
 
 	public static void main(String[] args) {
-		MainFrame mainFrame = new MainFrame();
-		GraphicsThread graphicsThread = mainFrame.new GraphicsThread();
+		GraphicsThread graphicsThread = MainFrame.getInstance().new GraphicsThread();
+		graphicsThread.setName("Graphics");
 		graphicsThread.start();
 	}
 
-	public MainFrame() {
+	private MainFrame() {
 		setResizable(false);
 		setTitle("Milk Hunt");
 
@@ -155,7 +156,14 @@ public class MainFrame extends Frame {
 			}
 		}
 	}
-	
+
+	public static synchronized MainFrame getInstance() {
+		if(instance == null) {
+			instance = new MainFrame();
+		}
+		return instance;
+	}
+
 	public void setCurrentView(View view){
 		this.currentView = view;
 		Clock.setCurrentView(currentView);
