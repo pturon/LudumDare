@@ -1,5 +1,6 @@
 package code.views;
 
+import code.AudioManager;
 import code.MainFrame;
 import code.Textures;
 
@@ -30,6 +31,7 @@ public class Cutscene extends View {
             case 1:
                 graphics.drawImage(Textures.CutSceneTextures.getFactoryOverview(),0,0,null);
                 graphics.drawImage(Textures.CutSceneTextures.getExplosion_0(),0,0,null);
+                AudioManager.playExplosionSound();
                 break;
             case 2:
                 graphics.drawImage(Textures.CutSceneTextures.getFactoryOverview(),0,0,null);
