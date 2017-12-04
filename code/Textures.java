@@ -46,10 +46,12 @@ public class Textures {
 
 		private static BufferedImage instructions;
 		private static BufferedImage restart;
+		private static BufferedImage gameover;
 
 		static {
 			instructions = getTexture("img/hud/instructions.png");
 			restart = getTexture("img/hud/restart.png");
+			gameover = getTexture("img/hud/gameover.png");
 		}
 
 		public static BufferedImage getInstructions() {
@@ -58,6 +60,10 @@ public class Textures {
 
 		public static BufferedImage getRestart() {
 			return restart;
+		}
+		
+		public static BufferedImage getGameover() {
+			return gameover;
 		}
 	}
 
@@ -975,6 +981,8 @@ public class Textures {
 		private static BufferedImage difficultyNormal = getTexture("img/menu/difficulty_1.png");
 		private static BufferedImage difficultyHard = getTexture("img/menu/difficulty_2.png");
 		private static BufferedImage exit = getTexture("img/menu/exit.png");
+		private static BufferedImage play_again = getTexture("img/menu/play_again.png");
+		private static BufferedImage menu = getTexture("img/menu/menu.png");
 		
 		public static BufferedImage getBackground(){
 			return background;
@@ -1026,6 +1034,14 @@ public class Textures {
 		
 		public static BufferedImage getMilkman(){
 			return milkman;
+		}
+		
+		public static BufferedImage getAgainFont(){
+			return play_again;
+		}
+		
+		public static BufferedImage getMenuFont(){
+			return menu;
 		}
 		
 	}

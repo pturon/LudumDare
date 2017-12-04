@@ -21,7 +21,10 @@ import code.entities.Milkman;
 public class Overworld extends Scene {
 	protected Tilemap items;
 
+	private boolean gameover = false;
 	private boolean showInstructions = true;
+    private String[] buttons = {"again", "menu"};
+    private int selection = 0;
 
 	private static final Color DEBUGGING_GREEN = new Color(0, 255, 0, 128);
 	private static final Color DEBUGGING_RED = new Color(255, 0, 0, 128);
@@ -47,6 +50,15 @@ public class Overworld extends Scene {
 		synchronized(actors) {
 			actors.add(milkman);
 		}
+		spawnIntelligentCow();
+		spawnIntelligentCow();
+		spawnIntelligentCow();
+		spawnIntelligentCow();
+		spawnIntelligentCow();
+		spawnIntelligentCow();
+		spawnIntelligentCow();
+		spawnIntelligentCow();
+		spawnIntelligentCow();
 	}
 
 	@Override
@@ -101,20 +113,32 @@ public class Overworld extends Scene {
 
 		if(showInstructions) {
 			graphics.drawImage(Textures.HUD.getInstructions(), 0, 0, null);
-		}
-
+		}		
+		
 		if(!showInstructions){
 			drawHUD(graphics);
 
 			float secondsSinceLastMove = milkman.getSecondsSinceLastMove();
-			if(secondsSinceLastMove > 3) {
+			if(gameover){
+				float opacity = (secondsSinceLastMove);
+				if(opacity > 1)opacity = 1.0f;
+				graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
+				
+				graphics.drawImage(Textures.Menu.getButton(), 194, 352, null);
+				graphics.drawImage(Textures.Menu.getButton(), 194, 448, null);
+		        graphics.drawImage(Textures.Menu.getAgainFont(), 194, 352, null);
+		        graphics.drawImage(Textures.Menu.getMenuFont(), 194, 448, null);
+				graphics.drawImage(Textures.Menu.getFrame(), 194, 352 + selection * 96, null);
+				graphics.drawImage(Textures.HUD.getGameover(), 0, 0, null);
+			}else if(secondsSinceLastMove > 3) {
 				float opacity = (secondsSinceLastMove - 3);
 				if(opacity > 1)opacity = 1.0f;
 				graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
+				
 				graphics.drawImage(Textures.HUD.getRestart(), 0, 0, null);
 			}
 		}
-
+		
 		return image;
 	}
 
@@ -250,6 +274,35 @@ public class Overworld extends Scene {
 	public void onKeyPressed(KeyEvent keyEvent) {
 		super.onKeyPressed(keyEvent);
 		showInstructions = false;
+		if(gameover){
+			switch (keyEvent.getKeyCode()) {
+            case KeyEvent.VK_UP:
+            case KeyEvent.VK_W:
+                selection = (selection - 1 + buttons.length) % buttons.length;
+                break;
+            case KeyEvent.VK_DOWN:
+            case KeyEvent.VK_S:
+                selection = (selection + 1) % (buttons.length);
+                break;
+            case KeyEvent.VK_ENTER:
+            case KeyEvent.VK_SPACE:
+                switch (buttons[selection]) {
+                    case "again":
+                        Milkman.reset();
+                        MainFrame.getInstance().setCurrentView(new Overworld(difficulty));
+                        break;
+                    case "menu":
+                        MainFrame.getInstance().setCurrentView(new Menu(difficulty));
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            default:
+                break;
+        }
+		}
+		
 	}
 
 	@Override
@@ -265,6 +318,10 @@ public class Overworld extends Scene {
 	@Override
 	public void onMouseReleased(MouseEvent mouseEvent) {
 		//not used at the moment
+	}
+	
+	public void triggerDeath(){
+		this.gameover = true;
 	}
 
 }

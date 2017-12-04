@@ -145,6 +145,7 @@ public class Milkman extends Actor {
 		stepsSinceLastMove++;
 
 		if(hearts <= 0) {
+			((Overworld)scene).triggerDeath();
 			return;
 		}
 

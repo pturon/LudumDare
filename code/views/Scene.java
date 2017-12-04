@@ -7,6 +7,7 @@ import code.entities.Actor;
 import code.entities.Milkman;
 
 import javax.xml.soap.Text;
+
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -81,6 +82,9 @@ public abstract class Scene extends View {
             case KeyEvent.VK_R:
                 Milkman.reset();
                 MainFrame.getInstance().setCurrentView(new Overworld(difficulty));
+                break;
+            case KeyEvent.VK_ESCAPE:
+                MainFrame.getInstance().setCurrentView(new Menu(difficulty));
                 break;
             default:
                 break;
