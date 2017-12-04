@@ -26,6 +26,7 @@ public class Overworld extends Scene {
 	private boolean showInstructions = true;
     private String[] buttons = {"again", "menu"};
     private int selection = 0;
+    private int mousePressedOn = 0;
 
 	private static final Color DEBUGGING_GREEN = new Color(0, 255, 0, 128);
 	private static final Color DEBUGGING_RED = new Color(255, 0, 0, 128);
@@ -49,7 +50,13 @@ public class Overworld extends Scene {
 			//reset pathfinding otherwise
 			Pathfinding.setTargetActor(null);
 			Pathfinding.setTilemap(null);
-	}
+		}
+		spawnIntelligentCow();
+		spawnIntelligentCow();
+		spawnIntelligentCow();
+		spawnIntelligentCow();
+		spawnIntelligentCow();
+		spawnIntelligentCow();
 	}
 
 	@Override
@@ -142,13 +149,13 @@ public class Overworld extends Scene {
 				float opacity = (secondsSinceLastMove);
 				if(opacity > 1)opacity = 1.0f;
 				graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
-				
+
+				graphics.drawImage(Textures.HUD.getGameover(), 0, 0, null);
 				graphics.drawImage(Textures.Menu.getButton(), 194, 352, null);
 				graphics.drawImage(Textures.Menu.getButton(), 194, 448, null);
 		        graphics.drawImage(Textures.Menu.getAgainFont(), 194, 352, null);
 		        graphics.drawImage(Textures.Menu.getMenuFont(), 194, 448, null);
 				graphics.drawImage(Textures.Menu.getFrame(), 194, 352 + selection * 96, null);
-				graphics.drawImage(Textures.HUD.getGameover(), 0, 0, null);
 			}else if(secondsSinceLastMove > 3) {
 				float opacity = (secondsSinceLastMove - 3);
 				if(opacity > 1)opacity = 1.0f;
@@ -326,17 +333,38 @@ public class Overworld extends Scene {
 
 	@Override
 	public void onMouseMoved(MouseEvent mouseEvent) {
-		//not used at the moment
+		if (mouseEvent.getX() > 194 && mouseEvent.getX() < 606) {
+            if (mouseEvent.getY() > 352 && mouseEvent.getY() < 416) {
+                selection = 0;
+            } else if (mouseEvent.getY() > 448 && mouseEvent.getY() < 512) {
+                selection = 1;
+            }
+        }
 	}
 
 	@Override
 	public void onMousePressed(MouseEvent mouseEvent) {
-		//not used at the moment
+		if (mouseEvent.getX() > 194 && mouseEvent.getX() < 606) {
+            if (mouseEvent.getY() > 352 && mouseEvent.getY() < 416) {
+            	mousePressedOn = 1;
+            } else if (mouseEvent.getY() > 448 && mouseEvent.getY() < 512) {
+            	mousePressedOn = 2;
+            }
+        }
 	}
 
 	@Override
 	public void onMouseReleased(MouseEvent mouseEvent) {
-		//not used at the moment
+		if (mouseEvent.getX() > 194 && mouseEvent.getX() < 606) {
+            if (mouseEvent.getY() > 352 && mouseEvent.getY() < 416 && mousePressedOn == 1) {
+            	mousePressedOn = 0;
+            	Milkman.reset();
+                MainFrame.getInstance().setCurrentView(new Overworld(difficulty));
+            } else if (mouseEvent.getY() > 448 && mouseEvent.getY() < 512 && mousePressedOn == 2) {
+            	mousePressedOn = 0;
+            	MainFrame.getInstance().setCurrentView(new Menu(difficulty));
+            }
+        }
 	}
 	
 	public void triggerDeath(){
