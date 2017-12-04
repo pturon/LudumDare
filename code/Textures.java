@@ -905,6 +905,7 @@ public class Textures {
 		}
 
 		public static class IntelligentCow {
+			private static BufferedImage[][] hitting = new BufferedImage[4][4];
 			private static BufferedImage[][] walking = new BufferedImage[4][4];
 
 			private IntelligentCow() {
@@ -915,9 +916,14 @@ public class Textures {
 				BufferedImage cowSpritesheet = getTexture("img/cows/clever_spritesheet.png");
 				for(int direction = 0; direction < 4; direction++) {
 					for(int frame = 0; frame < 4; frame++) {
+						hitting[direction][frame] = cowSpritesheet.getSubimage(128 + 32 * frame, 32 * direction, 32, 32);
 						walking[direction][frame] = cowSpritesheet.getSubimage(32 * frame, 32 * direction, 32, 32);
 					}
 				}
+			}
+
+			public static BufferedImage getHitting(int direction, int frame) {
+				return hitting[direction % 4][frame % 4];
 			}
 
 			public static BufferedImage getWalking(int direction, int frame) {
