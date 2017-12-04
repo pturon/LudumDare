@@ -12,6 +12,8 @@ public class AudioManager {
 	private static Clip background;
 	private static Clip bottle;
 	private static Clip cow;
+	private static Clip explosion;
+	private static Clip punch;
 
 	private AudioManager() {
 		//no instance allowed
@@ -47,6 +49,26 @@ public class AudioManager {
 		} catch(Exception exception) {
 			exception.printStackTrace();
 		}
+
+		//load explosion-soundeffect
+		try {
+	        URL explosionUrl = ClassLoader.getSystemClassLoader().getResource("sound/explosion.wav");
+	        AudioInputStream explosionStream = AudioSystem.getAudioInputStream(explosionUrl);
+	        explosion = AudioSystem.getClip();
+	        explosion.open(explosionStream);
+		} catch(Exception exception) {
+			exception.printStackTrace();
+		}
+
+		//load punch-soundeffect
+		try {
+	        URL punchUrl = ClassLoader.getSystemClassLoader().getResource("sound/punch.wav");
+	        AudioInputStream punchStream = AudioSystem.getAudioInputStream(punchUrl);
+	        punch = AudioSystem.getClip();
+	        punch.open(punchStream);
+		} catch(Exception exception) {
+			exception.printStackTrace();
+		}
 	}
 
 	public static void enable() {
@@ -74,6 +96,20 @@ public class AudioManager {
 		if(enabled) {
 			cow.setFramePosition(0);
 			cow.start();
+		}
+	}
+
+	public static void playExplosionSound() {
+		if(enabled) {
+			explosion.setFramePosition(0);
+			explosion.start();
+		}
+	}
+
+	public static void playPunchSound() {
+		if(enabled) {
+			punch.setFramePosition(0);
+			punch.start();
 		}
 	}
 }

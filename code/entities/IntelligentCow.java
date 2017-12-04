@@ -2,6 +2,7 @@ package code.entities;
 
 import java.awt.image.BufferedImage;
 
+import code.AudioManager;
 import code.Clock;
 import code.Pathfinding;
 import code.Textures;
@@ -56,6 +57,7 @@ public class IntelligentCow extends Cow {
 			scene.getMilkman().damage();
 			hittingFrame = 0;
 			hitCooldown = 2 * Clock.getStepsPerSecond();
+			AudioManager.playPunchSound();
 		}
 	}
 
