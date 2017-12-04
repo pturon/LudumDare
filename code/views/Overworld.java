@@ -338,27 +338,34 @@ public class Overworld extends Scene {
 
 	@Override
 	public void onMousePressed(MouseEvent mouseEvent) {
-		if (mouseEvent.getX() > 194 && mouseEvent.getX() < 606) {
-            if (mouseEvent.getY() > 352 && mouseEvent.getY() < 416) {
-            	mousePressedOn = 1;
-            } else if (mouseEvent.getY() > 448 && mouseEvent.getY() < 512) {
-            	mousePressedOn = 2;
-            }
-        }
+		showInstructions = false;
+		if(gameover){
+			if (mouseEvent.getX() > 194 && mouseEvent.getX() < 606) {
+	            if (mouseEvent.getY() > 352 && mouseEvent.getY() < 416) {
+	            	mousePressedOn = 1;
+	            } else if (mouseEvent.getY() > 448 && mouseEvent.getY() < 512) {
+	            	mousePressedOn = 2;
+	            }
+	        }
+		}
+		
 	}
 
 	@Override
 	public void onMouseReleased(MouseEvent mouseEvent) {
-		if (mouseEvent.getX() > 194 && mouseEvent.getX() < 606) {
-            if (mouseEvent.getY() > 352 && mouseEvent.getY() < 416 && mousePressedOn == 1) {
-            	mousePressedOn = 0;
-            	Milkman.reset();
-                MainFrame.getInstance().setCurrentView(new Overworld(difficulty));
-            } else if (mouseEvent.getY() > 448 && mouseEvent.getY() < 512 && mousePressedOn == 2) {
-            	mousePressedOn = 0;
-            	MainFrame.getInstance().setCurrentView(new Menu(difficulty));
-            }
-        }
+		if(gameover){
+			if (mouseEvent.getX() > 194 && mouseEvent.getX() < 606) {
+	            if (mouseEvent.getY() > 352 && mouseEvent.getY() < 416 && mousePressedOn == 1) {
+	            	mousePressedOn = 0;
+	            	Milkman.reset();
+	                MainFrame.getInstance().setCurrentView(new Overworld(difficulty));
+	            } else if (mouseEvent.getY() > 448 && mouseEvent.getY() < 512 && mousePressedOn == 2) {
+	            	mousePressedOn = 0;
+	            	MainFrame.getInstance().setCurrentView(new Menu(difficulty));
+	            }
+	        }
+		}
+		
 	}
 	
 	public void triggerDeath(){
