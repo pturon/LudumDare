@@ -47,14 +47,19 @@ public class Textures {
 		private static BufferedImage instructions;
 		private static BufferedImage restart;
 		private static BufferedImage gameover;
-		private static BufferedImage[] speaker = new BufferedImage[2];		private static BufferedImage victory;
+		private static BufferedImage[] speaker = new BufferedImage[2];
+		private static BufferedImage victory;
+		private static BufferedImage pause;
 		static {
 			instructions = getTexture("img/hud/instructions.png");
 			restart = getTexture("img/hud/restart.png");
 			gameover = getTexture("img/hud/gameover.png");
 			BufferedImage spreakerTextures = getTexture("img/hud/sound.png");
 			speaker[0] = spreakerTextures.getSubimage(0, 0, 32, 32);
-			speaker[1] = spreakerTextures.getSubimage(32, 0, 32, 32);			victory = getTexture("img/hud/victory.png");		}
+			speaker[1] = spreakerTextures.getSubimage(32, 0, 32, 32);
+			victory = getTexture("img/hud/victory.png");
+			pause = getTexture("img/hud/pause.png");		
+		}
 
 		public static BufferedImage getInstructions() {
 			return instructions;
@@ -72,6 +77,10 @@ public class Textures {
 		}
 		public static BufferedImage getVictory() {
 			return victory;
+		}
+		
+		public static BufferedImage getPause() {
+			return pause;
 		}
 	}
 
@@ -997,6 +1006,7 @@ public class Textures {
 		private static BufferedImage exit = getTexture("img/menu/exit.png");
 		private static BufferedImage play_again = getTexture("img/menu/play_again.png");
 		private static BufferedImage menu = getTexture("img/menu/menu.png");
+		private static BufferedImage resume = getTexture("img/menu/resume.png");
 		
 		public static BufferedImage getBackground(){
 			return background;
@@ -1056,6 +1066,10 @@ public class Textures {
 		
 		public static BufferedImage getMenuFont(){
 			return menu;
+		}
+		
+		public static BufferedImage getResumeFont(){
+			return resume;
 		}
 		
 	}

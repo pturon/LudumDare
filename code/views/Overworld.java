@@ -335,13 +335,14 @@ public class Overworld extends Scene {
                 break;
             default:
                 break;
-        }
+			}
 		}
 		
 	}
 
 	@Override
 	public void onMouseMoved(MouseEvent mouseEvent) {
+		super.onMouseMoved(mouseEvent);
 		if (mouseEvent.getX() > 194 && mouseEvent.getX() < 606) {
             if (mouseEvent.getY() > 352 && mouseEvent.getY() < 416) {
                 selection = 0;
@@ -353,6 +354,7 @@ public class Overworld extends Scene {
 
 	@Override
 	public void onMousePressed(MouseEvent mouseEvent) {
+		super.onMousePressed(mouseEvent);
 		showInstructions = false;
 		if(gameover){
 			if (mouseEvent.getX() > 194 && mouseEvent.getX() < 606) {
@@ -368,6 +370,7 @@ public class Overworld extends Scene {
 
 	@Override
 	public void onMouseReleased(MouseEvent mouseEvent) {
+		super.onMouseReleased(mouseEvent);
 		if(gameover){
 			if (mouseEvent.getX() > 194 && mouseEvent.getX() < 606) {
 	            if (mouseEvent.getY() > 352 && mouseEvent.getY() < 416 && mousePressedOn == 1) {
