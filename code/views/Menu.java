@@ -18,6 +18,8 @@ import code.Textures;
 
 public class Menu extends View {
     private String[] buttons = {"play", "difficulty", "exit"};
+    private int currentFrame = 0;
+    private int steps = 0;
     private int selection = 0;
     private int difficulty = 1;
     private int mousePressedOn = 0;
@@ -32,8 +34,8 @@ public class Menu extends View {
         Graphics2D graphics = image.createGraphics();
 
         graphics.drawImage(Textures.Menu.getBackground(), 0, 0, null);
-
-        graphics.drawImage(Textures.Menu.getTitle(), 176, 0, null);
+        
+        graphics.drawImage(Textures.Menu.getTitle(currentFrame%4), 176, 0, null);
         graphics.drawImage(Textures.Menu.getMilkman(), 476, 256, null);
 
         graphics.drawImage(Textures.Menu.getButton(), 32, 288, null);
@@ -98,12 +100,21 @@ public class Menu extends View {
 
     @Override
     public void onKeyReleased(KeyEvent keyEvent) {
-
     }
 
     @Override
     public void step() {
-
+    	if (!(steps == 0 && currentFrame == 0)) {	
+    		if (steps == 16 && currentFrame < 16){
+                steps = 0;
+                currentFrame++;  			
+    		} 
+    		if (currentFrame == 16){
+    			steps = -1;
+    			currentFrame = 0;
+    		}
+    		steps++;
+        }
     }
 
     @Override
@@ -121,6 +132,7 @@ public class Menu extends View {
 
     @Override
     public void onMousePressed(MouseEvent mouseEvent) {
+    	System.out.println(mouseEvent.getX() + " : " + mouseEvent.getY());
         if (mouseEvent.getX() > 32 && mouseEvent.getX() < 444) {
             if (mouseEvent.getY() > 288 && mouseEvent.getY() < 352) {
                 mousePressedOn = 1;
@@ -131,6 +143,8 @@ public class Menu extends View {
             }
         }
         if (mouseEvent.getX() >= 306 && mouseEvent.getX() <= 342 && mouseEvent.getY() >= 30 && mouseEvent.getY() <= 132) {
+            mousePressedOn = 4;
+        } else if (mouseEvent.getX() >= 310 && mouseEvent.getX() <= 432 && mouseEvent.getY() >= 0 && mouseEvent.getY() <= 34) {
             mousePressedOn = 4;
         } else if (mouseEvent.getX() >= 480 && mouseEvent.getX() <= 558 && mouseEvent.getY() >= 142 && mouseEvent.getY() <= 256) {
             mousePressedOn = 5;
@@ -153,7 +167,13 @@ public class Menu extends View {
             }
         }
         if (mouseEvent.getX() >= 306 && mouseEvent.getX() <= 342 && mouseEvent.getY() >= 30 && mouseEvent.getY() <= 132 && mousePressedOn == 4) {
-            System.out.println("smoke");
+        	if(steps == 0){
+				steps++;
+			}
+        } else if (mouseEvent.getX() >= 310 && mouseEvent.getX() <= 432 && mouseEvent.getY() >= 0 && mouseEvent.getY() <= 34 && mousePressedOn == 4) {
+        	if(steps == 0){
+				steps++;
+			}
         } else if (mouseEvent.getX() >= 480 && mouseEvent.getX() <= 558 && mouseEvent.getY() >= 142 && mouseEvent.getY() <= 256 && mousePressedOn == 5) {
             //Only sound in the game, could also be excluded
             File file = new File("src/sound/cow.wav");

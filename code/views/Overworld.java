@@ -1,5 +1,6 @@
 package code.views;
 
+import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -13,7 +14,7 @@ import code.Material;
 import code.Textures;
 import code.Tilemap;
 import code.entities.Actor;
-import code.entities.Cow;
+import code.entities.StandardCow;
 import code.entities.IntelligentCow;
 import code.entities.Milkman;
 
@@ -46,8 +47,6 @@ public class Overworld extends Scene {
 		synchronized(actors) {
 			actors.add(milkman);
 		}
-
-		System.out.println(difficulty);
 	}
 
 	@Override
@@ -106,15 +105,13 @@ public class Overworld extends Scene {
 
 		if(!showInstructions){
 			drawHUD(graphics);
-		}
 
-		if(!showInstructions) {
 			float secondsSinceLastMove = milkman.getSecondsSinceLastMove();
 			if(secondsSinceLastMove > 3) {
 				float opacity = (secondsSinceLastMove - 3);
 				if(opacity > 1)opacity = 1.0f;
-				graphics.setColor(new Color(1.0f, 1.0f, 1.0f, opacity));
-				graphics.drawString("Press R to restart", WIDTH / 2, HEIGHT - 128);
+				graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
+				graphics.drawImage(Textures.HUD.getRestart(), 0, 0, null);
 			}
 		}
 
@@ -126,7 +123,7 @@ public class Overworld extends Scene {
 		if(milkman.getBottles() + milkman.getBottlesPlaced() > 8) {
 			spawnIntelligentCow();
 		} else {
-			spawnCow();
+			spawnStandardCow();
 		}
 	}
 
@@ -134,6 +131,11 @@ public class Overworld extends Scene {
 		items.setMaterial(x / 32, y / 32, Material.FILLED_BOTTLE);
 	}
 
+	/**
+	 * Calculates a spawnpoint.
+	 * First a position is randomly chosen outside of the viewport.
+	 * Then it is rotated around the viewport until a valid spawn-position is found.
+	 */
 	private Point getSpawnPoint() {
 		int perimeter = 2 * WIDTH + 2 * HEIGHT;
 		int offset = new Random().nextInt(perimeter);
@@ -186,23 +188,19 @@ public class Overworld extends Scene {
 	}
 
 	/**
-	 * Spawns a cow.
-	 * First a position is randomly chosen outside of the viewport.
-	 * Then it is rotated around the viewport until a valid spawn-position is found.
+	 * Spawns a standard cow.
 	 */
-	private void spawnCow() {
+	private void spawnStandardCow() {
 		Point spawnpoint = getSpawnPoint();
 		if(spawnpoint != null) {
 			synchronized(actors) {
-				actors.add(new Cow(spawnpoint.x, spawnpoint.y, this));
+				actors.add(new StandardCow(spawnpoint.x, spawnpoint.y, this));
 			}
 		}
 	}
 
 	/**
-	 * Spawns a cow.
-	 * First a position is randomly chosen outside of the viewport.
-	 * Then it is rotated around the viewport until a valid spawn-position is found.
+	 * Spawns an intelligent cow.
 	 */
 	private void spawnIntelligentCow() {
 		Point spawnpoint = getSpawnPoint();
@@ -239,11 +237,11 @@ public class Overworld extends Scene {
 			if(milkman.getY() < 0) {
 				milkman.setY(16);
 			}
-			if(milkman.getX() > 32 * terrain.getWidth() - 16) {
-				milkman.setX(32 * terrain.getWidth() - 16);
+			if(milkman.getX() > 32 * terrain.getWidth() - 32) {
+				milkman.setX(32 * terrain.getWidth() - 48);
 			}
-			if(milkman.getY() > 32 * terrain.getHeight() - 16) {
-				milkman.setY(32 * terrain.getHeight() - 16);
+			if(milkman.getY() > 32 * terrain.getHeight() - 32) {
+				milkman.setY(32 * terrain.getHeight() - 48);
 			}
 		}
 	}

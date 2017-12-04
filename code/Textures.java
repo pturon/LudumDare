@@ -45,13 +45,19 @@ public class Textures {
 		}
 
 		private static BufferedImage instructions;
+		private static BufferedImage restart;
 
 		static {
 			instructions = getTexture("img/hud/instructions.png");
+			restart = getTexture("img/hud/restart.png");
 		}
 
 		public static BufferedImage getInstructions() {
 			return instructions;
+		}
+
+		public static BufferedImage getRestart() {
+			return restart;
 		}
 	}
 
@@ -893,7 +899,7 @@ public class Textures {
 		}
 
 		public static class IntelligentCow {
-			private static BufferedImage[] walking = new BufferedImage[4];
+			private static BufferedImage[][] walking = new BufferedImage[4][4];
 
 			private IntelligentCow() {
 				//no instance allowed
@@ -901,13 +907,15 @@ public class Textures {
 
 			static {
 				BufferedImage cowSpritesheet = getTexture("img/cows/clever_spritesheet.png");
-				for(int i = 0; i < 4; i++) {
-					walking[i] = cowSpritesheet.getSubimage(0, 32 * i, 32, 32);
+				for(int direction = 0; direction < 4; direction++) {
+					for(int frame = 0; frame < 4; frame++) {
+						walking[direction][frame] = cowSpritesheet.getSubimage(32 * frame, 32 * direction, 32, 32);
+					}
 				}
 			}
 
-			public static BufferedImage getWalking(int direction) {
-				return walking[direction % 4];
+			public static BufferedImage getWalking(int direction, int frame) {
+				return walking[direction % 4][frame % 4];
 			}
 		}
 
@@ -956,6 +964,9 @@ public class Textures {
 	public static class Menu {
 		private static BufferedImage background = getTexture("img/menu/background.png");
 		private static BufferedImage title = getTexture("img/menu/title.png");
+		private static BufferedImage title1 = getTexture("img/menu/title1.png");
+		private static BufferedImage title2 = getTexture("img/menu/title2.png");
+		private static BufferedImage title3 = getTexture("img/menu/title3.png");
 		private static BufferedImage button = getTexture("img/menu/button.png");
 		private static BufferedImage frame = getTexture("img/menu/frame.png");
 		private static BufferedImage milkman = getTexture("img/menu/milkman.png");
@@ -969,8 +980,19 @@ public class Textures {
 			return background;
 		}
 		
-		public static BufferedImage getTitle(){
-			return title;
+		public static BufferedImage getTitle(int cloudAnimation){
+			switch (cloudAnimation){
+			case 0:
+				return title;
+			case 1:
+				return title1;
+			case 2:
+				return title2;
+			case 3:
+				return title3;
+			default:
+				return title;
+			}
 		}
 		
 		public static BufferedImage getButton(){
@@ -989,7 +1011,7 @@ public class Textures {
 			switch (difficulty){
 			case 0:
 				return difficultyEasy;
-			case 1:
+			case 10:
 				return difficultyNormal;
 			case 2:
 				return difficultyHard;

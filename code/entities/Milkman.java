@@ -39,7 +39,6 @@ public class Milkman extends Actor {
 	private static boolean bottleType = EMPTY_BOTTLE;
 
 	private static int hearts;
-	private static int score = 0;
 
 	public Milkman(int x, int y, Scene scene) {
 		super(x, y, scene);
@@ -51,6 +50,12 @@ public class Milkman extends Actor {
 
 	public boolean canPlaceBottles() {
 		return bottleType == FILLED_BOTTLE && bottles > 0 && pickupFrame == -1;
+	}
+
+	public void damage() {
+		if(hearts > 0) {
+			hearts--;
+		}
 	}
 
 	public void fillBottles() {
@@ -136,7 +141,13 @@ public class Milkman extends Actor {
 	}
 
 	@Override
-	public void step() {
+	public void step()  {
+		stepsSinceLastMove++;
+
+		if(hearts <= 0) {
+			return;
+		}
+
 		super.step();
 
 		if(pickupFrame > 3) {
@@ -166,7 +177,6 @@ public class Milkman extends Actor {
 
 		boolean isMoving = (isLeftPressed != isRightPressed) || (isUpPressed != isDownPressed);
 
-		stepsSinceLastMove++;
 		if(dominantDirection == HORIZONTAL) {
 			if(isLeftPressed && !isRightPressed) {
 				direction = LEFT;
@@ -226,13 +236,5 @@ public class Milkman extends Actor {
 
 	public void setHearts(int hearts) {
 		this.hearts = hearts;
-	}
-
-	public int getScore(){
-		return score;
-	}
-
-	public  void setScore(int score){
-		this.score = score;
 	}
 }
