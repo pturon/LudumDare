@@ -6,7 +6,7 @@ import code.Clock;
 import code.Textures;
 import code.views.Scene;
 
-public class Cow extends Actor {
+public class IntelligentCow extends Actor {
 	public static final int UP = 0;
 	public static final int DOWN = 1;
 	public static final int RIGHT = 2;
@@ -16,31 +16,23 @@ public class Cow extends Actor {
 	private static final int MAX_TURNS_PER_SECOND = 2;
 	private int turningCooldown = 0;
 
-	public Cow(int x, int y, Scene scene) {
+	public IntelligentCow(int x, int y, Scene scene) {
 		super(x, y, scene);
 	}
 
 	@Override
 	public BufferedImage getImage() {
-		return Textures.Sprites.Cow.getWalking(direction);
+		return Textures.Sprites.IntelligentCow.getWalking(direction);
 	}
 
 	@Override
 	public int getWidth() {
-		if(direction == LEFT || direction == RIGHT) {
-			return 64;
-		} else {
-			return 32;
-		}
+		return 32;
 	}
 
 	@Override
 	public int getHeight() {
-		if(direction == UP || direction == DOWN) {
-			return 64;
-		} else {
-			return 32;
-		}
+		return 32;
 	}
 
 	@Override
