@@ -30,9 +30,22 @@ public class Overworld extends Scene {
 
 		items = new Tilemap("img/overworld/overworld_tilemap_milkbottles.txt", Overworld.class);
 		milkman = new Milkman(64, 64, this);
+		switch (difficulty){
+			case 0:
+				milkman.setHearts(3);
+				break;
+			case 1:
+				milkman.setHearts(2);
+				break;
+			case 2:
+				milkman.setHearts(1);
+				break;
+		}
 		synchronized(actors) {
 			actors.add(milkman);
 		}
+
+		System.out.println(difficulty);
 	}
 
 	@Override
@@ -89,8 +102,9 @@ public class Overworld extends Scene {
 			graphics.drawImage(Textures.HUD.getInstructions(), 0, 0, null);
 		}
 
-		graphics.setColor(Color.WHITE);
-		graphics.drawString("Bottles: " + milkman.getBottles() + (milkman.getBottleType() ? " filled bottles" : " empty bottles"), 10, 20);
+		if(!showInstructions){
+			drawHUD(graphics);
+		}
 
 		return image;
 	}
@@ -216,4 +230,5 @@ public class Overworld extends Scene {
 	public void onMouseReleased(MouseEvent mouseEvent) {
 		//not used at the moment
 	}
+
 }

@@ -77,8 +77,7 @@ public class MilkFactory extends Scene {
 			}
 		}
 
-		graphics.setColor(Color.WHITE);
-		graphics.drawString("Bottles: " + milkman.getBottles() + (milkman.getBottleType() ? " filled bottles" : " empty bottles"), 10, 20);
+		drawHUD(graphics);
 
 		return image;
 	}
