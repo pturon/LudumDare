@@ -52,6 +52,12 @@ public class Milkman extends Actor {
 		return bottleType == FILLED_BOTTLE && bottles > 0 && pickupFrame == -1;
 	}
 
+	public void damage() {
+		if(hearts > 0) {
+			hearts--;
+		}
+	}
+
 	public void fillBottles() {
 		bottleType = FILLED_BOTTLE;
 	}
@@ -135,7 +141,13 @@ public class Milkman extends Actor {
 	}
 
 	@Override
-	public void step() {
+	public void step()  {
+		stepsSinceLastMove++;
+
+		if(hearts <= 0) {
+			return;
+		}
+
 		super.step();
 
 		if(pickupFrame > 3) {
@@ -165,7 +177,6 @@ public class Milkman extends Actor {
 
 		boolean isMoving = (isLeftPressed != isRightPressed) || (isUpPressed != isDownPressed);
 
-		stepsSinceLastMove++;
 		if(dominantDirection == HORIZONTAL) {
 			if(isLeftPressed && !isRightPressed) {
 				direction = LEFT;

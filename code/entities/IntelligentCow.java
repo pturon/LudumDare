@@ -7,6 +7,8 @@ import code.Textures;
 import code.views.Scene;
 
 public class IntelligentCow extends Cow {
+	private int hitCooldown = 0;
+
 	public IntelligentCow(int x, int y, Scene scene) {
 		super(x, y, scene);
 	}
@@ -24,6 +26,19 @@ public class IntelligentCow extends Cow {
 	@Override
 	public int getHeight() {
 		return 32;
+	}
+
+	@Override
+	public void step() {
+		super.step();
+
+		if(hitCooldown > 0) {
+			hitCooldown--;
+		} else if(Math.abs(scene.getMilkman().getX() - x) < 48
+			   && Math.abs(scene.getMilkman().getY() - y) < 48) {
+			scene.getMilkman().damage();
+			hitCooldown = (int)(0.5 * Clock.getStepsPerSecond());
+		}
 	}
 
 	protected void turn(int targetX, int targetY) {
