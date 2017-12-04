@@ -8,6 +8,7 @@ import code.views.Scene;
 
 public class IntelligentCow extends Cow {
 	private int hitCooldown = 0;
+	private int frame = 0;
 
 	public IntelligentCow(int x, int y, Scene scene) {
 		super(x, y, scene);
@@ -15,7 +16,7 @@ public class IntelligentCow extends Cow {
 
 	@Override
 	public BufferedImage getImage() {
-		return Textures.Sprites.IntelligentCow.getWalking(direction);
+		return Textures.Sprites.IntelligentCow.getWalking(direction, frame);
 	}
 
 	@Override
@@ -32,12 +33,17 @@ public class IntelligentCow extends Cow {
 	public void step() {
 		super.step();
 
+		double distanceToMilkman = Math.sqrt(Math.pow(scene.getMilkman().getX() - x, 2) + Math.pow(scene.getMilkman().getY() - y, 2));
+
 		if(hitCooldown > 0) {
 			hitCooldown--;
-		} else if(Math.abs(scene.getMilkman().getX() - x) < 48
-			   && Math.abs(scene.getMilkman().getY() - y) < 48) {
+		} else if(distanceToMilkman <= 32) {
 			scene.getMilkman().damage();
 			hitCooldown = (int)(0.5 * Clock.getStepsPerSecond());
+		}
+
+		if(stepCounter % 10 == 0) {
+			frame = (frame + 1) % 4;
 		}
 	}
 
