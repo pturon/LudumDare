@@ -893,7 +893,7 @@ public class Textures {
 		}
 
 		public static class IntelligentCow {
-			private static BufferedImage[] walking = new BufferedImage[4];
+			private static BufferedImage[][] walking = new BufferedImage[4][4];
 
 			private IntelligentCow() {
 				//no instance allowed
@@ -901,13 +901,15 @@ public class Textures {
 
 			static {
 				BufferedImage cowSpritesheet = getTexture("img/cows/clever_spritesheet.png");
-				for(int i = 0; i < 4; i++) {
-					walking[i] = cowSpritesheet.getSubimage(0, 32 * i, 32, 32);
+				for(int direction = 0; direction < 4; direction++) {
+					for(int frame = 0; frame < 4; frame++) {
+						walking[direction][frame] = cowSpritesheet.getSubimage(32 * frame, 32 * direction, 32, 32);
+					}
 				}
 			}
 
-			public static BufferedImage getWalking(int direction) {
-				return walking[direction % 4];
+			public static BufferedImage getWalking(int direction, int frame) {
+				return walking[direction % 4][frame % 4];
 			}
 		}
 

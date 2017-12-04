@@ -32,6 +32,7 @@ public class MainFrame extends Frame {
 
 	public static void main(String[] args) {
 		GraphicsThread graphicsThread = MainFrame.getInstance().new GraphicsThread();
+		graphicsThread.setName("Graphics");
 		graphicsThread.start();
 	}
 
