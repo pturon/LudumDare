@@ -148,7 +148,7 @@ public class Overworld extends Scene {
 
 	public void removeBottleAt(int x, int y) {
 		items.setMaterial(x / 32, y / 32, Material.CARDBOARD_BOX);
-		if(milkman.getEmptyBottles() + milkman.getFilledBottles() + milkman.getBottlesPlaced() > 8) {
+		if(difficulty != 0 && milkman.getEmptyBottles() + milkman.getFilledBottles() + milkman.getBottlesPlaced() > 8) {
 			spawnIntelligentCow();
 		} else {
 			spawnStandardCow();
