@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.util.Random;
 
 import code.Material;
 import code.Textures;
@@ -30,9 +31,6 @@ public class Overworld extends Scene {
 		milkman = new Milkman(64, 64, this);
 		synchronized(actors) {
 			actors.add(milkman);
-			for(int i = 0; i < 8; i++) {
-				actors.add(new Cow((int)(Math.random() * 800), (int)(Math.random() * 600), this));
-			}
 		}
 		this.difficulty = difficulty;
 	}
@@ -48,14 +46,14 @@ public class Overworld extends Scene {
 		int mapOffsetX = milkman.getX() - (WIDTH / 2);
 		if(mapOffsetX < 0) {
 			mapOffsetX = 0;
-		} else if(mapOffsetX > terrain.getWidth() * 32 - WIDTH) {
-			mapOffsetX = terrain.getWidth() * 32 - WIDTH;
+		} else if(mapOffsetX > terrain.getWidth() * 32 - (WIDTH / 2)) {
+			mapOffsetX = terrain.getWidth() * 32 - (WIDTH / 2);
 		}
 		int mapOffsetY = milkman.getY() - (HEIGHT / 2);
 		if(mapOffsetY < 0) {
 			mapOffsetY = 0;
-		} else if(mapOffsetY > terrain.getHeight() * 32 - HEIGHT) {
-			mapOffsetY = terrain.getHeight() * 32 - HEIGHT;
+		} else if(mapOffsetY > terrain.getHeight() * 32 - (HEIGHT / 2)) {
+			mapOffsetY = terrain.getHeight() * 32 - (HEIGHT / 2);
 		}
 
 		for(int y = 0; y < terrain.getHeight(); y++) {
@@ -99,6 +97,63 @@ public class Overworld extends Scene {
 
 	public void removeBottleAt(int x, int y) {
 		items.setMaterial(x / 32, y / 32, Material.CARDBOARD_BOX);
+		spawnCow();
+	}
+
+	/**
+	 * Spawns a cow.
+	 * First a position is randomly chosen outside of the viewport.
+	 * Then it is rotated around the viewport until a valid spawn-position is found.
+	 */
+	private void spawnCow() {
+		int perimeter = 2 * WIDTH + 2 * HEIGHT;
+		int offset = new Random().nextInt(perimeter);
+
+		int viewportCenterX = milkman.getX();
+		if(viewportCenterX < (WIDTH / 2)) {
+			viewportCenterX = (WIDTH / 2);
+		} else if(viewportCenterX > terrain.getWidth() * 32 - (WIDTH / 2)) {
+			viewportCenterX = terrain.getWidth() * 32 - (WIDTH / 2);
+		}
+
+		int viewportCenterY = milkman.getY();
+		if(viewportCenterY < (HEIGHT / 2)) {
+			viewportCenterY = (HEIGHT / 2);
+		} else if(viewportCenterY > terrain.getHeight() * 32 - (HEIGHT / 2)) {
+			viewportCenterY = terrain.getHeight() * 32 - (HEIGHT / 2);
+		}
+
+		for(int i = 0; i < perimeter; i++) {
+			int tilePosition = (i + offset) % perimeter;
+
+			int x;
+			int y;
+
+			if(tilePosition < WIDTH) {
+				//north
+				x = viewportCenterX - (WIDTH / 2) + tilePosition;
+				y = viewportCenterY - (HEIGHT / 2) - 64;
+			} else if(tilePosition < WIDTH + HEIGHT) {
+				//east
+				x = viewportCenterX + (WIDTH / 2) + 64;
+				y = viewportCenterY - (HEIGHT / 2) + (tilePosition - WIDTH);
+			} else if(tilePosition < 2 * WIDTH + HEIGHT) {
+				//south
+				x = viewportCenterX - (WIDTH / 2) + (tilePosition - WIDTH - HEIGHT);
+				y = viewportCenterY + (HEIGHT / 2) + 64;
+			} else {
+				//west
+				x = viewportCenterX - (WIDTH / 2) - 64;
+				y = viewportCenterY - (HEIGHT / 2) + (tilePosition - WIDTH - HEIGHT - WIDTH);
+			}
+
+			if(!terrain.getMaterialAt(x, y).isSolid()) {
+				synchronized(actors) {
+					actors.add(new Cow(x, y, this));
+				}
+				break;
+			}
+		}
 	}
 
 	@Override

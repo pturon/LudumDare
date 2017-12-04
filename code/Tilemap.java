@@ -4,12 +4,14 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import code.views.Scene;
+
 public class Tilemap {
 	private int width;
 	private int height;
 	private Material[][] materials;
 
-	public Tilemap(String path, Class parentClass) {
+	public Tilemap(String path, Class<? extends Scene> parentClass) {
 		try(InputStream stream = ClassLoader.getSystemClassLoader().getResourceAsStream(path);
 			BufferedReader reader = new BufferedReader(new InputStreamReader(stream))) {
 
@@ -29,7 +31,7 @@ public class Tilemap {
 				}
 			}
 		} catch(Exception exception) {
-			//TODO
+			exception.printStackTrace();
 		}
 	}
 
@@ -39,6 +41,18 @@ public class Tilemap {
 
 	public int getHeight() {
 		return height;
+	}
+
+	public Material getMaterialAt(int x, int y) {
+		if(x < 0 || y < 0) {
+			return Material.NONE;
+		}
+		int tileX = x / 32;
+		int tileY = y / 32;
+		if(tileX >= materials.length || tileY >= materials[tileX].length) {
+			return Material.NONE;
+		}
+		return getMaterial(tileX, tileY);
 	}
 
 	public Material getMaterial(int x, int y) {
