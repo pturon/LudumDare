@@ -118,34 +118,34 @@ public abstract class Scene extends View {
         for(int i = 0; i < score.length; i++){
             switch (score[i]){
                 case '0':
-                    graphics.drawImage(Textures.ui.getNumber_0(),75+(20*i),5,null);
+                    graphics.drawImage(Textures.ui.getNumber_0(),75+(10*i),5,null);
                     break;
                 case '1':
-                    graphics.drawImage(Textures.ui.getNumber_1(),75+(20*i),5,null);
+                    graphics.drawImage(Textures.ui.getNumber_1(),75+(7*i),5,null);
                     break;
                 case '2':
-                    graphics.drawImage(Textures.ui.getNumber_2(),75+(20*i),5,null);
+                    graphics.drawImage(Textures.ui.getNumber_2(),75+(10*i),5,null);
                     break;
                 case '3':
-                    graphics.drawImage(Textures.ui.getNumber_3(),75+(20*i),5,null);
+                    graphics.drawImage(Textures.ui.getNumber_3(),75+(10*i),5,null);
                     break;
                 case '4':
-                    graphics.drawImage(Textures.ui.getNumber_4(),75+(20*i),5,null);
+                    graphics.drawImage(Textures.ui.getNumber_4(),75+(10*i),5,null);
                     break;
                 case '5':
-                    graphics.drawImage(Textures.ui.getNumber_5(),75+(20*i),5,null);
+                    graphics.drawImage(Textures.ui.getNumber_5(),75+(10*i),5,null);
                     break;
                 case '6':
-                    graphics.drawImage(Textures.ui.getNumber_6(),75+(20*i),5,null);
+                    graphics.drawImage(Textures.ui.getNumber_6(),75+(10*i),5,null);
                     break;
                 case '7':
-                    graphics.drawImage(Textures.ui.getNumber_7(),75+(20*i),5,null);
+                    graphics.drawImage(Textures.ui.getNumber_7(),75+(10*i),5,null);
                     break;
                 case '8':
-                    graphics.drawImage(Textures.ui.getNumber_8(),75+(20*i),5,null);
+                    graphics.drawImage(Textures.ui.getNumber_8(),75+(10*i),5,null);
                     break;
                 case '9':
-                    graphics.drawImage(Textures.ui.getNumber_9(),75+(20*i),5,null);
+                    graphics.drawImage(Textures.ui.getNumber_9(),75+(10*i),5,null);
                     break;
             }
         }
