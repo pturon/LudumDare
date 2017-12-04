@@ -21,6 +21,8 @@ public class MilkFactory extends Scene {
 	private int arrow_frame = 0;
 	private int steps = 0;
 
+	private boolean playedBottleSound = false;
+
 	public MilkFactory(Overworld overworld, int difficulty) {
 		super("img/milkfactory/milk_factory_tilemap.txt", MilkFactory.class, difficulty);
 
@@ -130,8 +132,14 @@ public class MilkFactory extends Scene {
 
 		//fill bottles
 		if(((tileX == 16 && tileY == 3) || (tileX == 17 && tileY == 4))) {
+			if(!playedBottleSound && milkman.getEmptyBottles() > 0) {
+				AudioManager.playBottleSound();
+				playedBottleSound = true;
+				//This is a very ugly workaround to prevent the AudioManager from
+				//playing the sound infinitely while standing near the conveyor belt.
+				//This works because each time the player visits the milkfactory a new instance is created.
+			}
 			milkman.fillBottles();
-			AudioManager.playBottleSound();
 		}
 
 		//change scene
