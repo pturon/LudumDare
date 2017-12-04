@@ -1,17 +1,15 @@
 package code.views;
 
+import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.List;
+
 import code.MainFrame;
 import code.Textures;
 import code.Tilemap;
 import code.entities.Actor;
 import code.entities.Milkman;
-
-import javax.xml.soap.Text;
-
-import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.util.ArrayList;
-import java.util.List;
 
 public abstract class Scene extends View {
     protected Milkman milkman;
@@ -102,13 +100,13 @@ public abstract class Scene extends View {
     public void drawHUD(Graphics2D graphics) {
         graphics.drawImage(Textures.ui.getUiBackground(), 0, 0, null);
 
-        int bottles = milkman.getBottles();
-        boolean type = milkman.getBottleType();
+        int emptyBottles = milkman.getEmptyBottles();
+        int filledBottles = milkman.getFilledBottles();
         int hearts = milkman.getHearts();
         char[] score = Integer.toString(milkman.getBottlesPlaced()).toCharArray();
 
-        for (int i = 0; i < bottles; i++) {
-            if (!type) {
+        for (int i = 0; i < (emptyBottles + filledBottles); i++) {
+            if (i < emptyBottles) {
                 graphics.drawImage(Textures.ui.getEmptyBottle(), 780 - (13 * i), 2, null);
             } else {
                 graphics.drawImage(Textures.ui.getFull_bottle(), 780 - (13 * i), 2, null);
@@ -122,34 +120,34 @@ public abstract class Scene extends View {
         for(int i = 0; i < score.length; i++){
             switch (score[i]){
                 case '0':
-                    graphics.drawImage(Textures.ui.getNumber_0(),75+(20*i),5,null);
+                    graphics.drawImage(Textures.ui.getNumber_0(),75+(10*i),5,null);
                     break;
                 case '1':
-                    graphics.drawImage(Textures.ui.getNumber_1(),75+(20*i),5,null);
+                    graphics.drawImage(Textures.ui.getNumber_1(),75+(7*i),5,null);
                     break;
                 case '2':
-                    graphics.drawImage(Textures.ui.getNumber_2(),75+(20*i),5,null);
+                    graphics.drawImage(Textures.ui.getNumber_2(),75+(10*i),5,null);
                     break;
                 case '3':
-                    graphics.drawImage(Textures.ui.getNumber_3(),75+(20*i),5,null);
+                    graphics.drawImage(Textures.ui.getNumber_3(),75+(10*i),5,null);
                     break;
                 case '4':
-                    graphics.drawImage(Textures.ui.getNumber_4(),75+(20*i),5,null);
+                    graphics.drawImage(Textures.ui.getNumber_4(),75+(10*i),5,null);
                     break;
                 case '5':
-                    graphics.drawImage(Textures.ui.getNumber_5(),75+(20*i),5,null);
+                    graphics.drawImage(Textures.ui.getNumber_5(),75+(10*i),5,null);
                     break;
                 case '6':
-                    graphics.drawImage(Textures.ui.getNumber_6(),75+(20*i),5,null);
+                    graphics.drawImage(Textures.ui.getNumber_6(),75+(10*i),5,null);
                     break;
                 case '7':
-                    graphics.drawImage(Textures.ui.getNumber_7(),75+(20*i),5,null);
+                    graphics.drawImage(Textures.ui.getNumber_7(),75+(10*i),5,null);
                     break;
                 case '8':
-                    graphics.drawImage(Textures.ui.getNumber_8(),75+(20*i),5,null);
+                    graphics.drawImage(Textures.ui.getNumber_8(),75+(10*i),5,null);
                     break;
                 case '9':
-                    graphics.drawImage(Textures.ui.getNumber_9(),75+(20*i),5,null);
+                    graphics.drawImage(Textures.ui.getNumber_9(),75+(10*i),5,null);
                     break;
             }
         }

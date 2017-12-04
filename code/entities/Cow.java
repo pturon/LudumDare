@@ -3,10 +3,6 @@ package code.entities;
 import code.views.Scene;
 
 public abstract class Cow extends Actor {
-	public static final int UP = 0;
-	public static final int DOWN = 1;
-	public static final int RIGHT = 2;
-	public static final int LEFT = 3;
 	protected int direction = UP;
 
 	protected static final int MAX_TURNS_PER_SECOND = 2;

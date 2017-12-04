@@ -1149,6 +1149,29 @@ public class Textures {
 		public static BufferedImage number_7 = numbers.getSubimage(70,0,10,15);
 		public static BufferedImage number_8 = numbers.getSubimage(80,0,10,15);
 
+		public static BufferedImage bouncingArrow = getTexture("img/overworld/bouncing_arrow.png");
+		public static BufferedImage arrow_0 = bouncingArrow.getSubimage(0,0,32,32);
+		public static BufferedImage arrow_1 = bouncingArrow.getSubimage(32,0,32,32);
+		public static BufferedImage arrow_2 = bouncingArrow.getSubimage(64,0,32,32);
+
+		public static BufferedImage getArrow_0() {
+			return arrow_0;
+		}
+
+		public static BufferedImage getArrow_1() {
+			return arrow_1;
+		}
+
+		public static BufferedImage getArrow_2() {
+			return arrow_2;
+		}
+
+		public static BufferedImage getArrow_3() {
+			return arrow_3;
+		}
+
+		public static BufferedImage arrow_3 = bouncingArrow.getSubimage(96,0,32,32);
+
 		public static BufferedImage getUiBackground() {
 			return uiBackground;
 		}

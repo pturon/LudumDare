@@ -132,7 +132,6 @@ public class Menu extends View {
 
     @Override
     public void onMousePressed(MouseEvent mouseEvent) {
-    	System.out.println(mouseEvent.getX() + " : " + mouseEvent.getY());
         if (mouseEvent.getX() > 32 && mouseEvent.getX() < 444) {
             if (mouseEvent.getY() > 288 && mouseEvent.getY() < 352) {
                 mousePressedOn = 1;

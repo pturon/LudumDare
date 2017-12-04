@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 
 import code.MainFrame;
 import code.Material;
+import code.Textures;
 import code.entities.Actor;
 import code.entities.Milkman;
 
@@ -15,6 +16,9 @@ public class MilkFactory extends Scene {
 
 	private static final Color DEBUGGING_GREEN = new Color(0, 255, 0, 128);
 	private static final Color DEBUGGING_RED = new Color(255, 0, 0, 128);
+
+	private int arrow_frame = 0;
+	private int steps = 0;
 
 	public MilkFactory(Overworld overworld, int difficulty) {
 		super("img/milkfactory/milk_factory_tilemap.txt", MilkFactory.class, difficulty);
@@ -77,6 +81,25 @@ public class MilkFactory extends Scene {
 			}
 		}
 
+		switch (arrow_frame){
+			case 0:
+				graphics.drawImage(Textures.ui.getArrow_0(),32*19,48,null);
+				graphics.drawImage(Textures.ui.getArrow_0(),32*17,48,null);
+				break;
+			case 1:
+				graphics.drawImage(Textures.ui.getArrow_1(),32*19,48,null);
+				graphics.drawImage(Textures.ui.getArrow_1(),32*17,48,null);
+				break;
+			case 2:
+				graphics.drawImage(Textures.ui.getArrow_2(),32*19,48,null);
+				graphics.drawImage(Textures.ui.getArrow_2(),32*17,48,null);
+				break;
+			case 3:
+				graphics.drawImage(Textures.ui.getArrow_3(),32*19,48,null);
+				graphics.drawImage(Textures.ui.getArrow_3(),32*17,48,null);
+				break;
+		}
+
 		drawHUD(graphics);
 
 		return image;
@@ -105,7 +128,7 @@ public class MilkFactory extends Scene {
 		int tileY = milkman.getY() / 32;
 
 		//fill bottles
-		if(((tileX == 16 && tileY == 3) || (tileX == 17 && tileY == 4)) && milkman.getBottles() > 0) {
+		if(((tileX == 16 && tileY == 3) || (tileX == 17 && tileY == 4))) {
 			milkman.fillBottles();
 		}
 
@@ -113,5 +136,16 @@ public class MilkFactory extends Scene {
 		if(terrain.getMaterial(tileX, tileY) == Material.SCENE_CONNECTOR) {
 			MainFrame.getInstance().setCurrentView(overworld);
 		}
+
+		if(steps == 20){
+			if(arrow_frame==3){
+				arrow_frame = 0;
+			}
+			else{
+				arrow_frame++;
+			}
+			steps = 0;
+		}
+		steps ++;
 	}
 }
