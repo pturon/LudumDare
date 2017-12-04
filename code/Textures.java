@@ -1,7 +1,6 @@
 package code;
 
 import java.awt.image.BufferedImage;
-import java.nio.Buffer;
 
 import javax.imageio.ImageIO;
 

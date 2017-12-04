@@ -31,6 +31,10 @@ public class Milkman extends Actor {
 	private int pickupFrame = -1;
 	private static int bottles = 0;
 
+	public static final boolean EMPTY_BOTTLE = false;
+	public static final boolean FILLED_BOTTLE = !EMPTY_BOTTLE;
+	private static boolean bottleType = EMPTY_BOTTLE;
+
 	public Milkman(int x, int y, Scene scene) {
 		super(x, y, scene);
 	}
@@ -39,8 +43,16 @@ public class Milkman extends Actor {
 		return bottles < 8 && pickupFrame == -1;
 	}
 
+	public void fillBottles() {
+		bottleType = FILLED_BOTTLE;
+	}
+
 	public int getBottles() {
 		return bottles;
+	}
+
+	public boolean getBottleType() {
+		return bottleType;
 	}
 
 	@Override

@@ -16,7 +16,6 @@ import code.entities.Cow;
 import code.entities.Milkman;
 
 public class Overworld extends Scene {
-	private MainFrame mainFrame;
 	private int difficulty;
 
 	protected Tilemap items;
@@ -26,10 +25,9 @@ public class Overworld extends Scene {
 	private static final Color DEBUGGING_GREEN = new Color(0, 255, 0, 128);
 	private static final Color DEBUGGING_RED = new Color(255, 0, 0, 128);
 
-	public Overworld(MainFrame mainFrame, int difficulty) {
+	public Overworld(int difficulty) {
 		super("img/overworld/overworld_tilemap.txt", Overworld.class);
 
-		this.mainFrame = mainFrame;
 		this.difficulty = difficulty;
 
 		items = new Tilemap("img/overworld/overworld_tilemap_milkbottles.txt", Overworld.class);
@@ -94,7 +92,7 @@ public class Overworld extends Scene {
 		}
 
 		graphics.setColor(Color.WHITE);
-		graphics.drawString("Bottles: " + milkman.getBottles(), 10, 20);
+		graphics.drawString("Bottles: " + milkman.getBottles() + (milkman.getBottleType() ? " filled bottles" : " empty bottles"), 10, 20);
 
 		return image;
 	}
@@ -173,7 +171,7 @@ public class Overworld extends Scene {
 
 		//change scene
 		if(terrain.getMaterial(tileX, tileY) == Material.SCENE_CONNECTOR) {
-			mainFrame.setCurrentView(new MilkFactory(mainFrame, this, difficulty));
+			MainFrame.getInstance().setCurrentView(new MilkFactory(this, difficulty));
 			if(milkman.getX() < 0) {
 				milkman.setX(16);
 			}

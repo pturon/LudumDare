@@ -11,17 +11,15 @@ import code.entities.Actor;
 import code.entities.Milkman;
 
 public class MilkFactory extends Scene {
-	private MainFrame mainFrame;
 	private Overworld overworld;
 	private int difficulty;
 
 	private static final Color DEBUGGING_GREEN = new Color(0, 255, 0, 128);
 	private static final Color DEBUGGING_RED = new Color(255, 0, 0, 128);
 
-	public MilkFactory(MainFrame mainFrame, Overworld overworld, int difficulty) {
+	public MilkFactory(Overworld overworld, int difficulty) {
 		super("img/milkfactory/milk_factory_tilemap.txt", MilkFactory.class);
 
-		this.mainFrame = mainFrame;
 		this.overworld = overworld;
 		this.difficulty = difficulty;
 
@@ -80,6 +78,9 @@ public class MilkFactory extends Scene {
 			}
 		}
 
+		graphics.setColor(Color.WHITE);
+		graphics.drawString("Bottles: " + milkman.getBottles() + (milkman.getBottleType() ? " filled bottles" : " empty bottles"), 10, 20);
+
 		return image;
 	}
 
@@ -101,13 +102,18 @@ public class MilkFactory extends Scene {
 	@Override
 	public void step() {
 		super.step();
-
+		
 		int tileX = milkman.getX() / 32;
 		int tileY = milkman.getY() / 32;
 
+		//fill bottles
+		if(((tileX == 16 && tileY == 3) || (tileX == 17 && tileY == 4)) && milkman.getBottles() > 0) {
+			milkman.fillBottles();
+		}
+
 		//change scene
 		if(terrain.getMaterial(tileX, tileY) == Material.SCENE_CONNECTOR) {
-			mainFrame.setCurrentView(overworld);
+			MainFrame.getInstance().setCurrentView(overworld);
 		}
 	}
 }

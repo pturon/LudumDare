@@ -13,15 +13,13 @@ import java.io.File;
 import java.io.IOException;
 
 public class Menu extends View {
-    private MainFrame mainFrame;
     private String[] buttons = {"play", "difficulty", "exit"};
     private int selection = 0;
     private int difficulty = 1;
     private int mousePressedOn = 0;
 
-    public Menu(int difficulty, MainFrame mainFrame) {
+    public Menu(int difficulty) {
         this.difficulty = difficulty;
-        this.mainFrame = mainFrame;
     }
 
     @Override
@@ -76,9 +74,9 @@ public class Menu extends View {
             case KeyEvent.VK_SPACE:
                 switch (buttons[selection]) {
                     case "play":
-                        Cutscene cutscene = new Cutscene(mainFrame, difficulty);
+                        Cutscene cutscene = new Cutscene(difficulty);
                         Clock.setCurrentView(cutscene);
-                        mainFrame.setCurrentView(cutscene);
+                        MainFrame.getInstance().setCurrentView(cutscene);
                         break;
                     case "difficulty":
                         difficulty = (difficulty + 1) % 3;
@@ -141,9 +139,9 @@ public class Menu extends View {
         if (mouseEvent.getX() > 32 && mouseEvent.getX() < 444) {
             if (mouseEvent.getY() > 288 && mouseEvent.getY() < 352 && mousePressedOn == 1) {
                 mousePressedOn = 0;
-                Cutscene cutscene = new Cutscene(mainFrame, difficulty);
+                Cutscene cutscene = new Cutscene(difficulty);
                 Clock.setCurrentView(cutscene);
-                mainFrame.setCurrentView(cutscene);
+                MainFrame.getInstance().setCurrentView(cutscene);
             } else if (mouseEvent.getY() > 384 && mouseEvent.getY() < 448 && mousePressedOn == 2) {
                 mousePressedOn = 0;
                 difficulty = (difficulty + 1) % 3;
