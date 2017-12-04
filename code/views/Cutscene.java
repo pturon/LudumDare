@@ -27,26 +27,66 @@ public class Cutscene extends View {
         BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_ARGB);
         Graphics2D graphics = image.createGraphics();
 
-        switch (currentFrame) {
+        switch (currentFrame){
             case 0:
-                graphics.drawImage(Textures.CutSceneTextures.getFactoryOverview(), 0, 0, null);
+                graphics.drawImage(Textures.CutSceneTextures.getFactoryOverview(),0,0,null);
                 break;
             case 1:
-                graphics.drawImage(Textures.CutSceneTextures.getFactoryOverview(), 0, 0, null);
-                graphics.drawImage(Textures.CutSceneTextures.getExplosion_0(), 0, 0, null);
+                graphics.drawImage(Textures.CutSceneTextures.getFactoryOverview(),0,0,null);
+                graphics.drawImage(Textures.CutSceneTextures.getExplosion_0(),0,0,null);
                 break;
             case 2:
-                graphics.drawImage(Textures.CutSceneTextures.getFactoryOverview(), 0, 0, null);
-                graphics.drawImage(Textures.CutSceneTextures.getExpolsion_1(), 0, 0, null);
+                graphics.drawImage(Textures.CutSceneTextures.getFactoryOverview(),0,0,null);
+                graphics.drawImage(Textures.CutSceneTextures.getExplosion_1(),0,0,null);
                 break;
             case 3:
-                graphics.drawImage(Textures.CutSceneTextures.getFactoryOverview(), 0, 0, null);
-                graphics.drawImage(Textures.CutSceneTextures.getExplosion_2(), 0, 0, null);
+                graphics.drawImage(Textures.CutSceneTextures.getFactoryOverview(),0,0,null);
+                graphics.drawImage(Textures.CutSceneTextures.getExplosion_2(),0,0,null);
                 break;
             case 4:
+                graphics.drawImage(Textures.CutSceneTextures.getFactoryOverview(),0,0,null);
+                graphics.drawImage(Textures.CutSceneTextures.getExplosion_3(),0,0,null);
+                break;
+            case 5:
+                graphics.drawImage(Textures.CutSceneTextures.getDestroyedLab(),0,0,null);
+                graphics.drawImage(Textures.CutSceneTextures.getChemical_0(),0,0,null);
+                break;
+            case 6:
+                graphics.drawImage(Textures.CutSceneTextures.getDestroyedLab(),0,0,null);
+                graphics.drawImage(Textures.CutSceneTextures.getChemical_1(),0,0,null);
+                break;
+            case 7:
+                graphics.drawImage(Textures.CutSceneTextures.getDestroyedLab(),0,0,null);
+                graphics.drawImage(Textures.CutSceneTextures.getChemical_2(),0,0,null);
+                break;
+            case 8:
+                graphics.drawImage(Textures.CutSceneTextures.getDestroyedLab(),0,0,null);
+                graphics.drawImage(Textures.CutSceneTextures.getChemical_3(),0,0,null);
+                break;
+            case 9:
+                graphics.drawImage(Textures.CutSceneTextures.getDestroyedLab(),0,0,null);
+                graphics.drawImage(Textures.CutSceneTextures.getChemical_4(),0,0,null);
+                break;
+            case 10:
+                graphics.drawImage(Textures.CutSceneTextures.getDestroyedLab(),0,0,null);
+                graphics.drawImage(Textures.CutSceneTextures.getChemical_5(),0,0,null);
+                break;
+            case 11:
+                graphics.drawImage(Textures.CutSceneTextures.getDestroyedLab(),0,0,null);
+                graphics.drawImage(Textures.CutSceneTextures.getChemical_6(),0,0,null);
+                break;
+            case 12:
+                graphics.drawImage(Textures.CutSceneTextures.getDestroyedLab(),0,0,null);
+                graphics.drawImage(Textures.CutSceneTextures.getChemical_7(),0,0,null);
+                break;
+            case 13:
+                graphics.drawImage(Textures.CutSceneTextures.getDestroyedLab(),0,0,null);
+                graphics.drawImage(Textures.CutSceneTextures.getChemical_8(),0,0,null);
+                break;
+            case 14:
                 mainFrame.setCurrentView(new Overworld(difficulty));
                 break;
-        } 
+        }
 
         return image;
     }
@@ -74,11 +114,15 @@ public class Cutscene extends View {
             currentFrame++;
             steps = 0;
         }
-        if (steps == 50 && currentFrame > 0 && currentFrame < 4) {
+        if (steps == 10 && currentFrame > 0 && currentFrame < 5) {
             steps = 0;
             currentFrame++;
         }
-        if(steps == 256 && currentFrame == 4){
+        if (steps == 40 && currentFrame > 4 && currentFrame < 13) {
+            steps = 0;
+            currentFrame++;
+        }
+        if (steps == 128 && currentFrame >  12) {
             steps = 0;
             currentFrame++;
         }

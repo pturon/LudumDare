@@ -993,27 +993,86 @@ public class Textures {
 	public static class CutSceneTextures{
 
 		private static BufferedImage factoryOverview = getTexture("img/cutscenes/factory_overview.png");
+		private static BufferedImage destroyedLab = getTexture("img/cutscenes/factory_destroyed_lab.png");
 		private static BufferedImage explosion_sheet = getTexture("img/cutscenes/explosion.png");
-		private static BufferedImage explosion_0 = explosion_sheet.getSubimage(800,0,800,600);
-		private static BufferedImage expolsion_1 = explosion_sheet.getSubimage(1600,0,800,600);
-		private static BufferedImage explosion_2 = explosion_sheet.getSubimage(2400,0,800,600);
+		private static BufferedImage chemicals = getTexture("img/cutscenes/chemical_flood.png");
 
-		public static BufferedImage getFactoryOverview() {
-			return factoryOverview;
-		}
+		private static BufferedImage explosion_0 = explosion_sheet.getSubimage(800*0,0,800,600);
+		private static BufferedImage explosion_1 = explosion_sheet.getSubimage(800*1,0,800,600);
+		private static BufferedImage explosion_2 = explosion_sheet.getSubimage(800*2,0,800,600);
+		private static BufferedImage explosion_3 = explosion_sheet.getSubimage(800*3,0,800,600);
+
+		private static BufferedImage chemical_0 = chemicals.getSubimage(800*0,0,800,600);
+		private static BufferedImage chemical_1 = chemicals.getSubimage(800*1,0,800,600);
+		private static BufferedImage chemical_2 = chemicals.getSubimage(800*2,0,800,600);
+		private static BufferedImage chemical_3 = chemicals.getSubimage(800*3,0,800,600);
+		private static BufferedImage chemical_4 = chemicals.getSubimage(800*4,0,800,600);
+		private static BufferedImage chemical_5 = chemicals.getSubimage(800*5,0,800,600);
+		private static BufferedImage chemical_6 = chemicals.getSubimage(800*6,0,800,600);
+		private static BufferedImage chemical_7 = chemicals.getSubimage(800*7,0,800,600);
 
 		public static BufferedImage getExplosion_0() {
 			return explosion_0;
 		}
 
-		public static BufferedImage getExpolsion_1() {
-			return expolsion_1;
+		public static BufferedImage getExplosion_1() {
+			return explosion_1;
 		}
 
 		public static BufferedImage getExplosion_2() {
 			return explosion_2;
 		}
 
+		public static BufferedImage getExplosion_3() {
+			return explosion_3;
+		}
+
+		public static BufferedImage getChemical_0() {
+			return chemical_0;
+		}
+
+		public static BufferedImage getChemical_1() {
+			return chemical_1;
+		}
+
+		public static BufferedImage getChemical_2() {
+			return chemical_2;
+		}
+
+		public static BufferedImage getChemical_3() {
+			return chemical_3;
+		}
+
+		public static BufferedImage getChemical_4() {
+			return chemical_4;
+		}
+
+		public static BufferedImage getChemical_5() {
+			return chemical_5;
+		}
+
+		public static BufferedImage getChemical_6() {
+			return chemical_6;
+		}
+
+		public static BufferedImage getChemical_7() {
+			return chemical_7;
+		}
+
+		public static BufferedImage getChemical_8() {
+			return chemical_8;
+		}
+
+		private static BufferedImage chemical_8 = chemicals.getSubimage(800*8,0,800,600);
+
+
+		public static BufferedImage getFactoryOverview() {
+			return factoryOverview;
+		}
+
+		public static BufferedImage getDestroyedLab() {
+			return destroyedLab;
+		}
 	}
 	
 }
