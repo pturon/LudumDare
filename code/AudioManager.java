@@ -59,6 +59,10 @@ public class AudioManager {
 		background.stop();
 	}
 
+	public static boolean isEnabled() {
+		return enabled;
+	}
+
 	public static void playBottleSound() {
 		if(enabled) {
 			bottle.setFramePosition(0);

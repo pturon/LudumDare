@@ -3,6 +3,7 @@ package code;
 import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -29,6 +30,8 @@ public class MainFrame extends Frame {
 	private transient View currentView = new Menu(1);
 
 	private boolean debugging = false;
+
+	private Rectangle soundHitbox = new Rectangle(0, HEIGHT - 39, 32, 32);
 
 	public static void main(String[] args) {
 		GraphicsThread graphicsThread = MainFrame.getInstance().new GraphicsThread();
@@ -59,6 +62,7 @@ public class MainFrame extends Frame {
   			@Override
 			public void paint(Graphics g) {
 				if(currentView != null)g.drawImage(currentView.getImage(debugging), 0, 0, null);
+				g.drawImage(Textures.HUD.getSpeaker(AudioManager.isEnabled()), soundHitbox.x, soundHitbox.y, null);
 			}
 		};
 		panel.setPreferredSize(new Dimension(WIDTH, HEIGHT));
@@ -125,7 +129,14 @@ public class MainFrame extends Frame {
 			public void mousePressed(MouseEvent mouseEvent) {
 				if(currentView != null) {
 					currentView.onMousePressed(mouseEvent);
-				}	
+				}
+				if(soundHitbox.contains(mouseEvent.getPoint())) {
+					if(AudioManager.isEnabled()) {
+						AudioManager.disable();
+					} else {
+						AudioManager.enable();
+					}
+				}
 			}
 
 			@Override

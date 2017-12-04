@@ -47,14 +47,14 @@ public class Textures {
 		private static BufferedImage instructions;
 		private static BufferedImage restart;
 		private static BufferedImage gameover;
-		private static BufferedImage victory;
-
+		private static BufferedImage[] speaker = new BufferedImage[2];		private static BufferedImage victory;
 		static {
 			instructions = getTexture("img/hud/instructions.png");
 			restart = getTexture("img/hud/restart.png");
 			gameover = getTexture("img/hud/gameover.png");
-			victory = getTexture("img/hud/victory.png");
-		}
+			BufferedImage spreakerTextures = getTexture("img/hud/sound.png");
+			speaker[0] = spreakerTextures.getSubimage(0, 0, 32, 32);
+			speaker[1] = spreakerTextures.getSubimage(32, 0, 32, 32);			victory = getTexture("img/hud/victory.png");		}
 
 		public static BufferedImage getInstructions() {
 			return instructions;
@@ -67,7 +67,9 @@ public class Textures {
 		public static BufferedImage getGameover() {
 			return gameover;
 		}
-		
+		public static BufferedImage getSpeaker(boolean soundEnabled) {
+			return speaker[(soundEnabled ? 0 : 1)];
+		}
 		public static BufferedImage getVictory() {
 			return victory;
 		}
