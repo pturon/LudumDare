@@ -5,29 +5,38 @@ import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.util.List;
+import java.util.Random;
 
+import code.MainFrame;
 import code.Material;
+import code.Textures;
+import code.Tilemap;
 import code.entities.Actor;
 import code.entities.Cow;
 import code.entities.Milkman;
 
 public class Overworld extends Scene {
+	private MainFrame mainFrame;
 	private int difficulty;
+
+	protected Tilemap items;
+
+	private boolean showInstructions = true;
 
 	private static final Color DEBUGGING_GREEN = new Color(0, 255, 0, 128);
 	private static final Color DEBUGGING_RED = new Color(255, 0, 0, 128);
 
-	public Overworld(int difficulty) {
-		super("img/overworld/overworld_tilemap.txt", "img/overworld/overworld_tilemap_milkbottles.txt");
+	public Overworld(MainFrame mainFrame, int difficulty) {
+		super("img/overworld/overworld_tilemap.txt", Overworld.class);
+
+		this.mainFrame = mainFrame;
+		this.difficulty = difficulty;
+
+		items = new Tilemap("img/overworld/overworld_tilemap_milkbottles.txt", Overworld.class);
 		milkman = new Milkman(64, 64, this);
 		synchronized(actors) {
 			actors.add(milkman);
-			for(int i = 0; i < 5; i++) {
-				actors.add(new Cow((int)(Math.random() * 800), (int)(Math.random() * 600), this));
-			}
 		}
-		this.difficulty = difficulty;
 	}
 
 	@Override
@@ -54,9 +63,7 @@ public class Overworld extends Scene {
 		for(int y = 0; y < terrain.getHeight(); y++) {
 			for(int x = 0; x < terrain.getWidth(); x++) {
 				graphics.drawImage(terrain.getMaterial(x, y).getImage(), 32 * x - mapOffsetX, 32 * y - mapOffsetY, null);
-				if(items.getMaterial(x, y) == Material.BOTTLE) {
-					graphics.drawImage(Material.BOTTLE.getImage(), 32 * x - mapOffsetX, 32 * y - mapOffsetY, null);
-				}
+				graphics.drawImage(items.getMaterial(x, y).getImage(), 32 * x - mapOffsetX, 32 * y - mapOffsetY, null);
 				if(debugging) {
 					if(terrain.getMaterial(x, y).isSolid()) {
 						graphics.setColor(DEBUGGING_RED);
@@ -82,77 +89,110 @@ public class Overworld extends Scene {
 			}
 		}
 
+		if(showInstructions) {
+			graphics.drawImage(Textures.HUD.getInstructions(), 0, 0, null);
+		}
+
 		graphics.setColor(Color.WHITE);
 		graphics.drawString("Bottles: " + milkman.getBottles(), 10, 20);
 
 		return image;
 	}
 
-	@Override
-	public void onKeyPressed(KeyEvent keyEvent) {
-		switch(keyEvent.getKeyCode()) {
-		case KeyEvent.VK_LEFT:
-		case KeyEvent.VK_A:
-			milkman.setLeftPressed(true);
-			break;
-		case KeyEvent.VK_RIGHT:
-		case KeyEvent.VK_D:
-			milkman.setRightPressed(true);
-			break;
-		case KeyEvent.VK_UP:
-		case KeyEvent.VK_W:
-			milkman.setUpPressed(true);
-			break;
-		case KeyEvent.VK_DOWN:
-		case KeyEvent.VK_S:
-			milkman.setDownPressed(true);
-			break;
-		default:
-			break;
-		}
-	}
-
-	@Override
-	public void onKeyReleased(KeyEvent keyEvent) {
-		switch(keyEvent.getKeyCode()) {
-		case KeyEvent.VK_LEFT:
-		case KeyEvent.VK_A:
-			milkman.setLeftPressed(false);
-			break;
-		case KeyEvent.VK_RIGHT:
-		case KeyEvent.VK_D:
-			milkman.setRightPressed(false);
-			break;
-		case KeyEvent.VK_UP:
-		case KeyEvent.VK_W:
-			milkman.setUpPressed(false);
-			break;
-		case KeyEvent.VK_DOWN:
-		case KeyEvent.VK_S:
-			milkman.setDownPressed(false);
-			break;
-		default:
-			break;
-		}
-	}
-
 	public void removeBottleAt(int x, int y) {
-		items.setMaterial(x / 32, y / 32, Material.NONE);
+		items.setMaterial(x / 32, y / 32, Material.CARDBOARD_BOX);
+		spawnCow();
 	}
 
-	public void step() {
-		synchronized(actors) {
-			for(Actor actor : actors) {
-				actor.step();
+	/**
+	 * Spawns a cow.
+	 * First a position is randomly chosen outside of the viewport.
+	 * Then it is rotated around the viewport until a valid spawn-position is found.
+	 */
+	private void spawnCow() {
+		int perimeter = 2 * WIDTH + 2 * HEIGHT;
+		int offset = new Random().nextInt(perimeter);
+
+		int viewportCenterX = milkman.getX();
+		if(viewportCenterX < (WIDTH / 2)) {
+			viewportCenterX = (WIDTH / 2);
+		} else if(viewportCenterX > terrain.getWidth() * 32 - (WIDTH / 2)) {
+			viewportCenterX = terrain.getWidth() * 32 - (WIDTH / 2);
+		}
+
+		int viewportCenterY = milkman.getY();
+		if(viewportCenterY < (HEIGHT / 2)) {
+			viewportCenterY = (HEIGHT / 2);
+		} else if(viewportCenterY > terrain.getHeight() * 32 - (HEIGHT / 2)) {
+			viewportCenterY = terrain.getHeight() * 32 - (HEIGHT / 2);
+		}
+
+		for(int i = 0; i < perimeter; i++) {
+			int tilePosition = (i + offset) % perimeter;
+
+			int x;
+			int y;
+
+			if(tilePosition < WIDTH) {
+				//north
+				x = viewportCenterX - (WIDTH / 2) + tilePosition;
+				y = viewportCenterY - (HEIGHT / 2) - 64;
+			} else if(tilePosition < WIDTH + HEIGHT) {
+				//east
+				x = viewportCenterX + (WIDTH / 2) + 64;
+				y = viewportCenterY - (HEIGHT / 2) + (tilePosition - WIDTH);
+			} else if(tilePosition < 2 * WIDTH + HEIGHT) {
+				//south
+				x = viewportCenterX - (WIDTH / 2) + (tilePosition - WIDTH - HEIGHT);
+				y = viewportCenterY + (HEIGHT / 2) + 64;
+			} else {
+				//west
+				x = viewportCenterX - (WIDTH / 2) - 64;
+				y = viewportCenterY - (HEIGHT / 2) + (tilePosition - WIDTH - HEIGHT - WIDTH);
+			}
+
+			if(!terrain.getMaterialAt(x, y).isSolid()) {
+				synchronized(actors) {
+					actors.add(new Cow(x, y, this));
+				}
+				break;
 			}
 		}
+	}
+
+	@Override
+	public void step() {
+		super.step();
 
 		//pick up bottle
 		int tileX = milkman.getX() / 32;
 		int tileY = milkman.getY() / 32;
-		if(items.getMaterial(tileX, tileY) == Material.BOTTLE && milkman.canPickupBottles()) {
+		if(items.getMaterial(tileX, tileY) == Material.EMPTY_BOTTLE && milkman.canPickupBottles()) {
 			milkman.pickupBottle();
 		}
+
+		//change scene
+		if(terrain.getMaterial(tileX, tileY) == Material.SCENE_CONNECTOR) {
+			mainFrame.setCurrentView(new MilkFactory(mainFrame, this, difficulty));
+			if(milkman.getX() < 0) {
+				milkman.setX(16);
+			}
+			if(milkman.getY() < 0) {
+				milkman.setY(16);
+			}
+			if(milkman.getX() > 32 * terrain.getWidth() - 16) {
+				milkman.setX(32 * terrain.getWidth() - 16);
+			}
+			if(milkman.getY() > 32 * terrain.getHeight() - 16) {
+				milkman.setY(32 * terrain.getHeight() - 16);
+			}
+		}
+	}
+
+	@Override
+	public void onKeyPressed(KeyEvent keyEvent) {
+		super.onKeyPressed(keyEvent);
+		showInstructions = false;
 	}
 
 	@Override

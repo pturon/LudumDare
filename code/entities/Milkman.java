@@ -5,15 +5,16 @@ import java.awt.image.BufferedImage;
 import code.Clock;
 import code.Textures;
 import code.views.Overworld;
+import code.views.Scene;
 
 public class Milkman extends Actor {
 	private static final int WIDTH = 32;
 	private static final int HEIGHT = 32;
 
-	private boolean isLeftPressed = false;
-	private boolean isRightPressed = false;
-	private boolean isUpPressed = false;
-	private boolean isDownPressed = false;
+	private static boolean isLeftPressed = false;
+	private static boolean isRightPressed = false;
+	private static boolean isUpPressed = false;
+	private static boolean isDownPressed = false;
 
 	public static final int UP = 0;
 	public static final int DOWN = 1;
@@ -24,14 +25,14 @@ public class Milkman extends Actor {
 	public static final boolean VERTICAL = !HORIZONTAL;
 
 	private int direction = RIGHT;
-	private boolean dominantDirection = HORIZONTAL;
+	private static boolean dominantDirection = HORIZONTAL;
 	private int frame = 0;
 
 	private int pickupFrame = -1;
-	private int bottles = 0;
+	private static int bottles = 0;
 
-	public Milkman(int x, int y, Overworld game) {
-		super(x, y, game);
+	public Milkman(int x, int y, Scene scene) {
+		super(x, y, scene);
 	}
 
 	public boolean canPickupBottles() {
@@ -64,22 +65,22 @@ public class Milkman extends Actor {
 		pickupFrame++;
 	}
 
-	public void setLeftPressed(boolean isPressed) {
+	public static void setLeftPressed(boolean isPressed) {
 		isLeftPressed = isPressed;
 		dominantDirection = HORIZONTAL;
 	}
 
-	public void setRightPressed(boolean isPressed) {
+	public static void setRightPressed(boolean isPressed) {
 		isRightPressed = isPressed;
 		dominantDirection = HORIZONTAL;
 	}
 
-	public void setUpPressed(boolean isPressed) {
+	public static void setUpPressed(boolean isPressed) {
 		isUpPressed = isPressed;
 		dominantDirection = VERTICAL;
 	}
 
-	public void setDownPressed(boolean isPressed) {
+	public static void setDownPressed(boolean isPressed) {
 		isDownPressed = isPressed;
 		dominantDirection = VERTICAL;
 	}
@@ -95,8 +96,8 @@ public class Milkman extends Actor {
 		if(pickupFrame > -1) {
 			if(stepCounter % (0.125 * Clock.getStepsPerSecond()) == 0) {
 				pickupFrame++;
-				if(pickupFrame == 2) {
-					overworld.removeBottleAt(x, y);
+				if(pickupFrame == 2 && scene instanceof Overworld) {
+					((Overworld)scene).removeBottleAt(x, y);
 				}
 			}
 			return;
