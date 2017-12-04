@@ -13,6 +13,7 @@ public class Clock {
 	private static long delay = 1000000000 / STEPS_PER_SECOND;
 	private static long lastStep = System.nanoTime();
 	private static long currentTime = System.nanoTime();
+	private static boolean paused = false;
 
 	private Clock() {
 		//no instance allowed
@@ -29,7 +30,7 @@ public class Clock {
 					try {
 						currentTime = System.nanoTime();
 						if(currentTime - lastStep > delay) {
-							if(currentView != null) {
+							if(currentView != null && !paused) {
 								currentView.step();
 							}
 							lastStep = lastStep + delay;
@@ -48,6 +49,18 @@ public class Clock {
 
 	public static int getStepsPerSecond() {
 		return STEPS_PER_SECOND;
+	}
+
+	public static void pause() {
+		paused = true;
+	}
+
+	public static void unpause() {
+		paused = false;
+	}
+
+	public static boolean isPaused() {
+		return paused;
 	}
 
 	/**
