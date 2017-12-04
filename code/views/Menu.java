@@ -4,15 +4,8 @@ import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
-
+import code.AudioManager;
 import code.MainFrame;
 import code.Textures;
 
@@ -174,22 +167,7 @@ public class Menu extends View {
 				steps++;
 			}
         } else if (mouseEvent.getX() >= 480 && mouseEvent.getX() <= 558 && mouseEvent.getY() >= 142 && mouseEvent.getY() <= 256 && mousePressedOn == 5) {
-            //Only sound in the game, could also be excluded
-            File file = new File("src/sound/cow.wav");
-            try {
-                AudioInputStream audioIn = AudioSystem.getAudioInputStream(file);
-                Clip clip = AudioSystem.getClip();
-                clip.open(audioIn);
-                clip.start();
-            } catch (UnsupportedAudioFileException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (LineUnavailableException e) {
-                e.printStackTrace();
-            }
+           AudioManager.playCowSound();
         }
-
     }
-
 }

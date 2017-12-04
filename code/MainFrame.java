@@ -141,6 +141,7 @@ public class MainFrame extends Frame {
 
 		pack();
 		setVisible(true);
+		AudioManager.enable();
 	}
 
 	private class GraphicsThread extends Thread implements Runnable {

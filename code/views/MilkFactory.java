@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
+import code.AudioManager;
 import code.MainFrame;
 import code.Material;
 import code.Textures;
@@ -130,6 +131,7 @@ public class MilkFactory extends Scene {
 		//fill bottles
 		if(((tileX == 16 && tileY == 3) || (tileX == 17 && tileY == 4))) {
 			milkman.fillBottles();
+			AudioManager.playBottleSound();
 		}
 
 		//change scene

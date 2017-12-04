@@ -9,6 +9,7 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
+import code.AudioManager;
 import code.MainFrame;
 import code.Material;
 import code.Pathfinding;
@@ -164,6 +165,7 @@ public class Overworld extends Scene {
 	}
 
 	public void removeBottleAt(int x, int y) {
+		AudioManager.playBottleSound();
 		items.setMaterial(x / 32, y / 32, Material.CARDBOARD_BOX);
 		if(difficulty != 0 && milkman.getEmptyBottles() + milkman.getFilledBottles() + milkman.getBottlesPlaced() > 8) {
 			spawnIntelligentCow();
@@ -173,6 +175,7 @@ public class Overworld extends Scene {
 	}
 
 	public void placeBottleAt(int x, int y) {
+		AudioManager.playBottleSound();
 		items.setMaterial(x / 32, y / 32, Material.FILLED_BOTTLE);
 	}
 
