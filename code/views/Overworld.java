@@ -236,11 +236,11 @@ public class Overworld extends Scene {
 			if(milkman.getY() < 0) {
 				milkman.setY(16);
 			}
-			if(milkman.getX() > 32 * terrain.getWidth() - 16) {
-				milkman.setX(32 * terrain.getWidth() - 16);
+			if(milkman.getX() > 32 * terrain.getWidth() - 32) {
+				milkman.setX(32 * terrain.getWidth() - 48);
 			}
-			if(milkman.getY() > 32 * terrain.getHeight() - 16) {
-				milkman.setY(32 * terrain.getHeight() - 16);
+			if(milkman.getY() > 32 * terrain.getHeight() - 32) {
+				milkman.setY(32 * terrain.getHeight() - 48);
 			}
 		}
 	}
