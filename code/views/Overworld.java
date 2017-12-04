@@ -102,6 +102,11 @@ public class Overworld extends Scene {
 		spawnCow();
 	}
 
+	public void placeBottleAt(int x, int y) {
+		items.setMaterial(x / 32, y / 32, Material.FILLED_BOTTLE);
+		spawnCow();
+	}
+
 	/**
 	 * Spawns a cow.
 	 * First a position is randomly chosen outside of the viewport.
@@ -162,11 +167,17 @@ public class Overworld extends Scene {
 	public void step() {
 		super.step();
 
-		//pick up bottle
 		int tileX = milkman.getX() / 32;
 		int tileY = milkman.getY() / 32;
+
+		//pick up bottle
 		if(items.getMaterial(tileX, tileY) == Material.EMPTY_BOTTLE && milkman.canPickupBottles()) {
 			milkman.pickupBottle();
+		}
+
+		//place bottle
+		if(items.getMaterial(tileX, tileY) == Material.CARDBOARD_BOX && milkman.canPlaceBottles()) {
+			milkman.placeBottle();
 		}
 
 		//change scene

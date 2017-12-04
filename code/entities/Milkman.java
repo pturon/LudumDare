@@ -40,7 +40,11 @@ public class Milkman extends Actor {
 	}
 
 	public boolean canPickupBottles() {
-		return bottles < 8 && pickupFrame == -1;
+		return bottleType == EMPTY_BOTTLE && bottles < 8 && pickupFrame == -1;
+	}
+
+	public boolean canPlaceBottles() {
+		return bottleType == FILLED_BOTTLE && bottles > 0 && pickupFrame == -1;
 	}
 
 	public void fillBottles() {
@@ -58,7 +62,11 @@ public class Milkman extends Actor {
 	@Override
 	public BufferedImage getImage() {
 		if(pickupFrame > -1) {
-			return Textures.Sprites.Milkman.getPickupAnimation(direction, pickupFrame, bottles);
+			if(bottleType == EMPTY_BOTTLE) {
+				return Textures.Sprites.Milkman.getPickupAnimation(direction, pickupFrame, bottles);
+			} else {
+				return Textures.Sprites.Milkman.getPickupAnimation(direction, 4 - pickupFrame, bottles);
+			}
 		}
 		return Textures.Sprites.Milkman.getWalkCycle(direction, frame, bottles);
 	}
@@ -74,6 +82,10 @@ public class Milkman extends Actor {
 	}
 
 	public void pickupBottle() {
+		pickupFrame++;
+	}
+
+	public void placeBottle() {
 		pickupFrame++;
 	}
 
@@ -103,13 +115,24 @@ public class Milkman extends Actor {
 
 		if(pickupFrame > 3) {
 			pickupFrame = -1;
-			bottles++;
+			if(bottleType == EMPTY_BOTTLE) {
+				bottles++;
+			} else {
+				bottles--;
+				if(bottles == 0) {
+					bottleType = EMPTY_BOTTLE;
+				}
+			}
 		}
 		if(pickupFrame > -1) {
 			if(stepCounter % (0.125 * Clock.getStepsPerSecond()) == 0) {
 				pickupFrame++;
 				if(pickupFrame == 2 && scene instanceof Overworld) {
-					((Overworld)scene).removeBottleAt(x, y);
+					if(bottleType == EMPTY_BOTTLE) {
+						((Overworld)scene).removeBottleAt(x, y);
+					} else {
+						((Overworld)scene).placeBottleAt(x, y);
+					}
 				}
 			}
 			return;
