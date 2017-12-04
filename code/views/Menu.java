@@ -1,16 +1,20 @@
 package code.views;
 
-import code.Clock;
-import code.MainFrame;
-import code.Textures;
-
-import javax.sound.sampled.*;
-import java.awt.*;
+import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+
+import code.MainFrame;
+import code.Textures;
 
 public class Menu extends View {
     private String[] buttons = {"play", "difficulty", "exit"};
@@ -75,7 +79,6 @@ public class Menu extends View {
                 switch (buttons[selection]) {
                     case "play":
                         Cutscene cutscene = new Cutscene(difficulty);
-                        Clock.setCurrentView(cutscene);
                         MainFrame.getInstance().setCurrentView(cutscene);
                         break;
                     case "difficulty":
@@ -140,7 +143,6 @@ public class Menu extends View {
             if (mouseEvent.getY() > 288 && mouseEvent.getY() < 352 && mousePressedOn == 1) {
                 mousePressedOn = 0;
                 Cutscene cutscene = new Cutscene(difficulty);
-                Clock.setCurrentView(cutscene);
                 MainFrame.getInstance().setCurrentView(cutscene);
             } else if (mouseEvent.getY() > 384 && mouseEvent.getY() < 448 && mousePressedOn == 2) {
                 mousePressedOn = 0;

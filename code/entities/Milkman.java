@@ -28,6 +28,8 @@ public class Milkman extends Actor {
 	private static boolean dominantDirection = HORIZONTAL;
 	private int frame = 0;
 
+	private long stepsSinceLastMove = 0;//needed for the "press R to restart"-hint
+
 	private int pickupFrame = -1;
 	private static int bottles = 0;
 
@@ -87,6 +89,10 @@ public class Milkman extends Actor {
 
 	public void placeBottle() {
 		pickupFrame++;
+	}
+
+	public float getSecondsSinceLastMove() {
+		return (float)stepsSinceLastMove / Clock.getStepsPerSecond();
 	}
 
 	public static void reset() {
@@ -150,33 +156,50 @@ public class Milkman extends Actor {
 
 		boolean isMoving = (isLeftPressed != isRightPressed) || (isUpPressed != isDownPressed);
 
+		stepsSinceLastMove++;
 		if(dominantDirection == HORIZONTAL) {
 			if(isLeftPressed && !isRightPressed) {
 				direction = LEFT;
-				moveLeft();
+				if(moveLeft()) {
+					stepsSinceLastMove = 0;
+				}
 			} else if(!isLeftPressed && isRightPressed) {
 				direction = RIGHT;
-				moveRight();
+				if(moveRight()) {
+					stepsSinceLastMove = 0;
+				}
 			} else if(isUpPressed && !isDownPressed) {
 				direction = UP;
-				moveUp();
+				if(moveUp()) {
+					stepsSinceLastMove = 0;
+				}
 			} else if(!isUpPressed && isDownPressed) {
 				direction = DOWN;
-				moveDown();
+				if(moveDown()) {
+					stepsSinceLastMove = 0;
+				}
 			}
 		} else {
 			if(isUpPressed && !isDownPressed) {
 				direction = UP;
-				moveUp();
+				if(moveUp()) {
+					stepsSinceLastMove = 0;
+				}
 			} else if(!isUpPressed && isDownPressed) {
 				direction = DOWN;
-				moveDown();
+				if(moveDown()) {
+					stepsSinceLastMove = 0;
+				}
 			} else if(isLeftPressed && !isRightPressed) {
 				direction = LEFT;
-				moveLeft();
+				if(moveLeft()) {
+					stepsSinceLastMove = 0;
+				}
 			} else if(!isLeftPressed && isRightPressed) {
 				direction = RIGHT;
-				moveRight();
+				if(moveRight()) {
+					stepsSinceLastMove = 0;
+				}
 			}
 		}
 

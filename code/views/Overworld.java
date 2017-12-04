@@ -92,6 +92,16 @@ public class Overworld extends Scene {
 		graphics.setColor(Color.WHITE);
 		graphics.drawString("Bottles: " + milkman.getBottles() + (milkman.getBottleType() ? " filled bottles" : " empty bottles"), 10, 20);
 
+		if(!showInstructions) {
+			float secondsSinceLastMove = milkman.getSecondsSinceLastMove();
+			if(secondsSinceLastMove > 3) {
+				float opacity = (secondsSinceLastMove - 3);
+				if(opacity > 1)opacity = 1.0f;
+				graphics.setColor(new Color(1.0f, 1.0f, 1.0f, opacity));
+				graphics.drawString("Press R to restart", WIDTH / 2, HEIGHT - 128);
+			}
+		}
+
 		return image;
 	}
 
