@@ -78,7 +78,35 @@ public class Tilemap {
 	}
 
 	public Material getMaterial(int x, int y) {
-		if(x < 0 || y < 0 || x >= materials.length || y >= materials[x].length) {
+		if(x < 0) {
+			if(getMaterial(0, y) == Material.ASPHALT || getMaterial(0, y) == Material.ASPHALT_MF) {
+				return Material.SCENE_CONNECTOR;
+			} else {
+				return Material.NONE;
+			}
+		}
+		if(y < 0) {
+			if(getMaterial(x, 0) == Material.ASPHALT || getMaterial(x, 0) == Material.ASPHALT_MF) {
+				return Material.SCENE_CONNECTOR;
+			} else {
+				return Material.NONE;
+			}
+		}
+		if(x >= width) {
+			if(getMaterial(width - 1, y) == Material.ASPHALT || getMaterial(width - 1, y) == Material.ASPHALT_MF) {
+				return Material.SCENE_CONNECTOR;
+			} else {
+				return Material.NONE;
+			}
+		}
+		if(y >= height) {
+			if(getMaterial(x, height - 1) == Material.ASPHALT || getMaterial(x, height - 1) == Material.ASPHALT_MF) {
+				return Material.SCENE_CONNECTOR;
+			} else {
+				return Material.NONE;
+			}
+		}
+		if(x >= materials.length || y >= materials[x].length) {
 			return Material.NONE;
 		}
 		return materials[x][y];

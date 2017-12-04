@@ -34,19 +34,19 @@ public abstract class Scene extends View {
 		switch(keyEvent.getKeyCode()) {
 		case KeyEvent.VK_LEFT:
 		case KeyEvent.VK_A:
-			milkman.setLeftPressed(true);
+			Milkman.setLeftPressed(true);
 			break;
 		case KeyEvent.VK_RIGHT:
 		case KeyEvent.VK_D:
-			milkman.setRightPressed(true);
+			Milkman.setRightPressed(true);
 			break;
 		case KeyEvent.VK_UP:
 		case KeyEvent.VK_W:
-			milkman.setUpPressed(true);
+			Milkman.setUpPressed(true);
 			break;
 		case KeyEvent.VK_DOWN:
 		case KeyEvent.VK_S:
-			milkman.setDownPressed(true);
+			Milkman.setDownPressed(true);
 			break;
 		default:
 			break;
@@ -58,19 +58,19 @@ public abstract class Scene extends View {
 		switch(keyEvent.getKeyCode()) {
 		case KeyEvent.VK_LEFT:
 		case KeyEvent.VK_A:
-			milkman.setLeftPressed(false);
+			Milkman.setLeftPressed(false);
 			break;
 		case KeyEvent.VK_RIGHT:
 		case KeyEvent.VK_D:
-			milkman.setRightPressed(false);
+			Milkman.setRightPressed(false);
 			break;
 		case KeyEvent.VK_UP:
 		case KeyEvent.VK_W:
-			milkman.setUpPressed(false);
+			Milkman.setUpPressed(false);
 			break;
 		case KeyEvent.VK_DOWN:
 		case KeyEvent.VK_S:
-			milkman.setDownPressed(false);
+			Milkman.setDownPressed(false);
 			break;
 		default:
 			break;

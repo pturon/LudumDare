@@ -84,7 +84,7 @@ public class Cutscene extends View {
                 graphics.drawImage(Textures.CutSceneTextures.getChemical_8(),0,0,null);
                 break;
             case 14:
-                mainFrame.setCurrentView(new Overworld(difficulty));
+                mainFrame.setCurrentView(new Overworld(mainFrame, difficulty));
                 break;
         }
 
@@ -95,10 +95,10 @@ public class Cutscene extends View {
     public void onKeyPressed(KeyEvent keyEvent) {
         switch (keyEvent.getKeyCode()){
             case KeyEvent.VK_SPACE:
-                mainFrame.setCurrentView(new Overworld(difficulty));
+                mainFrame.setCurrentView(new Overworld(mainFrame, difficulty));
                 break;
             case KeyEvent.VK_ENTER:
-                mainFrame.setCurrentView(new Overworld(difficulty));
+                mainFrame.setCurrentView(new Overworld(mainFrame, difficulty));
                 break;
         }
     }

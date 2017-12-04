@@ -26,8 +26,16 @@ import code.views.Scene;public abstract class Actor {
 		return x;
 	}
 
+	public void setX(int x) {
+		this.x = x;
+	}
+
 	public int getY() {
 		return y;
+	}
+
+	public void setY(int y) {
+		this.y = y;
 	}
 
 	public abstract int getWidth();

@@ -7,6 +7,7 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
+import code.MainFrame;
 import code.Material;
 import code.Textures;
 import code.Tilemap;
@@ -15,6 +16,7 @@ import code.entities.Cow;
 import code.entities.Milkman;
 
 public class Overworld extends Scene {
+	private MainFrame mainFrame;
 	private int difficulty;
 
 	protected Tilemap items;
@@ -24,15 +26,17 @@ public class Overworld extends Scene {
 	private static final Color DEBUGGING_GREEN = new Color(0, 255, 0, 128);
 	private static final Color DEBUGGING_RED = new Color(255, 0, 0, 128);
 
-	public Overworld(int difficulty) {
+	public Overworld(MainFrame mainFrame, int difficulty) {
 		super("img/overworld/overworld_tilemap.txt", Overworld.class);
+
+		this.mainFrame = mainFrame;
+		this.difficulty = difficulty;
 
 		items = new Tilemap("img/overworld/overworld_tilemap_milkbottles.txt", Overworld.class);
 		milkman = new Milkman(64, 64, this);
 		synchronized(actors) {
 			actors.add(milkman);
 		}
-		this.difficulty = difficulty;
 	}
 
 	@Override
@@ -165,6 +169,23 @@ public class Overworld extends Scene {
 		int tileY = milkman.getY() / 32;
 		if(items.getMaterial(tileX, tileY) == Material.EMPTY_BOTTLE && milkman.canPickupBottles()) {
 			milkman.pickupBottle();
+		}
+
+		//change scene
+		if(terrain.getMaterial(tileX, tileY) == Material.SCENE_CONNECTOR) {
+			mainFrame.setCurrentView(new MilkFactory(mainFrame, this, difficulty));
+			if(milkman.getX() < 0) {
+				milkman.setX(16);
+			}
+			if(milkman.getY() < 0) {
+				milkman.setY(16);
+			}
+			if(milkman.getX() > 32 * terrain.getWidth() - 16) {
+				milkman.setX(32 * terrain.getWidth() - 16);
+			}
+			if(milkman.getY() > 32 * terrain.getHeight() - 16) {
+				milkman.setY(32 * terrain.getHeight() - 16);
+			}
 		}
 	}
 

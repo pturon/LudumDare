@@ -5,22 +5,30 @@ import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
+import code.MainFrame;
+import code.Material;
 import code.entities.Actor;
 import code.entities.Milkman;
 
 public class MilkFactory extends Scene {
+	private MainFrame mainFrame;
+	private Overworld overworld;
 	private int difficulty;
 
 	private static final Color DEBUGGING_GREEN = new Color(0, 255, 0, 128);
 	private static final Color DEBUGGING_RED = new Color(255, 0, 0, 128);
 
-	public MilkFactory(int difficulty) {
+	public MilkFactory(MainFrame mainFrame, Overworld overworld, int difficulty) {
 		super("img/milkfactory/milk_factory_tilemap.txt", MilkFactory.class);
-		milkman = new Milkman(256, 128, this);
+
+		this.mainFrame = mainFrame;
+		this.overworld = overworld;
+		this.difficulty = difficulty;
+
+		milkman = new Milkman(464, 528, this);
 		synchronized(actors) {
 			actors.add(milkman);
 		}
-		this.difficulty = difficulty;
 	}
 
 	@Override
@@ -88,5 +96,18 @@ public class MilkFactory extends Scene {
 	@Override
 	public void onMouseReleased(MouseEvent mouseEvent) {
 		//not used at the moment
+	}
+
+	@Override
+	public void step() {
+		super.step();
+
+		int tileX = milkman.getX() / 32;
+		int tileY = milkman.getY() / 32;
+
+		//change scene
+		if(terrain.getMaterial(tileX, tileY) == Material.SCENE_CONNECTOR) {
+			mainFrame.setCurrentView(overworld);
+		}
 	}
 }
