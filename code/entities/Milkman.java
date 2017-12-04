@@ -39,7 +39,6 @@ public class Milkman extends Actor {
 	private static boolean bottleType = EMPTY_BOTTLE;
 
 	private static int hearts;
-	private static int score = 0;
 
 	public Milkman(int x, int y, Scene scene) {
 		super(x, y, scene);
@@ -226,13 +225,5 @@ public class Milkman extends Actor {
 
 	public void setHearts(int hearts) {
 		this.hearts = hearts;
-	}
-
-	public int getScore(){
-		return score;
-	}
-
-	public  void setScore(int score){
-		this.score = score;
 	}
 }
