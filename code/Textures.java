@@ -892,6 +892,25 @@ public class Textures {
 			}
 		}
 
+		public static class IntelligentCow {
+			private static BufferedImage[] walking = new BufferedImage[4];
+
+			private IntelligentCow() {
+				//no instance allowed
+			}
+
+			static {
+				BufferedImage cowSpritesheet = getTexture("img/cows/clever_spritesheet.png");
+				for(int i = 0; i < 4; i++) {
+					walking[i] = cowSpritesheet.getSubimage(0, 32 * i, 32, 32);
+				}
+			}
+
+			public static BufferedImage getWalking(int direction) {
+				return walking[direction % 4];
+			}
+		}
+
 		public static class Milkman {
 			private static BufferedImage[][][] pickupAnimation = new BufferedImage[4][4][8];
 			private static BufferedImage[][][] walking = new BufferedImage[4][4][9];

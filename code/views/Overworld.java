@@ -2,6 +2,7 @@ package code.views;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -13,6 +14,7 @@ import code.Textures;
 import code.Tilemap;
 import code.entities.Actor;
 import code.entities.Cow;
+import code.entities.IntelligentCow;
 import code.entities.Milkman;
 
 public class Overworld extends Scene {
@@ -107,20 +109,18 @@ public class Overworld extends Scene {
 
 	public void removeBottleAt(int x, int y) {
 		items.setMaterial(x / 32, y / 32, Material.CARDBOARD_BOX);
-		spawnCow();
+		if(milkman.getBottles() + milkman.getBottlesPlaced() > 8) {
+			spawnIntelligentCow();
+		} else {
+			spawnCow();
+		}
 	}
 
 	public void placeBottleAt(int x, int y) {
 		items.setMaterial(x / 32, y / 32, Material.FILLED_BOTTLE);
-		spawnCow();
 	}
 
-	/**
-	 * Spawns a cow.
-	 * First a position is randomly chosen outside of the viewport.
-	 * Then it is rotated around the viewport until a valid spawn-position is found.
-	 */
-	private void spawnCow() {
+	private Point getSpawnPoint() {
 		int perimeter = 2 * WIDTH + 2 * HEIGHT;
 		int offset = new Random().nextInt(perimeter);
 
@@ -163,10 +163,38 @@ public class Overworld extends Scene {
 			}
 
 			if(!terrain.getMaterialAt(x, y).isSolid()) {
-				synchronized(actors) {
-					actors.add(new Cow(x, y, this));
-				}
-				break;
+				return new Point(x, y);
+			}
+		}
+		//Return null if no valid spawn-point has been found.
+		//(Very unlikely. If this was possible, the player would not be able to leave the screen.)
+		return null;
+	}
+
+	/**
+	 * Spawns a cow.
+	 * First a position is randomly chosen outside of the viewport.
+	 * Then it is rotated around the viewport until a valid spawn-position is found.
+	 */
+	private void spawnCow() {
+		Point spawnpoint = getSpawnPoint();
+		if(spawnpoint != null) {
+			synchronized(actors) {
+				actors.add(new Cow(spawnpoint.x, spawnpoint.y, this));
+			}
+		}
+	}
+
+	/**
+	 * Spawns a cow.
+	 * First a position is randomly chosen outside of the viewport.
+	 * Then it is rotated around the viewport until a valid spawn-position is found.
+	 */
+	private void spawnIntelligentCow() {
+		Point spawnpoint = getSpawnPoint();
+		if(spawnpoint != null) {
+			synchronized(actors) {
+				actors.add(new IntelligentCow(spawnpoint.x, spawnpoint.y, this));
 			}
 		}
 	}
