@@ -1,0 +1,10 @@
+
+*.pyxel
+
+\.idea/
+
+LudumDare\.iml
+
+*.class
+
+\out/

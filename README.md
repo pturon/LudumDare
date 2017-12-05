@@ -1,10 +1,10 @@
 # Ludum Dare 
 
-### Repository für den Ludum Dare 40 
+### Repository for Ludum Dare 40 
 
-Weitere Infos Folgen 
+The more you have, the worse it is
 
-Autoren: 
+Authors: 
 
 * [Wariashi](https://github.com/wariashi)
 * [Rotblondesweizen](https://github.com/pturon)
