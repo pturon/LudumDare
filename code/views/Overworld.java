@@ -30,6 +30,7 @@ public class Overworld extends Scene {
     private String[] buttons = {"again", "menu"};
     private int selection = 0;
     private int mousePressedOn = 0;
+    private long stepsSinceGameEnd = 0;
 
 	private static final Color DEBUGGING_GREEN = new Color(0, 255, 0, 128);
 	private static final Color DEBUGGING_RED = new Color(255, 0, 0, 128);
@@ -60,10 +61,20 @@ public class Overworld extends Scene {
 	@Override
 	public BufferedImage getImage(boolean debugging) {
 		BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_ARGB);
-		Graphics2D graphics = image.createGraphics();
+		BufferedImage overlayImage = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_ARGB);
+		BufferedImage baseImage;
+		if(gameover){
+			baseImage = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_BYTE_GRAY);
+		} else{
+			baseImage = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_ARGB);			
+		}
 		
-		graphics.setColor(Color.MAGENTA);
-		graphics.fillRect(0, 0, WIDTH, HEIGHT);
+		Graphics2D baseGraphics = baseImage.createGraphics();
+		Graphics2D overlayGraphics = overlayImage.createGraphics();	
+		Graphics2D graphics = image.createGraphics();	
+		
+		baseGraphics.setColor(Color.MAGENTA);
+		baseGraphics.fillRect(0, 0, WIDTH, HEIGHT);
 
 		int mapOffsetX = milkman.getX() - (WIDTH / 2);
 		if(mapOffsetX < 0) {
@@ -83,41 +94,41 @@ public class Overworld extends Scene {
 				int tilePositionOnScreenX = 32 * x - mapOffsetX;
 				int tilePositionOnScreenY = 32 * y - mapOffsetY;
 
-				graphics.drawImage(terrain.getMaterial(x, y).getImage(), tilePositionOnScreenX, tilePositionOnScreenY, null);
-				graphics.drawImage(items.getMaterial(x, y).getImage(), tilePositionOnScreenX, tilePositionOnScreenY, null);
+				baseGraphics.drawImage(terrain.getMaterial(x, y).getImage(), tilePositionOnScreenX, tilePositionOnScreenY, null);
+				baseGraphics.drawImage(items.getMaterial(x, y).getImage(), tilePositionOnScreenX, tilePositionOnScreenY, null);
 				if(debugging) {
 					if(terrain.getMaterial(x, y).isSolid()) {
-						graphics.setColor(DEBUGGING_RED);
+						baseGraphics.setColor(DEBUGGING_RED);
 					} else {
-						graphics.setColor(DEBUGGING_GREEN);
+						baseGraphics.setColor(DEBUGGING_GREEN);
 					}
-					graphics.fillRect(tilePositionOnScreenX, tilePositionOnScreenY, 32, 32);
-					graphics.setColor(Color.BLUE);
+					baseGraphics.fillRect(tilePositionOnScreenX, tilePositionOnScreenY, 32, 32);
+					baseGraphics.setColor(Color.BLUE);
 					if(Pathfinding.isInitialized()) {
 						switch(Pathfinding.getDirection(x, y)) {
 						case Actor.LEFT:
-							graphics.drawLine(tilePositionOnScreenX + 8, tilePositionOnScreenY + 16, tilePositionOnScreenX + 16, tilePositionOnScreenY + 8);
-							graphics.drawLine(tilePositionOnScreenX + 8, tilePositionOnScreenY + 16, tilePositionOnScreenX + 24, tilePositionOnScreenY + 16);
-							graphics.drawLine(tilePositionOnScreenX + 8, tilePositionOnScreenY + 16, tilePositionOnScreenX + 16, tilePositionOnScreenY + 24);
+							baseGraphics.drawLine(tilePositionOnScreenX + 8, tilePositionOnScreenY + 16, tilePositionOnScreenX + 16, tilePositionOnScreenY + 8);
+							baseGraphics.drawLine(tilePositionOnScreenX + 8, tilePositionOnScreenY + 16, tilePositionOnScreenX + 24, tilePositionOnScreenY + 16);
+							baseGraphics.drawLine(tilePositionOnScreenX + 8, tilePositionOnScreenY + 16, tilePositionOnScreenX + 16, tilePositionOnScreenY + 24);
 							break;
 						case Actor.RIGHT:
-							graphics.drawLine(tilePositionOnScreenX + 24, tilePositionOnScreenY + 16, tilePositionOnScreenX + 16, tilePositionOnScreenY + 8);
-							graphics.drawLine(tilePositionOnScreenX + 8, tilePositionOnScreenY + 16, tilePositionOnScreenX + 24, tilePositionOnScreenY + 16);
-							graphics.drawLine(tilePositionOnScreenX + 24, tilePositionOnScreenY + 16, tilePositionOnScreenX + 16, tilePositionOnScreenY + 24);
+							baseGraphics.drawLine(tilePositionOnScreenX + 24, tilePositionOnScreenY + 16, tilePositionOnScreenX + 16, tilePositionOnScreenY + 8);
+							baseGraphics.drawLine(tilePositionOnScreenX + 8, tilePositionOnScreenY + 16, tilePositionOnScreenX + 24, tilePositionOnScreenY + 16);
+							baseGraphics.drawLine(tilePositionOnScreenX + 24, tilePositionOnScreenY + 16, tilePositionOnScreenX + 16, tilePositionOnScreenY + 24);
 							break;
 						case Actor.UP:
-							graphics.drawLine(tilePositionOnScreenX + 8, tilePositionOnScreenY + 16, tilePositionOnScreenX + 16, tilePositionOnScreenY + 8);
-							graphics.drawLine(tilePositionOnScreenX + 16, tilePositionOnScreenY + 24, tilePositionOnScreenX + 16, tilePositionOnScreenY + 8);
-							graphics.drawLine(tilePositionOnScreenX + 24, tilePositionOnScreenY + 16, tilePositionOnScreenX + 16, tilePositionOnScreenY + 8);
+							baseGraphics.drawLine(tilePositionOnScreenX + 8, tilePositionOnScreenY + 16, tilePositionOnScreenX + 16, tilePositionOnScreenY + 8);
+							baseGraphics.drawLine(tilePositionOnScreenX + 16, tilePositionOnScreenY + 24, tilePositionOnScreenX + 16, tilePositionOnScreenY + 8);
+							baseGraphics.drawLine(tilePositionOnScreenX + 24, tilePositionOnScreenY + 16, tilePositionOnScreenX + 16, tilePositionOnScreenY + 8);
 							break;
 						case Actor.DOWN:
-							graphics.drawLine(tilePositionOnScreenX + 8, tilePositionOnScreenY + 16, tilePositionOnScreenX + 16, tilePositionOnScreenY + 24);
-							graphics.drawLine(tilePositionOnScreenX + 16, tilePositionOnScreenY + 8, tilePositionOnScreenX + 16, tilePositionOnScreenY + 24);
-							graphics.drawLine(tilePositionOnScreenX + 24, tilePositionOnScreenY + 16, tilePositionOnScreenX + 16, tilePositionOnScreenY + 24);
+							baseGraphics.drawLine(tilePositionOnScreenX + 8, tilePositionOnScreenY + 16, tilePositionOnScreenX + 16, tilePositionOnScreenY + 24);
+							baseGraphics.drawLine(tilePositionOnScreenX + 16, tilePositionOnScreenY + 8, tilePositionOnScreenX + 16, tilePositionOnScreenY + 24);
+							baseGraphics.drawLine(tilePositionOnScreenX + 24, tilePositionOnScreenY + 16, tilePositionOnScreenX + 16, tilePositionOnScreenY + 24);
 							break;
+						}
+					}
 				}
-			}
-		}
 			}
 		}
 
@@ -125,52 +136,54 @@ public class Overworld extends Scene {
 			for(Actor actor : actors) {
 				int x = actor.getX() - actor.getWidth() / 2 - mapOffsetX;
 				int y = actor.getY() - actor.getHeight() / 2 - mapOffsetY;
-				graphics.drawImage(actor.getImage(), x, y, null);
+				baseGraphics.drawImage(actor.getImage(), x, y, null);
 				if(debugging) {
-					graphics.setColor(Color.RED);
-					graphics.drawRect(actor.getHitbox().x - mapOffsetX, actor.getHitbox().y - mapOffsetY, actor.getHitbox().width, actor.getHitbox().height);
-					graphics.drawLine(actor.getX() - 5 - mapOffsetX, actor.getY() - mapOffsetY, actor.getX() + 5 - mapOffsetX, actor.getY() - mapOffsetY);
-					graphics.drawLine(actor.getX() - mapOffsetX, actor.getY() - 5 - mapOffsetY, actor.getX() - mapOffsetX, actor.getY() + 5 - mapOffsetY);
+					baseGraphics.setColor(Color.RED);
+					baseGraphics.drawRect(actor.getHitbox().x - mapOffsetX, actor.getHitbox().y - mapOffsetY, actor.getHitbox().width, actor.getHitbox().height);
+					baseGraphics.drawLine(actor.getX() - 5 - mapOffsetX, actor.getY() - mapOffsetY, actor.getX() + 5 - mapOffsetX, actor.getY() - mapOffsetY);
+					baseGraphics.drawLine(actor.getX() - mapOffsetX, actor.getY() - 5 - mapOffsetY, actor.getX() - mapOffsetX, actor.getY() + 5 - mapOffsetY);
 				}
 			}
 		}
 
 		if(showInstructions) {
-			graphics.drawImage(Textures.HUD.getInstructions(), 0, 0, null);
-		}		
+			baseGraphics.drawImage(Textures.HUD.getInstructions(), 0, 0, null);
+		}
 		
 		if(!showInstructions){
-			drawHUD(graphics);
-
 			float secondsSinceLastMove = milkman.getSecondsSinceLastMove();
 			if(gameover){
-				float opacity = (secondsSinceLastMove);
+				float opacity = (float)stepsSinceGameEnd/Clock.getStepsPerSecond();				
 				if(opacity > 1)opacity = 1.0f;
-				graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
+				overlayGraphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
 
-				graphics.drawImage(Textures.HUD.getGameover(), 0, 0, null);
-				graphics.drawImage(Textures.Menu.getButton(), 194, 352, null);
-				graphics.drawImage(Textures.Menu.getButton(), 194, 448, null);
-		        graphics.drawImage(Textures.Menu.getAgainFont(), 194, 352, null);
-		        graphics.drawImage(Textures.Menu.getMenuFont(), 194, 448, null);
-				graphics.drawImage(Textures.Menu.getFrame(), 194, 352 + selection * 96, null);
+				overlayGraphics.drawImage(Textures.HUD.getGameover(), 0, 0, null);
+				overlayGraphics.drawImage(Textures.Menu.getButton(), 194, 352, null);
+				overlayGraphics.drawImage(Textures.Menu.getButton(), 194, 448, null);
+				overlayGraphics.drawImage(Textures.Menu.getAgainFont(), 194, 352, null);
+				overlayGraphics.drawImage(Textures.Menu.getMenuFont(), 194, 448, null);
+				overlayGraphics.drawImage(Textures.Menu.getFrame(), 194, 352 + selection * 96, null);
 			} else if(victory){
-				float opacity = (secondsSinceLastMove);
+				float opacity = (float)stepsSinceGameEnd/Clock.getStepsPerSecond();
 				if(opacity > 1)opacity = 1.0f;
-				graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
+				overlayGraphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
 
-				graphics.drawImage(Textures.HUD.getVictory(), 0, 0, null);
+				overlayGraphics.drawImage(Textures.HUD.getVictory(), 0, 0, null);
 				if(opacity >= 1){
 					Clock.pause();
 				}
 			} else if(secondsSinceLastMove > 3) {
 				float opacity = (secondsSinceLastMove - 3);
 				if(opacity > 1)opacity = 1.0f;
-				graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
+				baseGraphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
 				
-				graphics.drawImage(Textures.HUD.getRestart(), 0, 0, null);
+				baseGraphics.drawImage(Textures.HUD.getRestart(), 0, 0, null);
 			}
-		}
+			drawHUD(baseGraphics);
+		}		
+		
+		graphics.drawImage(baseImage, 0, 0, null);
+		graphics.drawImage(overlayImage, 0, 0, null);
 		
 		return image;
 	}
@@ -272,6 +285,14 @@ public class Overworld extends Scene {
 
 	@Override
 	public void step() {
+		if(gameover | victory){
+			stepsSinceGameEnd++;
+			super.disablePause();
+		} else {
+			//not needed at the moment, because after the game ended it can't resume
+			stepsSinceGameEnd = 0;
+			super.enablePause();
+		}
 		super.step();
 
 		int tileX = milkman.getX() / 32;

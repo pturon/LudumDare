@@ -23,6 +23,7 @@ public abstract class Scene extends View {
     private boolean pause;
     private int selection = 0;
     private int mousePressedOn = 0;
+    private boolean pauseDisabled = false;
 
     public Scene(String pathToTerrainMap, Class<? extends Scene> parentClass, int difficulty) {
         terrain = new Tilemap(pathToTerrainMap, parentClass);
@@ -70,7 +71,7 @@ public abstract class Scene extends View {
                 break;
             default:
                 break;
-        }
+    		}
     	} else {
     		switch (keyEvent.getKeyCode()) {
             case KeyEvent.VK_LEFT:
@@ -98,33 +99,41 @@ public abstract class Scene extends View {
 
     @Override
     public void onKeyReleased(KeyEvent keyEvent) {
-        switch (keyEvent.getKeyCode()) {
-            case KeyEvent.VK_LEFT:
-            case KeyEvent.VK_A:
-                Milkman.setLeftPressed(false);
-                break;
-            case KeyEvent.VK_RIGHT:
-            case KeyEvent.VK_D:
-                Milkman.setRightPressed(false);
-                break;
-            case KeyEvent.VK_UP:
-            case KeyEvent.VK_W:
-                Milkman.setUpPressed(false);
-                break;
-            case KeyEvent.VK_DOWN:
-            case KeyEvent.VK_S:
-                Milkman.setDownPressed(false);
-                break;
-            case KeyEvent.VK_R:
-                Milkman.reset();
-                MainFrame.getInstance().setCurrentView(new Overworld(difficulty));
-                break;
-            case KeyEvent.VK_ESCAPE:
-                pause = true;
-                break;
-            default:
-                break;
-        }
+    	switch (keyEvent.getKeyCode()) {
+        case KeyEvent.VK_LEFT:
+        case KeyEvent.VK_A:
+            Milkman.setLeftPressed(false);
+            break;
+        case KeyEvent.VK_RIGHT:
+        case KeyEvent.VK_D:
+            Milkman.setRightPressed(false);
+            break;
+        case KeyEvent.VK_UP:
+        case KeyEvent.VK_W:
+            Milkman.setUpPressed(false);
+            break;
+        case KeyEvent.VK_DOWN:
+        case KeyEvent.VK_S:
+            Milkman.setDownPressed(false);
+            break;
+        case KeyEvent.VK_R:
+            Milkman.reset();
+            MainFrame.getInstance().setCurrentView(new Overworld(difficulty));
+        	Clock.unpause();
+            break;
+        case KeyEvent.VK_ESCAPE:
+        	if(pause){
+        		pause = false;
+            	Clock.unpause();
+        	} else{
+            	if(!pauseDisabled)pause = true;        		
+        	}
+            break;
+        default:
+            break;
+    	}
+    	
+        
     }
 
     public void step() {
@@ -191,7 +200,6 @@ public abstract class Scene extends View {
         }
         
         if(pause){
-
         	graphics.drawImage(Textures.HUD.getPause(), 0, 0, null);
         	graphics.drawImage(Textures.Menu.getButton(), 194, 352, null);
 			graphics.drawImage(Textures.Menu.getButton(), 194, 448, null);
@@ -243,6 +251,14 @@ public abstract class Scene extends View {
 	        }
 		}
 		
+	}
+	
+	protected void disablePause(){
+		this.pauseDisabled = true;
+	}
+	
+	protected void enablePause(){
+		this.pauseDisabled = false;
 	}
     
 }
