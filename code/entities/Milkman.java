@@ -233,6 +233,6 @@ public class Milkman extends Actor {
 	}
 
 	public void setHearts(int hearts) {
-		this.hearts = hearts;
+		Milkman.hearts = hearts;
 	}
 }
