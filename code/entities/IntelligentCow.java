@@ -6,6 +6,7 @@ import code.AudioManager;
 import code.Clock;
 import code.Pathfinding;
 import code.Textures;
+import code.enums.Direction;
 import code.views.Scene;
 
 public class IntelligentCow extends Cow {
@@ -64,27 +65,27 @@ public class IntelligentCow extends Cow {
 	protected void turn(int targetX, int targetY) {
 		if(Pathfinding.isInitialized()) {
 			//use pathfinding in hard-mode
-			int nextDirection = Pathfinding.getDirection(x / 32, y / 32);
-			if(nextDirection != Actor.NO_DIRECTION) {
+			Direction nextDirection = Pathfinding.getDirection(x / 32, y / 32);
+			if(nextDirection != Direction.STANDING) {
 				direction = nextDirection;
 			}
 		} else {
 			//try to go straight in easy- and normal-mode
 			int distanceX = targetX - x;
 			int distanceY = targetY - y;
-			int previousDirection = direction;
+			Direction previousDirection = direction;
 
 			if(Math.abs(distanceX) > Math.abs(distanceY)) {
 				if(targetX < x) {
-					direction = LEFT;
+					direction = Direction.LEFT;
 				} else {
-					direction = RIGHT;
+					direction = Direction.RIGHT;
 				}
 			} else {
 				if(targetY < y) {
-					direction = UP;
+					direction = Direction.UP;
 				} else {
-					direction = DOWN;
+					direction = Direction.DOWN;
 				}
 			}
 

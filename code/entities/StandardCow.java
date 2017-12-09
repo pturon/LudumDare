@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 
 import code.Clock;
 import code.Textures;
+import code.enums.Direction;
 import code.views.Scene;
 
 public class StandardCow extends Cow {
@@ -18,7 +19,7 @@ public class StandardCow extends Cow {
 
 	@Override
 	public int getWidth() {
-		if(direction == LEFT || direction == RIGHT) {
+		if(direction == Direction.LEFT || direction == Direction.RIGHT) {
 			return 64;
 		} else {
 			return 32;
@@ -27,7 +28,7 @@ public class StandardCow extends Cow {
 
 	@Override
 	public int getHeight() {
-		if(direction == UP || direction == DOWN) {
+		if(direction == Direction.UP || direction == Direction.DOWN) {
 			return 64;
 		} else {
 			return 32;
@@ -37,22 +38,22 @@ public class StandardCow extends Cow {
 	protected void turn(int targetX, int targetY) {
 		int distanceX = targetX - x;
 		int distanceY = targetY - y;
-		int previousDirection = direction;
+		Direction previousDirection = direction;
 
 		if(Math.abs(distanceX) > Math.abs(distanceY)) {
 			if(!scene.isPixelSolid(x - 32, y) && !scene.isPixelSolid(x + 31, y)) {
 				if(targetX < x) {
-					direction = LEFT;
+					direction = Direction.LEFT;
 				} else {
-					direction = RIGHT;
+					direction = Direction.RIGHT;
 				}
 			}
 		} else {
 			if(!scene.isPixelSolid(x, y - 32) && !scene.isPixelSolid(x, y + 31)) {
 				if(targetY < y) {
-					direction = UP;
+					direction = Direction.UP;
 				} else {
-					direction = DOWN;
+					direction = Direction.DOWN;
 				}
 			}
 		}

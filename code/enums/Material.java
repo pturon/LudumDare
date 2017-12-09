@@ -1,7 +1,8 @@
-package code;
+package code.enums;
 
 import java.awt.image.BufferedImage;
 
+import code.Textures;
 import code.views.MilkFactory;
 import code.views.Overworld;
 import code.views.Scene;

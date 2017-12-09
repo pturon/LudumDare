@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 
 import code.Clock;
 import code.Textures;
+import code.enums.Direction;
 import code.views.Overworld;
 import code.views.Scene;
 
@@ -19,7 +20,7 @@ public class Milkman extends Actor {
 	public static final boolean HORIZONTAL = true;
 	public static final boolean VERTICAL = !HORIZONTAL;
 
-	private int direction = RIGHT;
+	private Direction direction = Direction.RIGHT;
 	private static boolean dominantDirection = HORIZONTAL;
 	private int frame = 0;
 
@@ -177,44 +178,44 @@ public class Milkman extends Actor {
 
 		if(dominantDirection == HORIZONTAL) {
 			if(isLeftPressed && !isRightPressed) {
-				direction = LEFT;
+				direction = Direction.LEFT;
 				if(moveLeft()) {
 					stepsSinceLastMove = 0;
 				}
 			} else if(!isLeftPressed && isRightPressed) {
-				direction = RIGHT;
+				direction = Direction.RIGHT;
 				if(moveRight()) {
 					stepsSinceLastMove = 0;
 				}
 			} else if(isUpPressed && !isDownPressed) {
-				direction = UP;
+				direction = Direction.UP;
 				if(moveUp()) {
 					stepsSinceLastMove = 0;
 				}
 			} else if(!isUpPressed && isDownPressed) {
-				direction = DOWN;
+				direction = Direction.DOWN;
 				if(moveDown()) {
 					stepsSinceLastMove = 0;
 				}
 			}
 		} else {
 			if(isUpPressed && !isDownPressed) {
-				direction = UP;
+				direction = Direction.UP;
 				if(moveUp()) {
 					stepsSinceLastMove = 0;
 				}
 			} else if(!isUpPressed && isDownPressed) {
-				direction = DOWN;
+				direction = Direction.DOWN;
 				if(moveDown()) {
 					stepsSinceLastMove = 0;
 				}
 			} else if(isLeftPressed && !isRightPressed) {
-				direction = LEFT;
+				direction = Direction.LEFT;
 				if(moveLeft()) {
 					stepsSinceLastMove = 0;
 				}
 			} else if(!isLeftPressed && isRightPressed) {
-				direction = RIGHT;
+				direction = Direction.RIGHT;
 				if(moveRight()) {
 					stepsSinceLastMove = 0;
 				}

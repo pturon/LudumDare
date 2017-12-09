@@ -1,9 +1,10 @@
 package code.entities;
 
+import code.enums.Direction;
 import code.views.Scene;
 
 public abstract class Cow extends Actor {
-	protected int direction = UP;
+	protected Direction direction = Direction.UP;
 
 	protected static final int MAX_TURNS_PER_SECOND = 2;
 	protected int turningCooldown = 0;

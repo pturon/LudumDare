@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import code.enums.Material;
 import code.views.Scene;
 
 public class Tilemap {

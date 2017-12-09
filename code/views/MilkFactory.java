@@ -7,10 +7,10 @@ import java.awt.image.BufferedImage;
 
 import code.AudioManager;
 import code.MainFrame;
-import code.Material;
 import code.Textures;
 import code.entities.Actor;
 import code.entities.Milkman;
+import code.enums.Material;
 
 public class MilkFactory extends Scene {
 	private Overworld overworld;

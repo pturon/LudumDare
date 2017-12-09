@@ -4,6 +4,8 @@ import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
 
+import code.enums.Direction;
+
 public class Textures {
 	private Textures() {
 		//no instance allowed
@@ -916,8 +918,8 @@ public class Textures {
 				walking[3] = cowSpritesheet.getSubimage(0, 3 * 64 + 16, 64, 32);//LEFT
 			}
 
-			public static BufferedImage getWalking(int direction) {
-				return walking[direction % 4];
+			public static BufferedImage getWalking(Direction direction) {
+				return walking[direction.getSpriteRow() % 4];
 			}
 		}
 
@@ -939,12 +941,12 @@ public class Textures {
 				}
 			}
 
-			public static BufferedImage getHitting(int direction, int frame) {
-				return hitting[direction % 4][frame % 4];
+			public static BufferedImage getHitting(Direction direction, int frame) {
+				return hitting[direction.getSpriteRow() % 4][frame % 4];
 			}
 
-			public static BufferedImage getWalking(int direction, int frame) {
-				return walking[direction % 4][frame % 4];
+			public static BufferedImage getWalking(Direction direction, int frame) {
+				return walking[direction.getSpriteRow() % 4][frame % 4];
 			}
 		}
 
@@ -980,12 +982,12 @@ public class Textures {
 				}
 			}
 
-			public static BufferedImage getPickupAnimation(int direction, int frame, int bottles) {
-				return pickupAnimation[direction % 4][frame % 4][bottles % 8];
+			public static BufferedImage getPickupAnimation(Direction direction, int frame, int bottles) {
+				return pickupAnimation[direction.getSpriteRow() % 4][frame % 4][bottles % 8];
 			}
 
-			public static BufferedImage getWalkCycle(int direction, int frame, int bottles) {
-				return walking[direction % 4][frame % 4][bottles % 9];
+			public static BufferedImage getWalkCycle(Direction direction, int frame, int bottles) {
+				return walking[direction.getSpriteRow() % 4][frame % 4][bottles % 9];
 			}
 		}
 	}

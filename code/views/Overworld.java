@@ -12,7 +12,6 @@ import java.util.Random;
 import code.AudioManager;
 import code.Clock;
 import code.MainFrame;
-import code.Material;
 import code.Pathfinding;
 import code.Textures;
 import code.Tilemap;
@@ -20,6 +19,7 @@ import code.entities.Actor;
 import code.entities.IntelligentCow;
 import code.entities.Milkman;
 import code.entities.StandardCow;
+import code.enums.Material;
 
 public class Overworld extends Scene {
 	protected Tilemap items;
@@ -95,29 +95,31 @@ public class Overworld extends Scene {
 					graphics.setColor(Color.BLUE);
 					if(Pathfinding.isInitialized()) {
 						switch(Pathfinding.getDirection(x, y)) {
-						case Actor.LEFT:
+						case LEFT:
 							graphics.drawLine(tilePositionOnScreenX + 8, tilePositionOnScreenY + 16, tilePositionOnScreenX + 16, tilePositionOnScreenY + 8);
 							graphics.drawLine(tilePositionOnScreenX + 8, tilePositionOnScreenY + 16, tilePositionOnScreenX + 24, tilePositionOnScreenY + 16);
 							graphics.drawLine(tilePositionOnScreenX + 8, tilePositionOnScreenY + 16, tilePositionOnScreenX + 16, tilePositionOnScreenY + 24);
 							break;
-						case Actor.RIGHT:
+						case RIGHT:
 							graphics.drawLine(tilePositionOnScreenX + 24, tilePositionOnScreenY + 16, tilePositionOnScreenX + 16, tilePositionOnScreenY + 8);
 							graphics.drawLine(tilePositionOnScreenX + 8, tilePositionOnScreenY + 16, tilePositionOnScreenX + 24, tilePositionOnScreenY + 16);
 							graphics.drawLine(tilePositionOnScreenX + 24, tilePositionOnScreenY + 16, tilePositionOnScreenX + 16, tilePositionOnScreenY + 24);
 							break;
-						case Actor.UP:
+						case UP:
 							graphics.drawLine(tilePositionOnScreenX + 8, tilePositionOnScreenY + 16, tilePositionOnScreenX + 16, tilePositionOnScreenY + 8);
 							graphics.drawLine(tilePositionOnScreenX + 16, tilePositionOnScreenY + 24, tilePositionOnScreenX + 16, tilePositionOnScreenY + 8);
 							graphics.drawLine(tilePositionOnScreenX + 24, tilePositionOnScreenY + 16, tilePositionOnScreenX + 16, tilePositionOnScreenY + 8);
 							break;
-						case Actor.DOWN:
+						case DOWN:
 							graphics.drawLine(tilePositionOnScreenX + 8, tilePositionOnScreenY + 16, tilePositionOnScreenX + 16, tilePositionOnScreenY + 24);
 							graphics.drawLine(tilePositionOnScreenX + 16, tilePositionOnScreenY + 8, tilePositionOnScreenX + 16, tilePositionOnScreenY + 24);
 							graphics.drawLine(tilePositionOnScreenX + 24, tilePositionOnScreenY + 16, tilePositionOnScreenX + 16, tilePositionOnScreenY + 24);
 							break;
+						default:
+							break;
+						}
+					}
 				}
-			}
-		}
 			}
 		}
 
