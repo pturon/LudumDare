@@ -20,70 +20,22 @@ public class Cutscene extends View {
 
     @Override
     public BufferedImage getImage(boolean debugging) {
-
         BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_ARGB);
         Graphics2D graphics = image.createGraphics();
 
-        switch (currentFrame){
-            case 0:
-                graphics.drawImage(Textures.CutSceneTextures.getFactoryOverview(),0,0,null);
-                break;
-            case 1:
-                graphics.drawImage(Textures.CutSceneTextures.getFactoryOverview(),0,0,null);
-                graphics.drawImage(Textures.CutSceneTextures.getExplosion_0(),0,0,null);
-                AudioManager.playExplosionSound();
-                break;
-            case 2:
-                graphics.drawImage(Textures.CutSceneTextures.getFactoryOverview(),0,0,null);
-                graphics.drawImage(Textures.CutSceneTextures.getExplosion_1(),0,0,null);
-                break;
-            case 3:
-                graphics.drawImage(Textures.CutSceneTextures.getFactoryOverview(),0,0,null);
-                graphics.drawImage(Textures.CutSceneTextures.getExplosion_2(),0,0,null);
-                break;
-            case 4:
-                graphics.drawImage(Textures.CutSceneTextures.getFactoryOverview(),0,0,null);
-                graphics.drawImage(Textures.CutSceneTextures.getExplosion_3(),0,0,null);
-                break;
-            case 5:
-                graphics.drawImage(Textures.CutSceneTextures.getDestroyedLab(),0,0,null);
-                graphics.drawImage(Textures.CutSceneTextures.getChemical_0(),0,0,null);
-                break;
-            case 6:
-                graphics.drawImage(Textures.CutSceneTextures.getDestroyedLab(),0,0,null);
-                graphics.drawImage(Textures.CutSceneTextures.getChemical_1(),0,0,null);
-                break;
-            case 7:
-                graphics.drawImage(Textures.CutSceneTextures.getDestroyedLab(),0,0,null);
-                graphics.drawImage(Textures.CutSceneTextures.getChemical_2(),0,0,null);
-                break;
-            case 8:
-                graphics.drawImage(Textures.CutSceneTextures.getDestroyedLab(),0,0,null);
-                graphics.drawImage(Textures.CutSceneTextures.getChemical_3(),0,0,null);
-                break;
-            case 9:
-                graphics.drawImage(Textures.CutSceneTextures.getDestroyedLab(),0,0,null);
-                graphics.drawImage(Textures.CutSceneTextures.getChemical_4(),0,0,null);
-                break;
-            case 10:
-                graphics.drawImage(Textures.CutSceneTextures.getDestroyedLab(),0,0,null);
-                graphics.drawImage(Textures.CutSceneTextures.getChemical_5(),0,0,null);
-                break;
-            case 11:
-                graphics.drawImage(Textures.CutSceneTextures.getDestroyedLab(),0,0,null);
-                graphics.drawImage(Textures.CutSceneTextures.getChemical_6(),0,0,null);
-                break;
-            case 12:
-                graphics.drawImage(Textures.CutSceneTextures.getDestroyedLab(),0,0,null);
-                graphics.drawImage(Textures.CutSceneTextures.getChemical_7(),0,0,null);
-                break;
-            case 13:
-                graphics.drawImage(Textures.CutSceneTextures.getDestroyedLab(),0,0,null);
-                graphics.drawImage(Textures.CutSceneTextures.getChemical_8(),0,0,null);
-                break;
-            case 14:
-            	MainFrame.getInstance().setCurrentView(new Overworld(difficulty));
-                break;
+        if(currentFrame == 0) {
+            graphics.drawImage(Textures.Cutscene.getFactoryOverview(), 0, 0, null);
+        } else if(currentFrame < 5) {
+        	if(currentFrame == 1) {
+        		AudioManager.playExplosionSound();
+        	}
+            graphics.drawImage(Textures.Cutscene.getFactoryOverview(), 0, 0, null);
+            graphics.drawImage(Textures.Cutscene.getExplosion(currentFrame - 1), 0, 0, null);
+        } else if(currentFrame < 14) {
+            graphics.drawImage(Textures.Cutscene.getDestroyedLab(), 0, 0, null);
+            graphics.drawImage(Textures.Cutscene.getChemicals(currentFrame - 5), 0, 0, null);
+        } else {
+        	MainFrame.getInstance().setCurrentView(new Overworld(difficulty));
         }
 
         return image;
@@ -93,20 +45,18 @@ public class Cutscene extends View {
     public void onKeyPressed(KeyEvent keyEvent) {
         switch (keyEvent.getKeyCode()){
             case KeyEvent.VK_SPACE:
-                MainFrame.getInstance().setCurrentView(new Overworld(difficulty));
-                break;
             case KeyEvent.VK_ENTER:
-            	MainFrame.getInstance().setCurrentView(new Overworld(difficulty));
-                break;
             case KeyEvent.VK_ESCAPE:
             	MainFrame.getInstance().setCurrentView(new Overworld(difficulty));
                 break;
+            default:
+            	break;
         }
     }
 
     @Override
     public void onKeyReleased(KeyEvent keyEvent) {
-
+    	//not used at the moment
     }
 
     @Override
@@ -133,7 +83,7 @@ public class Cutscene extends View {
 
     @Override
     public void onMouseMoved(MouseEvent mouseEvent) {
-
+    	//not used at the moment
     }
 
     @Override
@@ -143,6 +93,6 @@ public class Cutscene extends View {
 
     @Override
     public void onMouseReleased(MouseEvent mouseEvent) {
-
+    	//not used at the moment
     }
 }
