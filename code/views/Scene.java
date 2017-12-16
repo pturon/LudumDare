@@ -12,19 +12,20 @@ import code.Textures;
 import code.Tilemap;
 import code.entities.Actor;
 import code.entities.Milkman;
+import code.enums.Difficulty;
 
 public abstract class Scene extends View {
     protected Milkman milkman;
     protected List<Actor> actors = new ArrayList<>();
     protected Tilemap terrain;
-    protected int difficulty;
+    protected Difficulty difficulty;
 
     private String[] buttons = {"resume", "menu"};
     private boolean pause;
     private int selection = 0;
     private int mousePressedOn = 0;
 
-    public Scene(String pathToTerrainMap, Class<? extends Scene> parentClass, int difficulty) {
+    public Scene(String pathToTerrainMap, Class<? extends Scene> parentClass, Difficulty difficulty) {
         terrain = new Tilemap(pathToTerrainMap, parentClass);
         this.difficulty = difficulty;
     }

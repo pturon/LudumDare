@@ -19,6 +19,7 @@ import code.entities.Actor;
 import code.entities.IntelligentCow;
 import code.entities.Milkman;
 import code.entities.StandardCow;
+import code.enums.Difficulty;
 import code.enums.Material;
 
 public class Overworld extends Scene {
@@ -34,19 +35,19 @@ public class Overworld extends Scene {
 	private static final Color DEBUGGING_GREEN = new Color(0, 255, 0, 128);
 	private static final Color DEBUGGING_RED = new Color(255, 0, 0, 128);
 
-	public Overworld(int difficulty) {
+	public Overworld(Difficulty difficulty) {
 		super("img/overworld/overworld_tilemap.txt", Overworld.class, difficulty);
 		this.difficulty = difficulty;
 		items = new Tilemap("img/overworld/overworld_tilemap_milkbottles.txt", Overworld.class);
 
 		milkman = new Milkman(64, 64, this);
 		Milkman.reset();
-		milkman.setHearts(3 - difficulty);
+		milkman.setHearts(difficulty.getHearts());
 		synchronized(actors) {
 			actors.add(milkman);
 		}
 
-		if(difficulty == 2) {
+		if(difficulty == Difficulty.HARD) {
 			//better pathfinding in hard-mode
 			Pathfinding.setTargetActor(milkman);
 			Pathfinding.setTilemap(terrain);
@@ -180,7 +181,7 @@ public class Overworld extends Scene {
 	public void removeBottleAt(int x, int y) {
 		AudioManager.playBottleSound();
 		items.setMaterial(x / 32, y / 32, Material.CARDBOARD_BOX);
-		if(difficulty != 0 && milkman.getEmptyBottles() + milkman.getFilledBottles() + milkman.getBottlesPlaced() > 8) {
+		if(difficulty != Difficulty.EASY && milkman.getEmptyBottles() + milkman.getFilledBottles() + milkman.getBottlesPlaced() > 8) {
 			spawnIntelligentCow();
 		} else {
 			spawnStandardCow();

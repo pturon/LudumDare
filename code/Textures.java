@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
 
+import code.enums.Difficulty;
 import code.enums.Direction;
 
 public class Textures {
@@ -1097,13 +1098,13 @@ public class Textures {
 			return play;
 		}
 		
-		public static BufferedImage getDifficultyFont(int difficulty){
+		public static BufferedImage getDifficultyFont(Difficulty difficulty){
 			switch (difficulty){
-			case 0:
+			case EASY:
 				return difficultyEasy;
-			case 1:
+			case NORMAL:
 				return difficultyNormal;
-			case 2:
+			case HARD:
 				return difficultyHard;
 			default:
 				return difficultyNormal;

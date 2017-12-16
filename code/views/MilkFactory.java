@@ -10,6 +10,7 @@ import code.MainFrame;
 import code.Textures;
 import code.entities.Actor;
 import code.entities.Milkman;
+import code.enums.Difficulty;
 import code.enums.Material;
 
 public class MilkFactory extends Scene {
@@ -23,7 +24,7 @@ public class MilkFactory extends Scene {
 
 	private boolean playedBottleSound = false;
 
-	public MilkFactory(Overworld overworld, int difficulty) {
+	public MilkFactory(Overworld overworld, Difficulty difficulty) {
 		super("img/milkfactory/milk_factory_tilemap.txt", MilkFactory.class, difficulty);
 
 		this.overworld = overworld;

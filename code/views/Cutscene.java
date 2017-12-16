@@ -1,20 +1,21 @@
 package code.views;
 
-import code.AudioManager;
-import code.MainFrame;
-import code.Textures;
-
-import java.awt.*;
+import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
+import code.AudioManager;
+import code.MainFrame;
+import code.Textures;
+import code.enums.Difficulty;
+
 public class Cutscene extends View {
     private int currentFrame = 0;
     private int steps = 0;
-    private int difficulty;
+    private Difficulty difficulty;
 
-    public Cutscene(int difficulty) {
+    public Cutscene(Difficulty difficulty) {
         this.difficulty = difficulty;
     }
 

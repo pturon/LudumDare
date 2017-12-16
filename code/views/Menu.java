@@ -8,16 +8,17 @@ import java.awt.image.BufferedImage;
 import code.AudioManager;
 import code.MainFrame;
 import code.Textures;
+import code.enums.Difficulty;
 
 public class Menu extends View {
     private String[] buttons = {"play", "difficulty", "exit"};
     private int currentFrame = 0;
     private int steps = 0;
     private int selection = 0;
-    private int difficulty = 1;
+    private Difficulty difficulty = Difficulty.NORMAL;
     private int mousePressedOn = 0;
 
-    public Menu(int difficulty) {
+    public Menu(Difficulty difficulty) {
         this.difficulty = difficulty;
     }
 
@@ -49,13 +50,13 @@ public class Menu extends View {
             case KeyEvent.VK_LEFT:
             case KeyEvent.VK_A:
                 if (buttons[selection].equals("difficulty")) {
-                    difficulty = (difficulty + 2) % 3;
+                    difficulty = difficulty.previous();
                 }
                 break;
             case KeyEvent.VK_RIGHT:
             case KeyEvent.VK_D:
                 if (buttons[selection].equals("difficulty")) {
-                    difficulty = (difficulty + 1) % 3;
+                    difficulty = difficulty.next();
                 }
                 break;
             case KeyEvent.VK_UP:
@@ -77,7 +78,7 @@ public class Menu extends View {
                         MainFrame.getInstance().setCurrentView(cutscene);
                         break;
                     case "difficulty":
-                        difficulty = (difficulty + 1) % 3;
+                        difficulty = difficulty.next();
                         break;
                     case "exit":
                         System.exit(0);
@@ -152,7 +153,7 @@ public class Menu extends View {
                 MainFrame.getInstance().setCurrentView(cutscene);
             } else if (mouseEvent.getY() > 384 && mouseEvent.getY() < 448 && mousePressedOn == 2) {
                 mousePressedOn = 0;
-                difficulty = (difficulty + 1) % 3;
+                difficulty = difficulty.next();
             } else if (mouseEvent.getY() > 480 && mouseEvent.getY() < 544 && mousePressedOn == 3) {
                 mousePressedOn = 0;
                 System.exit(0);

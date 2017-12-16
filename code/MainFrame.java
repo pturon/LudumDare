@@ -17,6 +17,7 @@ import java.net.URL;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
+import code.enums.Difficulty;
 import code.views.Menu;
 import code.views.View;
 
@@ -27,7 +28,7 @@ public class MainFrame extends Frame {
 	public static final int HEIGHT = 600;
 
 	private JPanel panel;
-	private transient View currentView = new Menu(1);
+	private transient View currentView = new Menu(Difficulty.NORMAL);
 
 	private boolean debugging = false;
 
