@@ -1,7 +1,6 @@
 package code.views;
 
 import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -19,7 +18,7 @@ public class MilkFactory extends Scene {
 	private static final Color DEBUGGING_GREEN = new Color(0, 255, 0, 128);
 	private static final Color DEBUGGING_RED = new Color(255, 0, 0, 128);
 
-	private int arrow_frame = 0;
+	private int arrowFrame = 0;
 	private int steps = 0;
 
 	private boolean playedBottleSound = false;
@@ -61,7 +60,7 @@ public class MilkFactory extends Scene {
 			for(int x = 0; x < terrain.getWidth(); x++) {
 				graphics.drawImage(terrain.getMaterial(x, y).getImage(), 32 * x - mapOffsetX, 32 * y - mapOffsetY, null);
 				if(terrain.getMaterial(x, y) == Material.CONVEYOR_BELT) {
-					drawArrow(graphics, 32 * x - mapOffsetX, 32 * y - mapOffsetY - 40);
+					graphics.drawImage(Textures.Terrain.getArrow(arrowFrame), 32 * x - mapOffsetX, 32 * y - mapOffsetY - 40, null);
 				}
 				if(debugging) {
 					if(terrain.getMaterial(x, y).isSolid()) {
@@ -91,25 +90,6 @@ public class MilkFactory extends Scene {
 		drawHUD(graphics);
 
 		return image;
-	}
-
-	private void drawArrow(Graphics graphics, int x, int y) {
-		switch (arrow_frame){
-		case 0:
-			graphics.drawImage(Textures.ui.getArrow_0(), x, y, null);
-			break;
-		case 1:
-			graphics.drawImage(Textures.ui.getArrow_1(), x, y, null);
-			break;
-		case 2:
-			graphics.drawImage(Textures.ui.getArrow_2(), x, y, null);
-			break;
-		case 3:
-			graphics.drawImage(Textures.ui.getArrow_3(), x, y, null);
-			break;
-		default:
-			break;
-		}
 	}
 
 	@Override
@@ -151,15 +131,15 @@ public class MilkFactory extends Scene {
 			MainFrame.getInstance().setCurrentView(overworld);
 		}
 
-		if(steps == 20){
-			if(arrow_frame==3){
-				arrow_frame = 0;
+		if(steps == 20) {
+			if(arrowFrame == 3) {
+				arrowFrame = 0;
 			}
-			else{
-				arrow_frame++;
+			else {
+				arrowFrame++;
 			}
 			steps = 0;
 		}
-		steps ++;
+		steps++;
 	}
 }

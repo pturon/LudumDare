@@ -46,43 +46,85 @@ public class Textures {
 			//no instance allowed
 		}
 
-		private static BufferedImage instructions;
-		private static BufferedImage restart;
+		private static BufferedImage background;
+		private static BufferedImage[] digits;
+		private static BufferedImage emptyBottle;
+		private static BufferedImage filledBottle;
 		private static BufferedImage gameover;
-		private static BufferedImage[] speaker = new BufferedImage[2];
-		private static BufferedImage victory;
+		private static BufferedImage heart;
+		private static BufferedImage instructions;
 		private static BufferedImage pause;
+		private static BufferedImage restart;
+		private static BufferedImage[] speaker;
+		private static BufferedImage victory;
+
 		static {
-			instructions = getTexture("img/hud/instructions.png");
-			restart = getTexture("img/hud/restart.png");
+			background = getTexture("img/hud/interface_background.png");
+
+			BufferedImage digitTextures = getTexture("img/hud/numbers.png");
+			digits = new BufferedImage[10];
+			for(int i = 0; i < 10; i++) {
+				digits[i] = digitTextures.getSubimage(10 * i, 0, 10, 15);
+			}
+
+			emptyBottle = getTexture("img/hud/empty_bottle.png");
+			filledBottle = getTexture("img/hud/full_bottle.png");
 			gameover = getTexture("img/hud/gameover.png");
-			BufferedImage spreakerTextures = getTexture("img/hud/sound.png");
-			speaker[0] = spreakerTextures.getSubimage(0, 0, 32, 32);
-			speaker[1] = spreakerTextures.getSubimage(32, 0, 32, 32);
-			victory = getTexture("img/hud/victory.png");
-			pause = getTexture("img/hud/pause.png");		
+			heart = getTexture("img/hud/heart.png");
+			instructions = getTexture("img/hud/instructions.png");
+			pause = getTexture("img/hud/pause.png");	
+			restart = getTexture("img/hud/restart.png");
+
+			BufferedImage speakerTextures = getTexture("img/hud/sound.png");
+			speaker = new BufferedImage[2];
+			speaker[0] = speakerTextures.getSubimage(0, 0, 32, 32);
+			speaker[1] = speakerTextures.getSubimage(32, 0, 32, 32);
+
+			victory = getTexture("img/hud/victory.png");	
+		}
+
+		public static BufferedImage getBackground() {
+			return background;
+		}
+
+		public static BufferedImage getDigit(int digit) {
+			return digits[digit % 10];
+		}
+
+		public static BufferedImage getEmptyBottle() {
+			return emptyBottle;
+		}
+
+		public static BufferedImage getFilledBottle() {
+			return filledBottle;
+		}
+
+		public static BufferedImage getGameover() {
+			return gameover;
+		}
+
+		public static BufferedImage getHeart() {
+			return heart;
 		}
 
 		public static BufferedImage getInstructions() {
 			return instructions;
 		}
 
+		public static BufferedImage getPause() {
+			return pause;
+		}
+
 		public static BufferedImage getRestart() {
 			return restart;
 		}
-		
-		public static BufferedImage getGameover() {
-			return gameover;
-		}
+
 		public static BufferedImage getSpeaker(boolean soundEnabled) {
 			return speaker[(soundEnabled ? 0 : 1)];
 		}
+
 		public static BufferedImage getVictory() {
 			return victory;
-		}
-		
-		public static BufferedImage getPause() {
-			return pause;
 		}
 	}
 
@@ -91,6 +133,7 @@ public class Textures {
 			//no instance allowed
 		}
 
+		private static BufferedImage[] arrow;
 		private static BufferedImage asphalt;
 		private static BufferedImage bridgeHorizontalNorth;
 		private static BufferedImage bridgeHorizontalNorthEast;
@@ -224,8 +267,13 @@ public class Textures {
 		private static BufferedImage water;
 		private static BufferedImage yellowFlower;
 
-
 		static {
+			BufferedImage bouncingArrow = getTexture("img/overworld/bouncing_arrow.png");
+			arrow = new BufferedImage[4];
+			for(int i = 0; i < 4; i++) {
+				arrow[i] = bouncingArrow.getSubimage(32 * i, 0, 32, 32);
+			}
+
 			BufferedImage overworldTileset = getTexture("img/overworld/overworld_tileset.png");
 
 			asphalt = getTile(overworldTileset, 3, 2);
@@ -367,6 +415,10 @@ public class Textures {
 
 		private static BufferedImage getTile(BufferedImage tileset, int x, int y) {
 			return tileset.getSubimage(32 * x, 32 * y, 32, 32);
+		}
+
+		public static BufferedImage getArrow(int frame) {
+			return arrow[frame % 4];
 		}
 
 		public static BufferedImage getAsphalt() {
@@ -993,6 +1045,10 @@ public class Textures {
 	}
 	
 	public static class Menu {
+		private Menu() {
+			//no instance allowed
+		}
+
 		private static BufferedImage background = getTexture("img/menu/background.png");
 		private static BufferedImage title = getTexture("img/menu/title.png");
 		private static BufferedImage title1 = getTexture("img/menu/title1.png");
@@ -1045,7 +1101,7 @@ public class Textures {
 			switch (difficulty){
 			case 0:
 				return difficultyEasy;
-			case 10:
+			case 1:
 				return difficultyNormal;
 			case 2:
 				return difficultyHard;
@@ -1073,7 +1129,6 @@ public class Textures {
 		public static BufferedImage getResumeFont(){
 			return resume;
 		}
-		
 	}
 
 	public static class Cutscene {
@@ -1118,105 +1173,4 @@ public class Textures {
 			return destroyedLab;
 		}
 	}
-
-	public static class ui{
-		public static BufferedImage uiBackground = getTexture("img/hud/interface_background.png");
-		public static BufferedImage emptyBottle = getTexture("img/hud/empty_bottle.png");
-		public static BufferedImage full_bottle = getTexture("img/hud/full_bottle.png");
-		public static BufferedImage heart = getTexture("img/hud/heart.png");
-
-		public static BufferedImage numbers = getTexture("img/hud/numbers.png");
-
-		public static BufferedImage number_0 = numbers.getSubimage(0,0,10,15);
-		public static BufferedImage number_1 = numbers.getSubimage(10,0,10,15);
-		public static BufferedImage number_2 = numbers.getSubimage(20,0,10,15);
-		public static BufferedImage number_3 = numbers.getSubimage(30,0,10,15);
-		public static BufferedImage number_4 = numbers.getSubimage(40,0,10,15);
-		public static BufferedImage number_5 = numbers.getSubimage(50,0,10,15);
-		public static BufferedImage number_6 = numbers.getSubimage(60,0,10,15);
-		public static BufferedImage number_7 = numbers.getSubimage(70,0,10,15);
-		public static BufferedImage number_8 = numbers.getSubimage(80,0,10,15);
-
-		public static BufferedImage bouncingArrow = getTexture("img/overworld/bouncing_arrow.png");
-		public static BufferedImage arrow_0 = bouncingArrow.getSubimage(0,0,32,32);
-		public static BufferedImage arrow_1 = bouncingArrow.getSubimage(32,0,32,32);
-		public static BufferedImage arrow_2 = bouncingArrow.getSubimage(64,0,32,32);
-
-		public static BufferedImage getArrow_0() {
-			return arrow_0;
-		}
-
-		public static BufferedImage getArrow_1() {
-			return arrow_1;
-		}
-
-		public static BufferedImage getArrow_2() {
-			return arrow_2;
-		}
-
-		public static BufferedImage getArrow_3() {
-			return arrow_3;
-		}
-
-		public static BufferedImage arrow_3 = bouncingArrow.getSubimage(96,0,32,32);
-
-		public static BufferedImage getUiBackground() {
-			return uiBackground;
-		}
-
-		public static BufferedImage getEmptyBottle() {
-			return emptyBottle;
-		}
-
-		public static BufferedImage getFull_bottle() {
-			return full_bottle;
-		}
-
-		public static BufferedImage getHeart() {
-			return heart;
-		}
-
-		public static BufferedImage getNumber_0() {
-			return number_0;
-		}
-
-		public static BufferedImage getNumber_1() {
-			return number_1;
-		}
-
-		public static BufferedImage getNumber_2() {
-			return number_2;
-		}
-
-		public static BufferedImage getNumber_3() {
-			return number_3;
-		}
-
-		public static BufferedImage getNumber_4() {
-			return number_4;
-		}
-
-		public static BufferedImage getNumber_5() {
-			return number_5;
-		}
-
-		public static BufferedImage getNumber_6() {
-			return number_6;
-		}
-
-		public static BufferedImage getNumber_7() {
-			return number_7;
-		}
-
-		public static BufferedImage getNumber_8() {
-			return number_8;
-		}
-
-		public static BufferedImage getNumber_9() {
-			return number_9;
-		}
-
-		public static BufferedImage number_9 = numbers.getSubimage(90,0,10,15);
-	}
-	
 }
