@@ -1,6 +1,7 @@
 package code.views;
 
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -11,15 +12,24 @@ import code.Textures;
 import code.enums.Difficulty;
 
 public class Menu extends View {
-    private String[] buttons = {"play", "difficulty", "exit"};
+	private Rectangle smokeHitbox = new Rectangle(310, 0, 122, 34);
+	private Rectangle chimneyHitbox = new Rectangle(306, 30, 36, 102);
+	private Rectangle mooHitbox = new Rectangle(480, 142, 78, 114);
+	private Rectangle playHitbox = new Rectangle(32, 287, 411, 64);
+	private Rectangle difficultyHitbox = new Rectangle(32, 384, 411, 64);
+	private Rectangle exitHitbox = new Rectangle(32, 480, 411, 64);
+
+	private static final int PLAY = 0;
+	private static final int DIFFICULTY = 1;
+	private static final int EXIT = 2;
+    private int selection = PLAY;
+
     private int currentFrame = 0;
     private int steps = 0;
-    private int selection = 0;
-    private Difficulty difficulty = Difficulty.NORMAL;
-    private int mousePressedOn = 0;
+    private Difficulty selectedDifficulty = Difficulty.NORMAL;
 
     public Menu(Difficulty difficulty) {
-        this.difficulty = difficulty;
+        this.selectedDifficulty = difficulty;
     }
 
     @Override
@@ -29,13 +39,13 @@ public class Menu extends View {
 
         graphics.drawImage(Textures.Menu.getBackground(), 0, 0, null);
         
-        graphics.drawImage(Textures.Menu.getTitle(currentFrame%4), 176, 0, null);
+        graphics.drawImage(Textures.Menu.getTitle(currentFrame % 4), 176, 0, null);
         graphics.drawImage(Textures.Menu.getMilkman(), 476, 256, null);
 
         graphics.drawImage(Textures.Menu.getButton(), 32, 288, null);
         graphics.drawImage(Textures.Menu.getPlayFont(), 32, 288, null);
         graphics.drawImage(Textures.Menu.getButton(), 32, 384, null);
-        graphics.drawImage(Textures.Menu.getDifficultyFont(difficulty), 32, 384, null);
+        graphics.drawImage(Textures.Menu.getDifficultyFont(selectedDifficulty), 32, 384, null);
         graphics.drawImage(Textures.Menu.getButton(), 32, 480, null);
         graphics.drawImage(Textures.Menu.getExitFont(), 32, 480, null);
 
@@ -49,38 +59,37 @@ public class Menu extends View {
         switch (keyEvent.getKeyCode()) {
             case KeyEvent.VK_LEFT:
             case KeyEvent.VK_A:
-                if (buttons[selection].equals("difficulty")) {
-                    difficulty = difficulty.previous();
+                if (selection == DIFFICULTY) {
+                    selectedDifficulty = selectedDifficulty.previous();
                 }
                 break;
             case KeyEvent.VK_RIGHT:
             case KeyEvent.VK_D:
-                if (buttons[selection].equals("difficulty")) {
-                    difficulty = difficulty.next();
+                if (selection == DIFFICULTY) {
+                    selectedDifficulty = selectedDifficulty.next();
                 }
                 break;
             case KeyEvent.VK_UP:
             case KeyEvent.VK_W:
-                selection = (selection - 1 + buttons.length) % buttons.length;
+                selection = (selection + 2) % 3;
                 break;
             case KeyEvent.VK_DOWN:
             case KeyEvent.VK_S:
-                selection = (selection + 1) % (buttons.length);
+                selection = (selection + 1) % 3;
                 break;
             case KeyEvent.VK_ESCAPE:
                 System.exit(0);
                 break;
             case KeyEvent.VK_ENTER:
             case KeyEvent.VK_SPACE:
-                switch (buttons[selection]) {
-                    case "play":
-                        Cutscene cutscene = new Cutscene(difficulty);
-                        MainFrame.getInstance().setCurrentView(cutscene);
+                switch (selection) {
+                    case PLAY:
+                        MainFrame.getInstance().setCurrentView(new Cutscene(selectedDifficulty));
                         break;
-                    case "difficulty":
-                        difficulty = difficulty.next();
+                    case DIFFICULTY:
+                        selectedDifficulty = selectedDifficulty.next();
                         break;
-                    case "exit":
+                    case EXIT:
                         System.exit(0);
                         break;
                     default:
@@ -90,10 +99,6 @@ public class Menu extends View {
             default:
                 break;
         }
-    }
-
-    @Override
-    public void onKeyReleased(KeyEvent keyEvent) {
     }
 
     @Override
@@ -113,61 +118,28 @@ public class Menu extends View {
 
     @Override
     public void onMouseMoved(MouseEvent mouseEvent) {
-        if (mouseEvent.getX() > 32 && mouseEvent.getX() < 444) {
-            if (mouseEvent.getY() > 288 && mouseEvent.getY() < 352) {
-                selection = 0;
-            } else if (mouseEvent.getY() > 384 && mouseEvent.getY() < 448) {
-                selection = 1;
-            } else if (mouseEvent.getY() > 480 && mouseEvent.getY() < 544) {
-                selection = 2;
-            }
-        }
+    	if(playHitbox.contains(mouseEvent.getPoint())) {
+    		selection = PLAY;
+    	} else if(difficultyHitbox.contains(mouseEvent.getPoint())) {
+    		selection = DIFFICULTY;
+    	} else if(exitHitbox.contains(mouseEvent.getPoint())) {
+    		selection = EXIT;
+    	}
     }
 
     @Override
     public void onMousePressed(MouseEvent mouseEvent) {
-        if (mouseEvent.getX() > 32 && mouseEvent.getX() < 444) {
-            if (mouseEvent.getY() > 288 && mouseEvent.getY() < 352) {
-                mousePressedOn = 1;
-            } else if (mouseEvent.getY() > 384 && mouseEvent.getY() < 448) {
-                mousePressedOn = 2;
-            } else if (mouseEvent.getY() > 480 && mouseEvent.getY() < 544) {
-                mousePressedOn = 3;
-            }
-        }
-        if (mouseEvent.getX() >= 306 && mouseEvent.getX() <= 342 && mouseEvent.getY() >= 30 && mouseEvent.getY() <= 132) {
-            mousePressedOn = 4;
-        } else if (mouseEvent.getX() >= 310 && mouseEvent.getX() <= 432 && mouseEvent.getY() >= 0 && mouseEvent.getY() <= 34) {
-            mousePressedOn = 4;
-        } else if (mouseEvent.getX() >= 480 && mouseEvent.getX() <= 558 && mouseEvent.getY() >= 142 && mouseEvent.getY() <= 256) {
-            mousePressedOn = 5;
-        }
-    }
-
-    @Override
-    public void onMouseReleased(MouseEvent mouseEvent) {
-        if (mouseEvent.getX() > 32 && mouseEvent.getX() < 444) {
-            if (mouseEvent.getY() > 288 && mouseEvent.getY() < 352 && mousePressedOn == 1) {
-                mousePressedOn = 0;
-                Cutscene cutscene = new Cutscene(difficulty);
-                MainFrame.getInstance().setCurrentView(cutscene);
-            } else if (mouseEvent.getY() > 384 && mouseEvent.getY() < 448 && mousePressedOn == 2) {
-                mousePressedOn = 0;
-                difficulty = difficulty.next();
-            } else if (mouseEvent.getY() > 480 && mouseEvent.getY() < 544 && mousePressedOn == 3) {
-                mousePressedOn = 0;
-                System.exit(0);
-            }
-        }
-        if (mouseEvent.getX() >= 306 && mouseEvent.getX() <= 342 && mouseEvent.getY() >= 30 && mouseEvent.getY() <= 132 && mousePressedOn == 4) {
+    	if(playHitbox.contains(mouseEvent.getPoint())) {
+            MainFrame.getInstance().setCurrentView(new Cutscene(selectedDifficulty));
+    	} else if(difficultyHitbox.contains(mouseEvent.getPoint())) {
+            selectedDifficulty = selectedDifficulty.next();
+    	} else if(exitHitbox.contains(mouseEvent.getPoint())) {
+            System.exit(0);
+        } else if (chimneyHitbox.contains(mouseEvent.getPoint()) || smokeHitbox.contains(mouseEvent.getPoint())) {
         	if(steps == 0){
 				steps++;
 			}
-        } else if (mouseEvent.getX() >= 310 && mouseEvent.getX() <= 432 && mouseEvent.getY() >= 0 && mouseEvent.getY() <= 34 && mousePressedOn == 4) {
-        	if(steps == 0){
-				steps++;
-			}
-        } else if (mouseEvent.getX() >= 480 && mouseEvent.getX() <= 558 && mouseEvent.getY() >= 142 && mouseEvent.getY() <= 256 && mousePressedOn == 5) {
+        } else if (mooHitbox.contains(mouseEvent.getPoint())) {
            AudioManager.playCowSound();
         }
     }
