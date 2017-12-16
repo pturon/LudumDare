@@ -11,10 +11,26 @@ public abstract class View {
 	public static final int HEIGHT = MainFrame.HEIGHT;
 
 	public abstract BufferedImage getImage(boolean debugging);
-	public abstract void onKeyPressed(KeyEvent keyEvent);
-	public abstract void onKeyReleased(KeyEvent keyEvent);
+
+	public void onKeyPressed(KeyEvent keyEvent) {
+		//can be implemented in subclasses if needed
+	}
+
+	public void onKeyReleased(KeyEvent keyEvent) {
+		//can be implemented in subclasses if needed
+	}
+
 	public abstract void step();
-	public abstract void onMouseMoved(MouseEvent mouseEvent);
-	public abstract void onMousePressed(MouseEvent mouseEvent);
-	public abstract void onMouseReleased(MouseEvent mouseEvent);
+
+	public void onMouseMoved(MouseEvent mouseEvent) {
+		//can be implemented in subclasses if needed
+	}
+
+	public void onMousePressed(MouseEvent mouseEvent) {
+		//can be implemented in subclasses if needed
+	}
+
+	public void onMouseReleased(MouseEvent mouseEvent) {
+		//can be implemented in subclasses if needed
+	}
 }

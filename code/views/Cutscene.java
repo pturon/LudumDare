@@ -56,11 +56,6 @@ public class Cutscene extends View {
     }
 
     @Override
-    public void onKeyReleased(KeyEvent keyEvent) {
-    	//not used at the moment
-    }
-
-    @Override
     public void step() {
         if (steps == 256 && currentFrame == 0) {
             currentFrame++;
@@ -83,17 +78,7 @@ public class Cutscene extends View {
     }
 
     @Override
-    public void onMouseMoved(MouseEvent mouseEvent) {
-    	//not used at the moment
-    }
-
-    @Override
     public void onMousePressed(MouseEvent mouseEvent) {
     	MainFrame.getInstance().setCurrentView(new Overworld(difficulty));
-    }
-
-    @Override
-    public void onMouseReleased(MouseEvent mouseEvent) {
-    	//not used at the moment
     }
 }

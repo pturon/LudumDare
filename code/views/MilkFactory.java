@@ -2,7 +2,6 @@ package code.views;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
 import code.AudioManager;
@@ -91,21 +90,6 @@ public class MilkFactory extends Scene {
 		drawHUD(graphics);
 
 		return image;
-	}
-
-	@Override
-	public void onMouseMoved(MouseEvent mouseEvent) {
-		//not used at the moment
-	}
-
-	@Override
-	public void onMousePressed(MouseEvent mouseEvent) {
-		//not used at the moment
-	}
-
-	@Override
-	public void onMouseReleased(MouseEvent mouseEvent) {
-		//not used at the moment
 	}
 
 	@Override
